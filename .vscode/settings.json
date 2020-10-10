@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "*.html": "html",
+        "*.vue": "html",
+        "ostream": "cpp",
+        "cmath": "cpp",
+        "array": "cpp",
+        "iostream": "cpp",
+        "cstdlib": "cpp"
+    },
+    // Visual Studio  LLVM  Google  Chromium  Mozilla  WebKit
+    // "C_Cpp.clang_format_style": "{BasedOnStyle: LLVM}"
+    "C_Cpp.clang_format_style": "file"
+}
