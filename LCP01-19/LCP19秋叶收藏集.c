@@ -53,27 +53,21 @@
 // }
 
 /**
- * 动态转移
- * 全红     0
- * 红黄     1
- * 红黄红   2
- * 示性函数: isRed,isYellow
- * dp[i][0]: 黄色调整红色
- * dp[i][1]: 红色调整黄色
- * dp[i][2]: 黄色调整红色
- */
-// dp[i][0] : 将 leaves[0...i] 转换成 'r-y-r'
-// dp[i][1] : 将 leaves[0...i] 转换成 'r-y-'
-// dp[i][2] : 将 leaves[0...i] 转换成 'r'
-// i >= 2
-// leaves[i] == 'r'
-//     dp[i][0] = min (dp[i-1][0], dp[i-1][1])
-//     dp[i][1] = 1 + min(dp[i-1][1], dp[i-1][2])
-//     dp[i][2] = dp[i-1][2]
-// leaves[i] == 'y'
-//      dp[i][0] = 1 + min (dp[i-1][0], dp[i-1][1])
-//      dp[i][1] = min(dp[i-1][1], dp[i-1][2])
-//      dp[i][2] = 1 + dp[i-1][2]
+    动态转移
+
+    dp[i][0] : 将 leaves[0...i] 转换成 'r-y-r'
+    dp[i][1] : 将 leaves[0...i] 转换成 'r-y-'
+    dp[i][2] : 将 leaves[0...i] 转换成 'r'
+    i >= 2
+    leaves[i] == 'r'
+        dp[i][0] = min(dp[i-1][0], dp[i-1][1])
+        dp[i][1] = 1 + min(dp[i-1][1], dp[i-1][2])
+        dp[i][2] = dp[i-1][2]
+    leaves[i] == 'y'
+        dp[i][0] = 1 + min(dp[i-1][0], dp[i-1][1])
+        dp[i][1] = min(dp[i-1][1], dp[i-1][2])
+        dp[i][2] = 1 + dp[i-1][2]
+*/
 int min(int a, int b) {
     return a < b ? a : b;
 }
@@ -84,15 +78,12 @@ int minimumOperations(char* leaves) {
     int dp[3];
     dp[0] = INT_MAX / 2;
     dp[1] = INT_MAX / 2;
-    dp[2] = leaves[0] == 'r' ? 0 : 1;
+    // 此时是 i=0, 保证全红
+    dp[2] = (leaves[0] == 'r') ? 0 : 1;
     for (int i = 1; i < n; ++i) {
-        if (leaves[i] == 'r') {
-            isR = 1;
-        } else {
-            isR = 0;
-        }
-        dp[0] = (1 - isR) + min(dp[0], dp[1]);
-        dp[1] = min(dp[1], dp[2]) + isR;
+        isR   = (leaves[i] == 'r');
+        dp[0] = (1 - isR) + min(dp[0], dp[1]); // i=1, min(dp[0], dp[1])都很大会被后面替换，所以无效
+        dp[1] = min(dp[1], dp[2]) + isR;       // 下回合min(dp[0], dp[1])变小，当 i>=2 时，dp[0]开始有效
         dp[2] = (1 - isR) + dp[2];
     }
     return dp[0];
