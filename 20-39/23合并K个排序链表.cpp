@@ -1,21 +1,29 @@
-//·½·¨Ò»£º·ÖÖÎ£¨Á½Á½ºÏ²¢£© 
+#include <limits.h>
+#include <malloc.h>
+#include <stdio.h>
+
+struct ListNode {
+    int              val;
+    struct ListNode* next;
+};
+
+//æ–¹æ³•ä¸€ï¼šåˆ†æ²»ï¼ˆä¸¤ä¸¤åˆå¹¶ï¼‰
 struct ListNode* mergeTwoLists(struct ListNode* l1, struct ListNode* l2) {
-    if(l1==NULL)								
+    if (l1 == NULL)
         return l2;
-    if(l2==NULL)								
+    if (l2 == NULL)
         return l1;
-    if(l1->val < l2->val){
-        l1->next = mergeTwoLists(l1->next,l2);		//µİ¹é 
+    if (l1->val < l2->val) {
+        l1->next = mergeTwoLists(l1->next, l2); //é€’å½’
         return l1;
-    }else{
-        l2->next = mergeTwoLists(l1,l2->next);		//µİ¹é 
+    } else {
+        l2->next = mergeTwoLists(l1, l2->next); //é€’å½’
         return l2;
     }
 }
 struct ListNode* mergeKLists(struct ListNode** lists, int listsSize) {
-    struct ListNode *leftList = NULL;
-    struct ListNode *rightList = NULL;
-
+    struct ListNode* leftList  = NULL;
+    struct ListNode* rightList = NULL;
     if (listsSize < 1) {
         return NULL;
     }
@@ -23,33 +31,83 @@ struct ListNode* mergeKLists(struct ListNode** lists, int listsSize) {
         return lists[0];
     }
     if (listsSize == 2) {
-        return mergeTwoLists(lists[0], lists[1]);	//ºÏ²¢ 
+        return mergeTwoLists(lists[0], lists[1]); //åˆå¹¶
     }
-    
-    leftList = mergeKLists(lists, listsSize / 2);	//µİ¹é£¬Ò»Ö±»®·Öµ½Á½Á½Á´±í 
-    rightList = mergeKLists(lists + listsSize / 2, listsSize - listsSize / 2);	//µİ¹é£¬Ò»Ö±»®·Öµ½Á½Á½Á´±í 
-    
-    return mergeTwoLists(leftList, rightList);		//·µ»Ø×îºóÁ½¸öÁ´±íºÏ²¢½á¹û 
+    leftList  = mergeKLists(lists, listsSize / 2);                             //é€’å½’ï¼Œä¸€ç›´åˆ’åˆ†åˆ°ä¸¤ä¸¤é“¾è¡¨
+    rightList = mergeKLists(lists + listsSize / 2, listsSize - listsSize / 2); //é€’å½’ï¼Œä¸€ç›´åˆ’åˆ†åˆ°ä¸¤ä¸¤é“¾è¡¨
+    return mergeTwoLists(leftList, rightList);                                 //è¿”å›æœ€åä¸¤ä¸ªé“¾è¡¨åˆå¹¶ç»“æœ
 }
 
-//·½·¨¶ş£º ´¿µİ¹é 
-struct ListNode* mergeKLists(struct ListNode** lists, int listsSize){
-    struct ListNode* temp = NULL;
-    int val = INT_MAX;								//×î´óÖµ 
-    int pos = -1;									//Î»ÖÃĞÅÏ¢
-    for(int i = 0; i < listsSize;i++){				//±éÀúÃ¿ÌõÁ´±í 
-        if(lists[i]){								//Ö±µ½ËùÓĞ±éÀúÍê£¬NULL ½áÊø 
-            if(val > lists[i]->val){				//ÅĞ¶ÏÃ¿ÌõÁ´±íµ±Ç°Î»ÖÃ×îĞ¡Öµ 
-                val = lists[i]->val;
-                pos = i;							//°Ñ×îĞ¡ÖµµÄÏÂ±ê¸ø pos 
+// //æ–¹æ³•äºŒï¼š çº¯é€’å½’
+// struct ListNode* mergeKLists(struct ListNode** lists, int listsSize) {
+//     struct ListNode* temp = NULL;
+//     int              val  = INT_MAX;      //æœ€å¤§å€¼
+//     int              pos  = -1;           //ä½ç½®ä¿¡æ¯
+//     for (int i = 0; i < listsSize; i++) { //éå†æ¯æ¡é“¾è¡¨
+//         if (lists[i]) {                   //ç›´åˆ°æ‰€æœ‰éå†å®Œï¼ŒNULL ç»“æŸ
+//             if (val > lists[i]->val) {    //åˆ¤æ–­æ¯æ¡é“¾è¡¨å½“å‰ä½ç½®æœ€å°å€¼
+//                 val = lists[i]->val;
+//                 pos = i; //æŠŠæœ€å°å€¼çš„ä¸‹æ ‡ç»™ pos
+//             }
+//         }
+//     }
+//     if (pos != -1) {             //æœ‰æ•°æ®è¿”å›
+//         temp       = lists[pos]; //å°†å‡ æ¡é“¾è¡¨ä¸­è¿™ä¸€ä½ç½®æœ€å°çš„æ‹¼æ¥åˆ° temp é“¾è¡¨ä¸­
+//         lists[pos] = lists[pos]->next;
+//         temp->next = mergeKLists(lists, listsSize); //é€’å½’
+//     }
+
+//     return temp;
+// }
+
+//è¾“å‡º
+void Display(struct ListNode* L) {
+    ListNode* p = L;    //p æŒ‡å‘é¦–ç»“ç‚¹ ï¼ˆé¦–ç»“ç‚¹åºå·ä¸º 1ï¼‰
+    while (p != NULL) { //ä¸ä¸ºç©ºï¼Œä¾æ¬¡éå†
+        printf("%d", p->val);
+        if (p->next != NULL) {
+            printf("->");
+        }
+        p = p->next; //p ç§»å‘ä¸‹ä¸€ä¸ªèŠ‚ç‚¹
+    }
+    printf("\n");
+}
+//åˆ›å»º
+void creatList(struct ListNode* list, int arr[], int arrColSize) {
+    struct ListNode* p = (struct ListNode*)malloc(sizeof(struct ListNode) * arrColSize);
+    p                  = list;
+    list->val          = arr[0];
+    list->next         = NULL;
+    for (int i = 1; i < arrColSize; i++) {
+        struct ListNode* q = (struct ListNode*)malloc(sizeof(struct ListNode));
+        q->val             = arr[i];
+        p->next            = q;
+        p                  = q;
+    }
+    p->next = NULL;
+    // Display(list);
+}
+
+int main() {
+    int               arr[][3] = {{1, 4, 5}, {1, 3, 4}, {2, 6}};
+    int               arrSize  = sizeof(arr) / sizeof(arr[0]);
+    int               arrNum   = 0;
+    struct ListNode** lists    = (struct ListNode**)malloc(sizeof(struct ListNode*) * arrSize);
+    for (int i = 0; i < arrSize; i++) {
+        int arrColSize = 0;
+        for (int j = 0; j < 3; j++) {
+            if (arr[i][j] != 0) {
+                arrColSize++;
+                arrNum++;
             }
         }
+        lists[i] = (struct ListNode*)malloc(sizeof(struct ListNode) * arrColSize);
+        creatList(lists[i], arr[i], arrColSize);
     }
-    if(pos != -1){									//ÓĞÊı¾İ·µ»Ø 
-        temp = lists[pos];							//½«¼¸ÌõÁ´±íÖĞÕâÒ»Î»ÖÃ×îĞ¡µÄÆ´½Óµ½ temp Á´±íÖĞ 
-        lists[pos] = lists[pos]->next;
-        temp->next = mergeKLists(lists,listsSize);	//µİ¹é 
-    }
-    
-    return temp;
+
+    struct ListNode* ret = (struct ListNode*)malloc(sizeof(struct ListNode) * arrNum);
+    ret                  = mergeKLists(lists, arrSize);
+    Display(ret);
+
+    return 0;
 }

@@ -1,88 +1,88 @@
-#include<stdio.h>
-#include<malloc.h>
+#include <malloc.h>
+#include <stdio.h>
 
 struct ListNode {
-	int val;
-	struct ListNode* next;
+    int              val;
+    struct ListNode* next;
 };
 
-//Î²²å·¨
+//å°¾æ’æ³•
 void CreateListR(struct ListNode*& L, int array[], int n) {
-	ListNode* s, * r;
-	L = (ListNode*)malloc(sizeof(ListNode));	//´´½¨Í·½áµã
-	r = L;										//r Ê¼ÖÕÖ¸ÏòÎ²½áµã£¬³õÊ¼Ê±Ö¸ÏòÍ·½áµã £¨Í·½áµãĞòºÅÎª 0£© 
-	for (int i = 0; i < n; i++) {				//Ñ­»·½¨Á¢Êı¾İ½Úµã s
-		s = (ListNode*)malloc(sizeof(ListNode));
-		s->val = array[i];						//¸³Öµ 
-		r->next = s;							//½«½áµã s ²åÈëµ½½áµã r Ö®ºó 
-		r = s;
-	}
-	r->next = NULL;								//Î²½áµãÆä next ÓòÖÃÎª NULL 
+    ListNode *s, *r;
+    L = (ListNode*)malloc(sizeof(ListNode)); //åˆ›å»ºå¤´ç»“ç‚¹
+    r = L;                                   //r å§‹ç»ˆæŒ‡å‘å°¾ç»“ç‚¹ï¼Œåˆå§‹æ—¶æŒ‡å‘å¤´ç»“ç‚¹ ï¼ˆå¤´ç»“ç‚¹åºå·ä¸º 0ï¼‰
+    for (int i = 0; i < n; i++) {            //å¾ªç¯å»ºç«‹æ•°æ®èŠ‚ç‚¹ s
+        s       = (ListNode*)malloc(sizeof(ListNode));
+        s->val  = array[i]; //èµ‹å€¼
+        r->next = s;        //å°†ç»“ç‚¹ s æ’å…¥åˆ°ç»“ç‚¹ r ä¹‹å
+        r       = s;
+    }
+    r->next = NULL; //å°¾ç»“ç‚¹å…¶ next åŸŸç½®ä¸º NULL
 }
 
-//Êä³öÏßĞÔ±í
+//è¾“å‡ºçº¿æ€§è¡¨
 void Display(struct ListNode* L) {
-	ListNode* p = L->next;						//p Ö¸ÏòÊ×½áµã £¨Ê×½áµãĞòºÅÎª 1£© 
-	while (p != NULL) {							//²»Îª¿Õ£¬ÒÀ´Î±éÀú 
-		printf("%d", p->val);
-		if (p->next != NULL) {
-			printf("->");
-		}
-		p = p->next;							//p ÒÆÏòÏÂÒ»¸ö½Úµã 
-	}
-	printf("\n");
+    ListNode* p = L->next; //p æŒ‡å‘é¦–ç»“ç‚¹ ï¼ˆé¦–ç»“ç‚¹åºå·ä¸º 1ï¼‰
+    while (p != NULL) {    //ä¸ä¸ºç©ºï¼Œä¾æ¬¡éå†
+        printf("%d", p->val);
+        if (p->next != NULL) {
+            printf("->");
+        }
+        p = p->next; //p ç§»å‘ä¸‹ä¸€ä¸ªèŠ‚ç‚¹
+    }
+    printf("\n");
 }
 
-//µü´ú 
+//è¿­ä»£
 //struct ListNode* mergeTwoLists(struct ListNode* l1, struct ListNode* l2) {
 //	struct ListNode* prehead = (struct ListNode*)malloc(sizeof(struct ListNode));
-//	struct ListNode* prev = prehead;			//prehead ÊÇÍ·½áµã£¬ÀûÓÃ prev ½áµãÆ´½Ó£¨Î²²å·¨ £© 
+//	struct ListNode* prev = prehead;			//prehead æ˜¯å¤´ç»“ç‚¹ï¼Œåˆ©ç”¨ prev ç»“ç‚¹æ‹¼æ¥ï¼ˆå°¾æ’æ³• ï¼‰
 //	while (l1 != NULL && l2 != NULL) {
-//		if (l1->val <= l2->val) {				//l1 <= l2£¬°Ñ l1 ½Óµ½ prev ºóÃæ 
+//		if (l1->val <= l2->val) {				//l1 <= l2ï¼ŒæŠŠ l1 æ¥åˆ° prev åé¢
 //			prev->next = l1;
-//			l1 = l1->next;						//l1 ºóÒÆÒ»¸ö½áµã 
+//			l1 = l1->next;						//l1 åç§»ä¸€ä¸ªç»“ç‚¹
 //		}
-//		else {									//·ñÔò£¬ °Ñ l2 ½Óµ½ prev ºóÃæ 
+//		else {									//å¦åˆ™ï¼Œ æŠŠ l2 æ¥åˆ° prev åé¢
 //			prev->next = l2;
-//			l2 = l2->next;						//l2 ºóÒÆÒ»¸ö½áµã
+//			l2 = l2->next;						//l2 åç§»ä¸€ä¸ªç»“ç‚¹
 //		}
-//		prev = prev->next;						//prev ºóÒÆ 
+//		prev = prev->next;						//prev åç§»
 //	}
-//	prev->next = l1 == NULL ? l2 : l1;			//ÆäÖĞÓĞÒ»¸öÎª¿Õ½áÊø£¬Èç¹û l1==NULL£¬¾Í°Ñ l2 Æ´½Óµ½ prev ºóÃæ£¬·ñÔò¾Í°Ñ l1 Æ´½Óµ½ prev ºóÃæ
+//	prev->next = l1 == NULL ? l2 : l1;			//å…¶ä¸­æœ‰ä¸€ä¸ªä¸ºç©ºç»“æŸï¼Œå¦‚æœ l1==NULLï¼Œå°±æŠŠ l2 æ‹¼æ¥åˆ° prev åé¢ï¼Œå¦åˆ™å°±æŠŠ l1 æ‹¼æ¥åˆ° prev åé¢
 //	return prehead->next;
 //}
 
-//µİ¹é
+//é€’å½’
 struct ListNode* mergeTwoLists(struct ListNode* l1, struct ListNode* l2) {
-    if(l1==NULL)								
+    if (l1 == NULL)
         return l2;
-    if(l2==NULL)								
+    if (l2 == NULL)
         return l1;
-    if(l1->val < l2->val){
-        l1->next = mergeTwoLists(l1->next,l2);	//µİ¹é 
+    if (l1->val < l2->val) {
+        l1->next = mergeTwoLists(l1->next, l2); //é€’å½’
         return l1;
-    }else{
-        l2->next = mergeTwoLists(l1,l2->next);	//µİ¹é 
+    } else {
+        l2->next = mergeTwoLists(l1, l2->next); //é€’å½’
         return l2;
     }
 }
 
 int main() {
-	int array1[] = { 1,2,4 };
-	int array2[] = { 1,3,4 };
-	int n1 = sizeof(array1) / sizeof(int);
-	int n2 = sizeof(array2) / sizeof(int);
-	struct ListNode* l1 = (struct ListNode*)malloc(sizeof(struct ListNode));
-	struct ListNode* l2 = (struct ListNode*)malloc(sizeof(struct ListNode));
-	CreateListR(l1, array1, n1);
-	CreateListR(l2, array2, n2);
-	printf("´´½¨µ¥Á´±í³É¹¦!\n");
-	printf("Êä³öµ¥Á´±í\n");
-	Display(l1);
-	Display(l2);
+    int              array1[] = {1, 2, 4};
+    int              array2[] = {1, 3, 4};
+    int              n1       = sizeof(array1) / sizeof(int);
+    int              n2       = sizeof(array2) / sizeof(int);
+    struct ListNode* l1       = (struct ListNode*)malloc(sizeof(struct ListNode));
+    struct ListNode* l2       = (struct ListNode*)malloc(sizeof(struct ListNode));
+    CreateListR(l1, array1, n1);
+    CreateListR(l2, array2, n2);
+    printf("åˆ›å»ºå•é“¾è¡¨æˆåŠŸ!\n");
+    printf("è¾“å‡ºå•é“¾è¡¨\n");
+    Display(l1);
+    Display(l2);
 
-	struct ListNode* l3 = mergeTwoLists(l1, l2);
-	//Èç¹ûÖ»ÊÇ l3£¬²»ÖªµÀÎªÊ²Ã´µÚÒ»¸öÊÇ 0£¬ËùÒÔ¸ÄÎª l3->next 
-	Display(l3->next);
-	return 0;
+    struct ListNode* l3 = mergeTwoLists(l1, l2);
+    //å¦‚æœåªæ˜¯ l3ï¼Œä¸çŸ¥é“ä¸ºä»€ä¹ˆç¬¬ä¸€ä¸ªæ˜¯ 0ï¼Œæ‰€ä»¥æ”¹ä¸º l3->next
+    Display(l3->next);
+    return 0;
 }
