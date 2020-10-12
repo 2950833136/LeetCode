@@ -1,5 +1,8 @@
 #include <stdio.h>
 
+/**
+ * 二分法
+ */
 int mySqrt(int x) {
     int l = 0, r = x, ans = -1;
     while (l <= r) {
