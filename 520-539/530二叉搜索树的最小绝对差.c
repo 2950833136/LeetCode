@@ -1,7 +1,7 @@
 #include <limits.h>
 #include <malloc.h>
-#include <stdio.h>
 #include <math.h>
+#include <stdio.h>
 
 struct TreeNode {
     int              val;
@@ -10,23 +10,21 @@ struct TreeNode {
 };
 
 // 创建二叉树
-void createTree(struct TreeNode** TN) {
-    char ch;
-    ch = getchar();
-    if (ch == '#') {
-        *TN = NULL;
-    } else {
-        if (!(*TN = (struct TreeNode*)malloc(sizeof(struct TreeNode)))) {
-            printf("内存分配失败！");
-            return;
+void createTree(struct TreeNode** TN, char* str, int* n) {
+    if (str[*n] != '\0') {    // 如果不等于结束符就继续创建，否则就结束
+        if (str[*n] == '#') { // 以 # 号代表 NULL
+            *TN = NULL;
         } else {
-            (*TN)->val = ch - '0';
-            createTree(&((*TN)->left)); //分配成功则接着建立左子树和右子树
-            createTree(&((*TN)->right));
+            *TN        = (struct TreeNode*)malloc(sizeof(struct TreeNode)); // 新建一个二叉链
+            (*TN)->val = str[*n] - '0';                                     // 把字符存入二叉链
+            (*n)++;                                                         // 指针里的数值 +1
+            createTree(&((*TN)->left), str, n);                             // 左递归创建
+            (*n)++;                                                         // 指针里的数值 +1
+            createTree(&((*TN)->right), str, n);                            // 右递归创建
         }
     }
 }
-// 先序遍历
+// 中序遍历
 void inOrder(struct TreeNode* TN) {
     if (TN != NULL) {          //判断不为空
         inOrder(TN->left);     //递归，遍历左子树
@@ -65,12 +63,13 @@ int main() {
     struct TreeNode** TN = (struct TreeNode**)malloc(sizeof(struct TreeNode*));
     /**
      * 请输入字符串
-     * 例如：1#32###
-     * 中序遍历：123
+     * 例如: 1#32###
+     * 中序遍历: 123
      */
-    printf("请输入字符串: ");
-    createTree(TN);
-    printf("先序遍历结果: ");
+    char* str = (char*)"1#32###";
+    int   n   = 0;
+    createTree(TN, str, &n);
+    printf("中序遍历结果: ");
     inOrder(*TN);
 
     int ret = getMinimumDifference(*TN);
