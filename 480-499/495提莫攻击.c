@@ -3,7 +3,7 @@
 /**
  * 数组遍历
  *      - 如果小于持续时间，加上间隔时间
- *      - 否则，加上持续时间
+ *      - 否则（大于等于持续时间），加上持续时间
  */
 int findPoisonedDuration(int* timeSeries, int timeSeriesSize, int duration) {
     int ans = 0;

@@ -2,6 +2,8 @@
 
 /**
  * 简单遍历
+ *  - 遇到 1，计数加一，并更新最大计数
+ *  - 遇到 0，重新计数
  */
 // int findMaxConsecutiveOnes(int* nums, int numsSize) {
 //     int max = 0;
@@ -19,6 +21,8 @@
 
 /**
  * 双指针法
+ *  - 遇到 0，计算指针间隔，更新最大计数
+ *  - 最后如果为 0，循环中就可以计算，如果为 1，需要在外面计算一下
  */
 int findMaxConsecutiveOnes(int* nums, int numsSize) {
     int i = 0, j = 0;
