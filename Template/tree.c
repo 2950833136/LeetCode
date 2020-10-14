@@ -34,7 +34,7 @@ void inOrder(struct Node* node) {
 
 int main() {
     /**
-     * 请输入字符串
+     * 请输入字符串（先序遍历创建）
      * 例如: 1#32###
      * 中序遍历: 123
      */

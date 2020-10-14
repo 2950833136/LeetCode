@@ -34,12 +34,11 @@ void inOrder(struct Node* node) {
 
 int main() {
     /**
-     * 请输入字符串
-     * 例如: 1#32###
-     * 中序遍历: 123
+     * 请输入字符串（先序遍历创建）
+     * 例如: 124##5##36##7##
      */
     struct Node** root = (struct Node**)malloc(sizeof(struct Node*));
-    char*         str  = (char*)"1#32###";
+    char*         str  = (char*)"124##5##36##7##";
     int           n    = 0;
     createTree(root, str, &n);
     printf("中序遍历结果: ");
