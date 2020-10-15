@@ -23,12 +23,12 @@ void createTree(struct Node** node, char* str, int* n) {
         }
     }
 }
-// 中序遍历
-void inOrder(struct Node* node) {
+// 先序遍历
+void preOrder(struct Node* node) {
     if (node != NULL) {          //判断不为空
-        inOrder(node->left);     //递归，遍历左子树
         printf("%d", node->val); //访问根节点
-        inOrder(node->right);
+        preOrder(node->left);     //递归，遍历左子树
+        preOrder(node->right);    //递归，遍历右子树
     }
 }
 
@@ -41,8 +41,8 @@ int main() {
     char*         str  = (char*)"124##5##36##7##";
     int           n    = 0;
     createTree(root, str, &n);
-    printf("中序遍历结果: ");
-    inOrder(*root);
+    printf("先序遍历结果: ");
+    preOrder(*root);
 
     return 0;
 }
