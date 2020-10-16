@@ -25,8 +25,8 @@ void createTree(struct Node** node, char* str, int* n) {
 
 // 先序遍历
 void preOrder(struct Node* node) {
-    if (node != NULL) {          //判断不为空
-        printf("%d", node->val); //访问根节点
+    if (node != NULL) {           //判断不为空
+        printf("%d ", node->val); //访问根节点
         preOrder(node->left);     //递归，遍历左子树
         preOrder(node->right);    //递归，遍历右子树
     }
@@ -35,7 +35,7 @@ void preOrder(struct Node* node) {
 void inOrder(struct Node* node) {
     if (node != NULL) {
         inOrder(node->left);
-        printf("%d", node->val);
+        printf("%d ", node->val);
         inOrder(node->right);
     }
 }
@@ -52,7 +52,7 @@ int main() {
     createTree(root, str, &n);
     printf("先序遍历结果: ");
     preOrder(*root);
-    printf("中序遍历结果: ");
+    printf("\n中序遍历结果: ");
     inOrder(*root);
 
     return 0;

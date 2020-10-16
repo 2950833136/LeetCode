@@ -4,6 +4,7 @@ void display(int* nums, int numsSize) {
     for (int i = 0; i < numsSize; i++) {
         printf("%d ", nums[i]);
     }
+    printf("\n");
 }
 
 int main() {

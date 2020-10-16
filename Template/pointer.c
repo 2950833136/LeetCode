@@ -10,6 +10,7 @@ void displayStr(char** pointer, int pointerSize) {
         }
         printf("\n");
     }
+    printf("\n");
 }
 
 // 遍历输出，数组确定长度
@@ -20,20 +21,21 @@ void displayChar(char** pointer, int pointerSize, int pointerColSize) {
         }
         printf("\n");
     }
+    printf("\n");
 }
 
 int main() {
-    // // 字符串
-    // char arr[][16] = {"bella", "label", "roller"};
-    // int    ASize      = sizeof(arr) / sizeof(arr[0]);
-    // char** A          = (char**)malloc(sizeof(char*) * ASize);
-    // for (int i = 0; i < ASize; i++) {
-    //     *(A + i) = arr[i];
-    // }
-    // displayStr(A, ASize);
+    // 字符串
+    char   arr[][16] = {"bella", "label", "roller"};
+    int    ASize     = sizeof(arr) / sizeof(arr[0]);
+    char** A         = (char**)malloc(sizeof(char*) * ASize);
+    for (int i = 0; i < ASize; i++) {
+        *(A + i) = arr[i];
+    }
+    displayStr(A, ASize);
 
     // 二维数组
-    char arr[][9] = {
+    char arr2[][9] = {
         {'5', '3', '.', '.', '7', '.', '.', '.', '.'},
         {'6', '.', '.', '1', '9', '5', '.', '.', '.'},
         {'.', '9', '8', '.', '.', '.', '.', '6', '.'},
@@ -46,7 +48,7 @@ int main() {
     };
     char** board = (char**)malloc(sizeof(char*) * 9);
     for (int i = 0; i < 9; i++) {
-        *(board + i) = arr[i];
+        *(board + i) = arr2[i];
     }
     displayChar(board, 9, 9);
 
