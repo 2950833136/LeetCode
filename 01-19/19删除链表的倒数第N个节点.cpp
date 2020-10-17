@@ -1,94 +1,105 @@
-#include<stdio.h>
-#include<malloc.h>
+#include <malloc.h>
+#include <stdio.h>
 
 struct ListNode {
-	int val;
-	struct ListNode* next;
+    int              val;
+    struct ListNode* next;
 };
 
-//struct ListNode* removeNthFromEnd(struct ListNode* head, int n) {
-//	struct ListNode* pTemp = (struct ListNode*)malloc(sizeof(struct ListNode));		//¶¨ÒåÁ½¸ö½Úµã 
-//	struct ListNode* pNode = (struct ListNode*)malloc(sizeof(struct ListNode));
-//	int m = 0;
-//	pTemp = head;																	//Ö¸ÏòÍ·Ö¸Õë 
-//	int i;
-//	while (pTemp != NULL) {															//¼ÆËãÁ´±íµÄ³¤¶È
-//		m++;
-//		pTemp = pTemp->next;
-//	}
-//	i = m - n + 1;																	//¼ÆËãÉ¾³ıÄÄ¸ö½Úµã 
-//	if (i == 1) {																	//Èç¹ûÊÇÍ·
-//		pTemp = head;
-//		head = head->next;
-//		free(pTemp);
-//		pTemp = NULL;
-//	}
-//	else {																			//Èç¹û²»ÊÇÍ·
-//		pTemp = head;
-//		for (int j = 1; j < i - 1; j++) {
-//			pTemp = pTemp->next;
-//		}
-//		pNode = pTemp->next;
-//		pTemp->next = pTemp->next->next;											//É¾³ıÖ¸¶¨½Úµã 
-//		free(pNode);
-//		pNode = NULL;
-//	}
-//	return head;
-//}
-
-struct ListNode* removeNthFromEnd(struct ListNode* head, int n) {
-	int i;
-	struct ListNode* first = NULL;					//¶¨ÒåÁ½¸ö½Úµã 
-	struct ListNode* second = NULL;
-	first = head;									//Ö¸ÏòÍ·½áµã 
-	second = head;
-
-	for (i = 0; i < n; i++) {						//µ¹Êı¼¸¸ö£¬¼´Àë×îºóÒ»¸ö¼ä¸ô 
-		if (first != NULL) {						//ÍË³öÌõ¼ş 
-			first = first->next;
-		}
-		else {
-			return head;
-		}
-	}
-
-	if (first == NULL) {
-		return head->next;
-	}
-
-	while (first->next != NULL) {					//µÚÒ»¸ö½ÚµãºóÃæÎª¿ÕËµÃ÷Õâ¾ÍÊÇ×îºóÒ»¸ö½Úµã 
-		first = first->next;
-		second = second->next;
-	}
-	second->next = (second->next)->next;			//É¾³ı½Úµã£¬µÚ¶ş¸ö½ÚµãµÄºóÒ»¸ö 
-
-	return head;
+void CreateList(struct ListNode** head, int length) {
+    struct ListNode *s, *r;
+    r = *head;
+    for (int i = 1; i <= length; i++) {
+        s       = (struct ListNode*)malloc(sizeof(struct ListNode));
+        s->val  = i;
+        r->next = s;
+        r       = s;
+    }
+    r->next = NULL;
 }
 
-void CreateList(struct ListNode*& head, int length) {
-	struct ListNode* s, * r;
-	r = head;
-	for (int i = 1; i <= length; i++) {
-		s = (struct ListNode*)malloc(sizeof(struct ListNode));
-		s->val = i;
-		r->next = s;
-		r = s;
-	}
-	r->next = NULL;
+void display(struct ListNode* root) {
+    struct ListNode* node = root;
+    while (node != NULL) {
+        printf("%d ", node->val);
+        node = node->next;
+    }
+	printf("\n");
+}
+
+/**
+ * éå†é“¾è¡¨é•¿åº¦ï¼Œæ±‚è§£å€’æ•°ç¬¬ N ä¸ªèŠ‚ç‚¹çš„ä½ç½®
+ */
+// struct ListNode* removeNthFromEnd(struct ListNode* head, int n) {
+//     struct ListNode* pTemp = (struct ListNode*)malloc(sizeof(struct ListNode)); //å®šä¹‰ä¸¤ä¸ªèŠ‚ç‚¹
+//     struct ListNode* pNode = (struct ListNode*)malloc(sizeof(struct ListNode));
+
+//     int i;
+//     int m = 0;
+//     pTemp = head;           //æŒ‡å‘å¤´æŒ‡é’ˆ
+//     while (pTemp != NULL) { //è®¡ç®—é“¾è¡¨çš„é•¿åº¦
+//         m++;
+//         pTemp = pTemp->next;
+//     }
+//     i = m - n + 1; //è®¡ç®—åˆ é™¤å“ªä¸ªèŠ‚ç‚¹
+//     if (i == 1) {  //å¦‚æœæ˜¯å¤´
+//         pTemp = head;
+//         head  = head->next;
+//         free(pTemp);
+//         pTemp = NULL;
+//     } else { //å¦‚æœä¸æ˜¯å¤´
+//         pTemp = head;
+//         for (int j = 1; j < i - 1; j++) {
+//             pTemp = pTemp->next;
+//         }
+//         pNode       = pTemp->next;
+//         pTemp->next = pTemp->next->next; //åˆ é™¤æŒ‡å®šèŠ‚ç‚¹
+//         free(pNode);
+//         pNode = NULL;
+//     }
+//     return head;
+// }
+
+/**
+ * åŒæŒ‡é’ˆ
+ * 	åˆ é™¤é“¾è¡¨çš„å€’æ•°ç¬¬ N ä¸ªèŠ‚ç‚¹ == åŒæŒ‡é’ˆçš„é—´éš”
+ */
+struct ListNode* removeNthFromEnd(struct ListNode* head, int n) {
+    int              i;
+    struct ListNode* first  = NULL; //å®šä¹‰ä¸¤ä¸ªèŠ‚ç‚¹
+    struct ListNode* second = NULL;
+    first                   = head; //æŒ‡å‘å¤´ç»“ç‚¹
+    second                  = head;
+
+    for (i = 0; i < n; i++) { //å€’æ•°å‡ ä¸ªï¼Œå³ç¦»æœ€åä¸€ä¸ªé—´éš”
+        if (first != NULL) {  //é€€å‡ºæ¡ä»¶
+            first = first->next;
+        } else {
+            return head;
+        }
+    }
+
+    if (first == NULL) {
+        return head->next;
+    }
+
+    while (first->next != NULL) { //ç¬¬ä¸€ä¸ªèŠ‚ç‚¹åé¢ä¸ºç©ºè¯´æ˜è¿™å°±æ˜¯æœ€åä¸€ä¸ªèŠ‚ç‚¹
+        first  = first->next;
+        second = second->next;
+    }
+    second->next = (second->next)->next; //åˆ é™¤èŠ‚ç‚¹ï¼Œç¬¬äºŒä¸ªèŠ‚ç‚¹çš„åä¸€ä¸ª
+
+    return head;
 }
 
 int main() {
-	struct ListNode* head = (struct ListNode*)malloc(sizeof(struct ListNode));
-	CreateList(head, 5);
-	head = head->next;
-	//	while(head!=NULL){
-	//		printf("%d ",head->val);
-	//		head=head->next;
-	//	}
-	struct ListNode* res = removeNthFromEnd(head, 2);
-	while (res != NULL) {
-		printf("%d ", res->val);
-		res = res->next;
-	}
-	return 0;
+    struct ListNode* head = (struct ListNode*)malloc(sizeof(struct ListNode));
+    CreateList(&head, 5);
+    head = head->next;
+
+	display(head);
+    struct ListNode* res = removeNthFromEnd(head, 2);
+	display(res);
+
+    return 0;
 }
