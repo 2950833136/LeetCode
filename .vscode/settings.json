@@ -6,7 +6,10 @@
         "cmath": "cpp",
         "array": "cpp",
         "iostream": "cpp",
-        "cstdlib": "cpp"
+        "cstdlib": "cpp",
+        "*.tcc": "c",
+        "type_traits": "c",
+        "typeinfo": "c"
     },
     // Visual Studio  LLVM  Google  Chromium  Mozilla  WebKit
     // "C_Cpp.clang_format_style": "{BasedOnStyle: LLVM}"
