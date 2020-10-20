@@ -65,9 +65,9 @@ void fooFree(Foo* obj) {
 }
 
 int main() {
-    Foo*           obj   = fooCreate();
-    int            num[] = {1, 3, 2};
-    
+    Foo* obj   = fooCreate();
+    int  num[] = {1, 3, 2};
+
     pthread_t      myPthread[3];
     pthread_attr_t attr;
     pthread_attr_init(&attr);
