@@ -24,7 +24,7 @@ void display(struct ListNode* root) {
         printf("%d ", node->val);
         node = node->next;
     }
-	printf("\n");
+    printf("\n");
 }
 
 /**
@@ -97,9 +97,9 @@ int main() {
     CreateList(&head, 5);
     head = head->next;
 
-	display(head);
+    display(head);
     struct ListNode* res = removeNthFromEnd(head, 2);
-	display(res);
+    display(res);
 
     return 0;
 }

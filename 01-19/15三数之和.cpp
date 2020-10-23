@@ -1,110 +1,110 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<malloc.h>
+#include <malloc.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-void quickSort(int* nums, int first, int end) {     //øÏÀŸ≈≈–Ú 
-	int temp, l, r;
-	if (first >= end) {
-		return;
-	}
-	temp = nums[first];
-	l = first;
-	r = end;
-	while (l < r) {
-		while (l < r && nums[r] >= temp) {
-			r--;
-		}
-		if (l < r) {
-			nums[l] = nums[r];
-		}
-		while (l < r && nums[l] <= temp) {
-			l++;
-		}
-		if (l < r) {
-			nums[r] = nums[l];
-		}
-	}
-	nums[l] = temp;
-	quickSort(nums, first, l - 1);
-	quickSort(nums, l + 1, end);
+//Âø´ÈÄüÊéíÂ∫è
+void quickSort(int* nums, int first, int end) {
+    int temp, l, r;
+    if (first >= end) {
+        return;
+    }
+    temp = nums[first];
+    l    = first;
+    r    = end;
+    while (l < r) {
+        while (l < r && nums[r] >= temp) {
+            r--;
+        }
+        if (l < r) {
+            nums[l] = nums[r];
+        }
+        while (l < r && nums[l] <= temp) {
+            l++;
+        }
+        if (l < r) {
+            nums[r] = nums[l];
+        }
+    }
+    nums[l] = temp;
+    quickSort(nums, first, l - 1);
+    quickSort(nums, l + 1, end);
 }
 
-int** threeSum(int* nums, int numsSize, int* returnSize, int** returnColumnSizes){
-	int i = 0;								//µ±«∞ ˝÷µœ¬±Í
-	int left = i + 1;						//◊Û÷∏’Î
-	int right = numsSize - 1;				//”“÷∏’Î
-	int sum = 0;							//∫Õ
-	int base_alloc_size = 16;				//ª˘±æƒ⁄¥Ê
-	int** res = (int**)malloc(sizeof(int*) * base_alloc_size);
-	(*returnSize) = 0;
-	*returnColumnSizes = (int*)malloc(sizeof(int) * base_alloc_size);
+int** threeSum(int* nums, int numsSize, int* returnSize, int** returnColumnSizes) {
+    int   i               = 0;            //ÂΩìÂâçÊï∞ÂÄº‰∏ãÊ†á
+    int   left            = i + 1;        //Â∑¶ÊåáÈíà
+    int   right           = numsSize - 1; //Âè≥ÊåáÈíà
+    int   sum             = 0;            //Âíå
+    int   base_alloc_size = 16;           //Âü∫Êú¨ÂÜÖÂ≠ò
+    int** res             = (int**)malloc(sizeof(int*) * base_alloc_size);
+    (*returnSize)         = 0;
+    *returnColumnSizes    = (int*)malloc(sizeof(int) * base_alloc_size);
 
-	if (numsSize < 3 || nums == NULL) {
-		return NULL;
-	}
+    if (numsSize < 3 || nums == NULL) {
+        return NULL;
+    }
 
-	quickSort(nums, 0, numsSize - 1);                           //≈≈–Ú
+    quickSort(nums, 0, numsSize - 1); //ÊéíÂ∫è
 
-	for (i = 0; i <= numsSize - 3; i++) {
-		left = i + 1;
-		right = numsSize - 1;
-		if (nums[i] > 0) {										// »Áπ˚µ±«∞ ˝◊÷¥Û”⁄0£¨‘Ú»˝ ˝÷Æ∫Õ“ª∂®¥Û”⁄0£¨À˘“‘Ω· ¯—≠ª∑
-			break;
-		}
-		if (i > 0 && nums[i] == nums[i - 1]) {						// »•÷ÿ
-			continue;
-		}
-		while (left < right) {
-			sum = nums[i] + nums[left] + nums[right];
-			if (sum > 0) {
-				right--;
-			}
-			else if (sum < 0) {
-				left++;
-			}
-			else {
-				res[*returnSize] = (int*)calloc(3, sizeof(int));
-				res[*returnSize][0] = nums[i];
-				res[*returnSize][1] = nums[left];
-				res[*returnSize][2] = nums[right];
+    for (i = 0; i <= numsSize - 3; i++) {
+        left  = i + 1;
+        right = numsSize - 1;
+        if (nums[i] > 0) { // Â¶ÇÊûúÂΩìÂâçÊï∞Â≠óÂ§ß‰∫é0ÔºåÂàô‰∏âÊï∞‰πãÂíå‰∏ÄÂÆöÂ§ß‰∫é0ÔºåÊâÄ‰ª•ÁªìÊùüÂæ™ÁéØ
+            break;
+        }
+        if (i > 0 && nums[i] == nums[i - 1]) { // ÂéªÈáç
+            continue;
+        }
+        while (left < right) {
+            sum = nums[i] + nums[left] + nums[right];
+            if (sum > 0) {
+                right--;
+            } else if (sum < 0) {
+                left++;
+            } else {
+                res[*returnSize]    = (int*)calloc(3, sizeof(int));
+                res[*returnSize][0] = nums[i];
+                res[*returnSize][1] = nums[left];
+                res[*returnSize][2] = nums[right];
 
-				(*returnColumnSizes)[*returnSize] = 3;
-				(*returnSize)++;
+                (*returnColumnSizes)[*returnSize] = 3;
+                (*returnSize)++;
 
-				while (left < right && nums[left] == nums[left + 1]) {		//»•≥˝÷ÿ∏¥µƒ
-					left++;
-				}
-				while (left < right && nums[right] == nums[right - 1]) {
-					right--;
-				}
-				left++; right--;
-			}
+                while (left < right && nums[left] == nums[left + 1]) { //ÂéªÈô§ÈáçÂ§çÁöÑ
+                    left++;
+                }
+                while (left < right && nums[right] == nums[right - 1]) {
+                    right--;
+                }
+                left++;
+                right--;
+            }
 
-			if (*returnSize == base_alloc_size) {							//ø’º‰≤ª◊„£¨¿©≥‰ƒ⁄¥Ê
-				base_alloc_size = base_alloc_size * 2;
-				res = (int**)realloc(res, base_alloc_size * sizeof(int*));
-				(*returnColumnSizes) = (int*)realloc((*returnColumnSizes), base_alloc_size * sizeof(int));
-			}
-		}
-	}
-	return res;
+            if (*returnSize == base_alloc_size) { //Á©∫Èó¥‰∏çË∂≥ÔºåÊâ©ÂÖÖÂÜÖÂ≠ò
+                base_alloc_size      = base_alloc_size * 2;
+                res                  = (int**)realloc(res, base_alloc_size * sizeof(int*));
+                (*returnColumnSizes) = (int*)realloc((*returnColumnSizes), base_alloc_size * sizeof(int));
+            }
+        }
+    }
+    return res;
 }
 
 int main() {
-	int num[] = { -1, 0, 1, 2, -1, -4 };
-	int* nums = (int*)num;
-	int numsSize = sizeof(num) / sizeof(int);
-	int* returnSize = (int*)malloc(sizeof(int)*1);
-	//’‚¿Ôµƒƒ⁄¥Ê∑÷≈‰◊Ó¥Û÷µ,º¥≈≈¡–◊È∫œ÷™ ∂,Cº∏»°3
-	//C6»°3 == 20
-	int** returnColumnSizes = (int**)malloc(sizeof(int*) * (numsSize * (numsSize - 1) * (numsSize - 2)) / 6);
-	int** res = threeSum(nums, numsSize, returnSize, returnColumnSizes);
+    int  num[]      = {-1, 0, 1, 2, -1, -4};
+    int* nums       = (int*)num;
+    int  numsSize   = sizeof(num) / sizeof(int);
+    int* returnSize = (int*)malloc(sizeof(int) * 1);
+    //ËøôÈáåÁöÑÂÜÖÂ≠òÂàÜÈÖçÊúÄÂ§ßÂÄº,Âç≥ÊéíÂàóÁªÑÂêàÁü•ËØÜ,CÂá†Âèñ3
+    //C6Âèñ3 == 20
+    int** returnColumnSizes = (int**)malloc(sizeof(int*) * (numsSize * (numsSize - 1) * (numsSize - 2)) / 6);
+    int** res               = threeSum(nums, numsSize, returnSize, returnColumnSizes);
 
-	for (int i = 0; i < *returnSize; i++) {				//¥Ú”°
-		for (int j = 0; j < 3; j++) {
-			printf("%d ", res[i][j]);
-		}
-		printf("\n");
-	}
-	return 0;
+    for (int i = 0; i < *returnSize; i++) { //ÊâìÂç∞
+        for (int j = 0; j < 3; j++) {
+            printf("%d ", res[i][j]);
+        }
+        printf("\n");
+    }
+    return 0;
 }

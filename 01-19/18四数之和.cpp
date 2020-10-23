@@ -1,107 +1,105 @@
-#include<stdio.h> 
-#include<malloc.h>
+#include <malloc.h>
+#include <stdio.h>
 
-void quickSort(int* nums, int first, int end) {					//øÏÀŸ≈≈–Ú 
-	int temp, l, r;
-	if (first >= end) {
-		return;
-	}
-	temp = nums[first];
-	l = first;
-	r = end;
-	while (l < r) {
-		while (l < r && nums[r] >= temp) {
-			r--;
-		}
-		if (l < r) {
-			nums[l] = nums[r];
-		}
-		while (l < r && nums[l] <= temp) {
-			l++;
-		}
-		if (l < r) {
-			nums[r] = nums[l];
-		}
-	}
-	nums[l] = temp;
-	quickSort(nums, first, l - 1);
-	quickSort(nums, l + 1, end);
+void quickSort(int* nums, int first, int end) { //Âø´ÈÄüÊéíÂ∫è
+    int temp, l, r;
+    if (first >= end) {
+        return;
+    }
+    temp = nums[first];
+    l    = first;
+    r    = end;
+    while (l < r) {
+        while (l < r && nums[r] >= temp) {
+            r--;
+        }
+        if (l < r) {
+            nums[l] = nums[r];
+        }
+        while (l < r && nums[l] <= temp) {
+            l++;
+        }
+        if (l < r) {
+            nums[r] = nums[l];
+        }
+    }
+    nums[l] = temp;
+    quickSort(nums, first, l - 1);
+    quickSort(nums, l + 1, end);
 }
 
 int** fourSum(int* nums, int numsSize, int target, int* returnSize, int** returnColumnSizes) {
-	int sum = 0;							//∫Õ
-	int base_alloc_size = 16;				//ª˘±æƒ⁄¥Ê
-	int** res = (int**)malloc(sizeof(int*) * base_alloc_size);
-	(*returnSize) = 0;
-	*returnColumnSizes = (int*)malloc(sizeof(int) * base_alloc_size);
+    int   sum             = 0;  //Âíå
+    int   base_alloc_size = 16; //Âü∫Êú¨ÂÜÖÂ≠ò
+    int** res             = (int**)malloc(sizeof(int*) * base_alloc_size);
+    (*returnSize)         = 0;
+    *returnColumnSizes    = (int*)malloc(sizeof(int) * base_alloc_size);
 
-	if (numsSize < 4 || nums == NULL) {
-		return NULL;
-	}
+    if (numsSize < 4 || nums == NULL) {
+        return NULL;
+    }
 
-	quickSort(nums, 0, numsSize - 1);                          			//≈≈–Ú
+    quickSort(nums, 0, numsSize - 1); //ÊéíÂ∫è
 
-	for (int i = 0; i < numsSize - 3; i++) {
-		if (i > 0 && nums[i] == nums[i - 1]) {							//»•÷ÿ
-			continue;
-		}
-		for (int j = i + 1; j < numsSize - 2; j++) {
-			if (j > i + 1 && nums[j] == nums[j - 1]) {					//»•÷ÿ
-				continue;
-			}
-			int left = j + 1;
-			int right = numsSize - 1;
-			while (left < right) {
-				sum = nums[i] + nums[j] + nums[left] + nums[right];
-				if (sum == target) {
-					res[*returnSize] = (int*)malloc(sizeof(int) * 4);
-					res[*returnSize][0] = nums[i];
-					res[*returnSize][1] = nums[j];
-					res[*returnSize][2] = nums[left];
-					res[*returnSize][3] = nums[right];
+    for (int i = 0; i < numsSize - 3; i++) {
+        if (i > 0 && nums[i] == nums[i - 1]) { //ÂéªÈáç
+            continue;
+        }
+        for (int j = i + 1; j < numsSize - 2; j++) {
+            if (j > i + 1 && nums[j] == nums[j - 1]) { //ÂéªÈáç
+                continue;
+            }
+            int left  = j + 1;
+            int right = numsSize - 1;
+            while (left < right) {
+                sum = nums[i] + nums[j] + nums[left] + nums[right];
+                if (sum == target) {
+                    res[*returnSize]    = (int*)malloc(sizeof(int) * 4);
+                    res[*returnSize][0] = nums[i];
+                    res[*returnSize][1] = nums[j];
+                    res[*returnSize][2] = nums[left];
+                    res[*returnSize][3] = nums[right];
 
-					(*returnColumnSizes)[*returnSize] = 4;
-					(*returnSize)++;
+                    (*returnColumnSizes)[*returnSize] = 4;
+                    (*returnSize)++;
 
-					while (left < right && nums[left] == nums[left + 1]) {		//»•÷ÿ
-						left++;
-					}
-					left++;
-				}
-				else if (sum < target) {
-					left++;
-				}
-				else {
-					right--;
-				}
+                    while (left < right && nums[left] == nums[left + 1]) { //ÂéªÈáç
+                        left++;
+                    }
+                    left++;
+                } else if (sum < target) {
+                    left++;
+                } else {
+                    right--;
+                }
 
-				if (*returnSize == base_alloc_size) {							//ø’º‰≤ª◊„£¨¿©≥‰ƒ⁄¥Ê
-					base_alloc_size = base_alloc_size * 2;
-					res = (int**)realloc(res, base_alloc_size * sizeof(int*));
-					(*returnColumnSizes) = (int*)realloc((*returnColumnSizes), base_alloc_size * sizeof(int));
-				}
-			}
-		}
-	}
-	return res;
+                if (*returnSize == base_alloc_size) { //Á©∫Èó¥‰∏çË∂≥ÔºåÊâ©ÂÖÖÂÜÖÂ≠ò
+                    base_alloc_size      = base_alloc_size * 2;
+                    res                  = (int**)realloc(res, base_alloc_size * sizeof(int*));
+                    (*returnColumnSizes) = (int*)realloc((*returnColumnSizes), base_alloc_size * sizeof(int));
+                }
+            }
+        }
+    }
+    return res;
 }
 
 int main() {
-	int num[] = { 1, 0, -1, 0, -2, 2 };
-	int* nums = (int*)num;
-	int numsSize = sizeof(num) / sizeof(int);
-	int target = 0;
-	int* returnSize = (int*)malloc(sizeof(int) * 1);
-	//’‚¿Ôµƒƒ⁄¥Ê∑÷≈‰◊Ó¥Û÷µ,º¥≈≈¡–◊È∫œ÷™ ∂,Cº∏»°3
-	//C6»°3 == 20
-	int** returnColumnSizes = (int**)malloc(sizeof(int*) * 1);
-	int** res = fourSum(nums, numsSize, target, returnSize, returnColumnSizes);
+    int  num[]      = {1, 0, -1, 0, -2, 2};
+    int* nums       = (int*)num;
+    int  numsSize   = sizeof(num) / sizeof(int);
+    int  target     = 0;
+    int* returnSize = (int*)malloc(sizeof(int) * 1);
+    //ËøôÈáåÁöÑÂÜÖÂ≠òÂàÜÈÖçÊúÄÂ§ßÂÄº,Âç≥ÊéíÂàóÁªÑÂêàÁü•ËØÜ,CÂá†Âèñ3
+    //C6Âèñ3 == 20
+    int** returnColumnSizes = (int**)malloc(sizeof(int*) * 1);
+    int** res               = fourSum(nums, numsSize, target, returnSize, returnColumnSizes);
 
-	for (int i = 0; i < *returnSize; i++) {				//¥Ú”°
-		for (int j = 0; j < 4; j++) {
-			printf("%d ", res[i][j]);
-		}
-		printf("\n");
-	}
-	return 0;
+    for (int i = 0; i < *returnSize; i++) { //ÊâìÂç∞
+        for (int j = 0; j < 4; j++) {
+            printf("%d ", res[i][j]);
+        }
+        printf("\n");
+    }
+    return 0;
 }

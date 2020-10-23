@@ -1,6 +1,6 @@
-#include<stdio.h>
-#include<string.h>
-#include<malloc.h>
+#include <malloc.h>
+#include <stdio.h>
+#include <string.h>
 
 //char** letterCombinations(char* digits, int* returnSize) {
 //	int n = strlen(digits);
@@ -9,7 +9,7 @@
 //		return NULL;
 //	}
 //	int count = 1;
-//	for (int i = 0; i < n; i++) {							//¼ÆËã×îÖÕ¸öÊý 
+//	for (int i = 0; i < n; i++) {							//è®¡ç®—æœ€ç»ˆä¸ªæ•°
 //		if (digits[i] == '7' || digits[i] == '9') {
 //			count *= 4;
 //		}
@@ -17,7 +17,7 @@
 //			count *= 3;
 //		}
 //	}
-//	char** res = (char**)malloc(sizeof(char*) * count);		//·ÖÅä¿Õ¼ä 
+//	char** res = (char**)malloc(sizeof(char*) * count);		//åˆ†é…ç©ºé—´
 //	for (int i = 0; i < count; i++) {
 //		res[i] = (char*)malloc(sizeof(char) * (n+1));
 //	}
@@ -26,17 +26,17 @@
 //	for (int i = 0; i < n; i++) {
 //		switch (digits[i]) {
 //		case '2':
-//			for (int j = 0; j < row; j++) {					//°´¼ä¸ô¸´ÖÆ 
+//			for (int j = 0; j < row; j++) {					//æŒ‰é—´éš”å¤åˆ¶
 //				strcpy(res[j + row], res[j]);
 //				strcpy(res[j + 2 * row], res[j]);
 //			}
-//			for (int j = 0; j < row; j++) {					//ÒÀ´ÎÔö¼Ó×ÖÄ¸ 
+//			for (int j = 0; j < row; j++) {					//ä¾æ¬¡å¢žåŠ å­—æ¯
 //				res[j][k] = 'a';
 //				res[j + row][k] = 'b';
 //				res[j + 2 * row][k] = 'c';
 //			}
 //			k++;
-//			row *= 3;										//À©³ä¼ä¸ô 
+//			row *= 3;										//æ‰©å……é—´éš”
 //			break;
 //		case '3':
 //			for (int j = 0; j < row; j++){
@@ -143,55 +143,55 @@
 //}
 
 char** letterCombinations(char* digits, int* returnSize) {
-	if (!strcmp(digits, "") || digits == NULL) {				//¿ÕÖ±½Ó·µ»Ø 
-		*returnSize = 0;
-		return NULL;
-	}
+    if (!strcmp(digits, "") || digits == NULL) { //ç©ºç›´æŽ¥è¿”å›ž
+        *returnSize = 0;
+        return NULL;
+    }
 
-	const char* str[8] = { "abc","def","ghi","jkl","mno","pqrs","tuv","wxyz" };
-	int inputLength = strlen(digits);							//ÊäÈëµÄ³¤¶È 
-	int* number = (int*)malloc(sizeof(int) * inputLength);
-	int outputLength = 1;										//Êä³öµÄ¸öÊý 
-	for (int i = 0; i < inputLength; i++) {						//µÃ³ö×îÖÕÊä³ö¸öÊý 
-		number[i] = digits[i] - '0';							//Ïà¶ÔÓÚ 0 µÄ²îÖµ£¨ASCIIÂë£© 
-		outputLength *= strlen(str[number[i] - 2]);				//´Ó 2 ¿ªÊ¼µÄ 
-	}
-	char** ch = (char**)malloc(sizeof(char*) * outputLength);	//·ÖÅä¶þ¼¶Ö¸Õë¿Õ¼ä 
-	for (int i = 0; i < outputLength; i++) {
-		ch[i] = (char*)malloc(sizeof(char) * (inputLength + 1));//·ÖÅäÒ»¼¶Ö¸Õë¿Õ¼ä£¬¶à·ÖÅäÒ»¸ö·Å½ØÖÁ·û 
-	}
+    const char* str[8]       = {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    int         inputLength  = strlen(digits); //è¾“å…¥çš„é•¿åº¦
+    int*        number       = (int*)malloc(sizeof(int) * inputLength);
+    int         outputLength = 1;                   //è¾“å‡ºçš„ä¸ªæ•°
+    for (int i = 0; i < inputLength; i++) {         //å¾—å‡ºæœ€ç»ˆè¾“å‡ºä¸ªæ•°
+        number[i] = digits[i] - '0';                //ç›¸å¯¹äºŽ 0 çš„å·®å€¼ï¼ˆASCIIç ï¼‰
+        outputLength *= strlen(str[number[i] - 2]); //ä»Ž 2 å¼€å§‹çš„
+    }
+    char** ch = (char**)malloc(sizeof(char*) * outputLength); //åˆ†é…äºŒçº§æŒ‡é’ˆç©ºé—´
+    for (int i = 0; i < outputLength; i++) {
+        ch[i] = (char*)malloc(sizeof(char) * (inputLength + 1)); //åˆ†é…ä¸€çº§æŒ‡é’ˆç©ºé—´ï¼Œå¤šåˆ†é…ä¸€ä¸ªæ”¾æˆªè‡³ç¬¦
+    }
 
-	int k = 1;
-	for (int i = 0; i < inputLength; i++) {
-		int len = strlen(str[number[i] - 2]);					//¶¨Òåµ±Ç°Êý×Ö´ú±í¼¸¸ö×Ö·û 
-		k *= len;
-		int block = outputLength / k;							//¼ÆËã¼ä¸ô 
-		for (int j = 0; j < k; j++) {							//ÒÀ´Î¼ÓÈëµ±Ç°Êý×ÖµÄ×Ö·û 
-			for (int r = j * block; r < (j + 1) * block; r++) {	//°´¼ä¸ô¸³Öµ 
-				ch[r][i] = str[number[i] - 2][j % len];			
-			}
-		}
-	}
+    int k = 1;
+    for (int i = 0; i < inputLength; i++) {
+        int len = strlen(str[number[i] - 2]); //å®šä¹‰å½“å‰æ•°å­—ä»£è¡¨å‡ ä¸ªå­—ç¬¦
+        k *= len;
+        int block = outputLength / k;                           //è®¡ç®—é—´éš”
+        for (int j = 0; j < k; j++) {                           //ä¾æ¬¡åŠ å…¥å½“å‰æ•°å­—çš„å­—ç¬¦
+            for (int r = j * block; r < (j + 1) * block; r++) { //æŒ‰é—´éš”èµ‹å€¼
+                ch[r][i] = str[number[i] - 2][j % len];
+            }
+        }
+    }
 
-	for (int i = 0; i < outputLength; i++) {					//½ØÖÁ·û 
-		ch[i][inputLength] = '\0';
-	}
-	*returnSize = outputLength;
-	return ch;
+    for (int i = 0; i < outputLength; i++) { //æˆªè‡³ç¬¦
+        ch[i][inputLength] = '\0';
+    }
+    *returnSize = outputLength;
+    return ch;
 }
 
-int main(){
-	char* digits=(char*)"23";
-	int* returnSize=(int*)malloc(sizeof(int)*1);
-	int length=sizeof(digits)/sizeof(char);
-	char** res=letterCombinations(digits,returnSize);
-	
-	for(int i=0;i<*returnSize;i++){
-		for(int j=0;j<length;j++){
-			printf("%c",res[i][j]);
-		}
-		printf("\n");
-	}
-	
-	return 0;
+int main() {
+    char*  digits     = (char*)"23";
+    int*   returnSize = (int*)malloc(sizeof(int) * 1);
+    int    length     = sizeof(digits) / sizeof(char);
+    char** res        = letterCombinations(digits, returnSize);
+
+    for (int i = 0; i < *returnSize; i++) {
+        for (int j = 0; j < length; j++) {
+            printf("%c", res[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
 }

@@ -1,40 +1,36 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 
 char* longestCommonPrefix(char** strs, int strsSize) {
-	if (strsSize == 0) {					// Ã»ÓĞ¾ÍÖ±½Ó·µ»Ø "" 
-		char* ret = (char*)malloc(1);
-		ret[0] = '\0';
-		return ret;
-	}
-	int count = 0;							// Ë®Æ½²éÕÒµÚ¼¸¸ö
-	int flag = true;						// ±íÊ¾ÊÇ·ñÍË³ö 
-	char c;									// µÚÒ»¸ö×Ö·û´®µÄ±ê×¼ 
-	char* str = (char*)calloc(128 , sizeof(char));						//·ÖÅä¿Õ¼ä128£¨ÖÁÉÙ£©£¬²¢³õÊ¼»¯ 
-	while (flag) {
-		c = strs[0][count];
-		for (int j = 0; j < strsSize; j++) {
-			if ((strs[j][count]=='\0') || (strs[j][count] != c)) {		//ÍË³öÌõ¼ş 
-				flag = false;
-				break; 
-			}
-		}
-		str[count] = c;						// Ò»ÑùµÄ×Ö·û±£´æ 
-		count++;
-	}
-	str[count-1] = '\0';					// È¥³ı×îºóÒ»¸ö 
-	return str;
+    if (strsSize == 0) {
+        char* ret = (char*)malloc(1);
+        ret[0]    = '\0';
+        return ret;
+    }
+    int   count = 0;                              // æ°´å¹³æŸ¥æ‰¾ç¬¬å‡ ä¸ª
+    int   flag  = true;                           // è¡¨ç¤ºæ˜¯å¦é€€å‡º
+    char  c;                                      // ç¬¬ä¸€ä¸ªå­—ç¬¦ä¸²çš„æ ‡å‡†
+    char* str = (char*)calloc(128, sizeof(char)); //åˆ†é…ç©ºé—´128ï¼ˆè‡³å°‘ï¼‰ï¼Œå¹¶åˆå§‹åŒ–
+    while (flag) {
+        c = strs[0][count];
+        for (int j = 0; j < strsSize; j++) {
+            if ((strs[j][count] == '\0') || (strs[j][count] != c)) { //é€€å‡ºæ¡ä»¶
+                flag = false;
+                break;
+            }
+        }
+        str[count] = c; // ä¸€æ ·çš„å­—ç¬¦ä¿å­˜
+        count++;
+    }
+    str[count - 1] = '\0'; // å»é™¤æœ€åä¸€ä¸ª
+    return str;
 }
 
-
-
-int main()
-{
-	const char* s[] = { "flower","flow","flight" };
-	char** strs = (char**)s;
-	char* buff = longestCommonPrefix(strs, 3);
-	puts(buff);
-	return 0;
+int main() {
+    const char* s[]  = {"flower", "flow", "flight"};
+    char**      strs = (char**)s;
+    char*       buff = longestCommonPrefix(strs, 3);
+    puts(buff);
+    return 0;
 }
-

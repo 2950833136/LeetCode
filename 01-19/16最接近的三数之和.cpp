@@ -1,80 +1,79 @@
-#include<stdio.h> 
-#include<math.h>
+#include <math.h>
+#include <stdio.h>
 
-void quickSort(int* nums, int first, int end) {					//øÏÀŸ≈≈–Ú 
-	int temp, l, r;
-	if (first >= end) {
-		return;
-	}
-	temp = nums[first];
-	l = first;
-	r = end;
-	while (l < r) {
-		while (l < r && nums[r] >= temp) {
-			r--;
-		}
-		if (l < r) {
-			nums[l] = nums[r];
-		}
-		while (l < r && nums[l] <= temp) {
-			l++;
-		}
-		if (l < r) {
-			nums[r] = nums[l];
-		}
-	}
-	nums[l] = temp;
-	quickSort(nums, first, l - 1);
-	quickSort(nums, l + 1, end);
+// Âø´ÈÄüÊéíÂ∫è
+void quickSort(int* nums, int first, int end) {
+    int temp, l, r;
+    if (first >= end) {
+        return;
+    }
+    temp = nums[first];
+    l    = first;
+    r    = end;
+    while (l < r) {
+        while (l < r && nums[r] >= temp) {
+            r--;
+        }
+        if (l < r) {
+            nums[l] = nums[r];
+        }
+        while (l < r && nums[l] <= temp) {
+            l++;
+        }
+        if (l < r) {
+            nums[r] = nums[l];
+        }
+    }
+    nums[l] = temp;
+    quickSort(nums, first, l - 1);
+    quickSort(nums, l + 1, end);
 }
 
 int threeSumClosest(int* nums, int numsSize, int target) {
-	int i = 0;													//µ±«∞ ˝÷µœ¬±Í
-	int res = nums[0] + nums[1] + nums[2];						//∫Õ,≥ı ºªØ
+    int i   = 0;                           //ÂΩìÂâçÊï∞ÂÄº‰∏ãÊ†á
+    int res = nums[0] + nums[1] + nums[2]; //Âíå,ÂàùÂßãÂåñ
 
-	if (numsSize < 3 || nums == NULL) {
-		return NULL;
-	}
+    if (numsSize < 3 || nums == NULL) {
+        return NULL;
+    }
 
-	quickSort(nums, 0, numsSize - 1);                           //≈≈–Ú
+    quickSort(nums, 0, numsSize - 1); //ÊéíÂ∫è
 
-	for (i = 0; i <= numsSize - 3; i++) {
-		int left = i + 1;										//◊Û÷∏’Î
-		int right = numsSize - 1;								//”“÷∏’Î
-		if (i > 0 && nums[i] == nums[i - 1]) {					//»•÷ÿ
-			continue;
-		}
-		while (left < right) {
-			int sum = nums[i] + nums[left] + nums[right];
-			if (abs(sum - target) < abs(res - target)) {		//»°◊ÓΩ¸µƒ∫Õ 
-				res = sum;
-			}
-			if (sum > target) {
-				while (left < right && nums[right] == nums[right - 1]) {
-					right--;
-				}
-				right--;
-			}
-			else if (sum < target) {
-				while (left < right && nums[left] == nums[left + 1]) {
-					left++;
-				}
-				left++;
-			}
-			else {
-				return sum;
-			}
-		}
-	}
-	return res;
+    for (i = 0; i <= numsSize - 3; i++) {
+        int left  = i + 1;                     //Â∑¶ÊåáÈíà
+        int right = numsSize - 1;              //Âè≥ÊåáÈíà
+        if (i > 0 && nums[i] == nums[i - 1]) { //ÂéªÈáç
+            continue;
+        }
+        while (left < right) {
+            int sum = nums[i] + nums[left] + nums[right];
+            if (abs(sum - target) < abs(res - target)) { //ÂèñÊúÄËøëÁöÑÂíå
+                res = sum;
+            }
+            if (sum > target) {
+                while (left < right && nums[right] == nums[right - 1]) {
+                    right--;
+                }
+                right--;
+            } else if (sum < target) {
+                while (left < right && nums[left] == nums[left + 1]) {
+                    left++;
+                }
+                left++;
+            } else {
+                return sum;
+            }
+        }
+    }
+    return res;
 }
 
 int main() {
-	int num[] = { 1,1,1,1 };
-	int* nums = (int*)num;
-	int numsSize = sizeof(num) / sizeof(int);
-	int target = 100;
-	int sum = threeSumClosest(nums, numsSize, target);
-	printf("%d\n", sum);
-	return 0;
+    int  num[]    = {1, 1, 1, 1};
+    int* nums     = (int*)num;
+    int  numsSize = sizeof(num) / sizeof(int);
+    int  target   = 100;
+    int  sum      = threeSumClosest(nums, numsSize, target);
+    printf("%d\n", sum);
+    return 0;
 }

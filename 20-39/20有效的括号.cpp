@@ -1,51 +1,44 @@
-#include<stdio.h>
-#include<string.h>
-#include<malloc.h>
+#include <malloc.h>
+#include <stdio.h>
+#include <string.h>
 
 bool isValid(char* s) {
-	int length = strlen(s);										//Çó³¤¶È 
-	if (length == 0) {
-		return true;
-	}
-	char* stack = (char*)malloc(sizeof(char) * (length/2+1));	//·ÖÅä×î´ó¿Õ¼ä 
-	int top = -1;
+    int length = strlen(s); //æ±‚é•¿åº¦
+    if (length == 0) {
+        return true;
+    }
+    char* stack = (char*)malloc(sizeof(char) * (length / 2 + 1)); //åˆ†é…æœ€å¤§ç©ºé—´
+    int   top   = -1;
 
-	for (int i = 0; i < length; i++) {
-		if (s[i] == '(' || s[i] == '[' || s[i] == '{') {		// ([{ ¾Í¼ÓÈëÕ»µ±ÖĞ 
-			top++;
-			stack[top] = s[i];
-		}
-		else if (s[i] == ')' || s[i] == '}' || s[i] == ']') {	// )]} ¾Í°Ñ ([{ ÒÆ³ı 
-			if (top == -1) {									// »¹ÓĞ)]} µ«Ã»ÓĞ ([{ 
-				return false;
-			}
-			else if (s[i] == ')' && stack[top] == '(') {		//ÒÆ³ı 
-				top--;
-			}
-			else if (s[i] == ']' && stack[top] == '[') {
-				top--;
-			}
-			else if (s[i] == '}' && stack[top] == '{') {
-				top--;
-			}
-			else {												//ÆäËü×Ö·û·µ»Ø false 
-				return false;
-			}
-		}
-		else {													//ÆäËü×Ö·û·µ»Ø false
-			return false;
-		}
-	}
-	return (top == -1 ? true : false);							//top==-1,ÔÚÕ»¶¥µÈÓÚÕ»µ×ÎªÕæ 
+    for (int i = 0; i < length; i++) {
+        if (s[i] == '(' || s[i] == '[' || s[i] == '{') { // ([{ å°±åŠ å…¥æ ˆå½“ä¸­
+            top++;
+            stack[top] = s[i];
+        } else if (s[i] == ')' || s[i] == '}' || s[i] == ']') { // )]} å°±æŠŠ ([{ ç§»é™¤
+            if (top == -1) {                                    // è¿˜æœ‰)]} ä½†æ²¡æœ‰ ([{
+                return false;
+            } else if (s[i] == ')' && stack[top] == '(') { //ç§»é™¤
+                top--;
+            } else if (s[i] == ']' && stack[top] == '[') {
+                top--;
+            } else if (s[i] == '}' && stack[top] == '{') {
+                top--;
+            } else { //å…¶å®ƒå­—ç¬¦è¿”å› false
+                return false;
+            }
+        } else { //å…¶å®ƒå­—ç¬¦è¿”å› false
+            return false;
+        }
+    }
+    return (top == -1 ? true : false); //top==-1,åœ¨æ ˆé¡¶ç­‰äºæ ˆåº•ä¸ºçœŸ
 }
 
 int main() {
-	char* s = (char*)"()[]";
-	if (isValid(s) == true) {
-		printf("true");
-	}
-	else {
-		printf("false");
-	}
-	return 0;
+    char* s = (char*)"()[]";
+    if (isValid(s) == true) {
+        printf("true");
+    } else {
+        printf("false");
+    }
+    return 0;
 }
