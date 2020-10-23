@@ -1,27 +1,27 @@
-#include <stdio.h> 
 #include <malloc.h>
+#include <stdio.h>
 
 int removeElement(int* nums, int numsSize, int val) {
-	int i = 0;							//ÂıÖ¸Õë£¬¼ÇÂ¼ÖØĞÂ×éºÏÊı×éÏÂ±ê  
-	int j = 0;							//¿ìÖ¸Õë£¬¼ÇÂ¼Ô­Ê¼Êı×éÏÂ±ê  
+    int i = 0; //æ…¢æŒ‡é’ˆï¼Œè®°å½•é‡æ–°ç»„åˆæ•°ç»„ä¸‹æ ‡
+    int j = 0; //å¿«æŒ‡é’ˆï¼Œè®°å½•åŸå§‹æ•°ç»„ä¸‹æ ‡
 
-	for (j = 0; j < numsSize; j++) {
-		if (nums[j] != val) {			//Èç¹û²»µÈÓÚ¾Í°ÑÔ­Ê¼Êı×éµ±Ç°Öµ¸³¸øÖØĞÂ×éºÏÊı×é
-			nums[i] = nums[j];
-			i++;
-		}
-	}
-	return i;
+    for (j = 0; j < numsSize; j++) {
+        if (nums[j] != val) { //å¦‚æœä¸ç­‰äºå°±æŠŠåŸå§‹æ•°ç»„å½“å‰å€¼èµ‹ç»™é‡æ–°ç»„åˆæ•°ç»„
+            nums[i] = nums[j];
+            i++;
+        }
+    }
+    return i;
 }
 
 int main() {
-	int nums[] = { 0,1,2,2,3,0,4,2 };
-	int numsSize = sizeof(nums) / sizeof(int);
-	int val = 2;
+    int nums[]   = {0, 1, 2, 2, 3, 0, 4, 2};
+    int numsSize = sizeof(nums) / sizeof(int);
+    int val      = 2;
 
-	int n = removeElement(nums, numsSize, val);
-	for (int i = 0; i < n; i++) {
-		printf("%d ", nums[i]);
-	}
-	return 0;
+    int n = removeElement(nums, numsSize, val);
+    for (int i = 0; i < n; i++) {
+        printf("%d ", nums[i]);
+    }
+    return 0;
 }

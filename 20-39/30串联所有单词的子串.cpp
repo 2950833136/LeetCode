@@ -1,6 +1,6 @@
+#include <malloc.h>
 #include <stdio.h>
 #include <string.h>
-#include <malloc.h>
 
 //int matchSubstr(char* s, char** words, int* wordsNum, int wordsSize) {
 //	int i = 0;
@@ -8,15 +8,15 @@
 //	int cnt = 0;
 //	int* wordsNumTmp = (int*)malloc(wordsSize * sizeof(int));
 //
-//	memcpy(wordsNumTmp, wordsNum, wordsSize * sizeof(int));		//memcpy øΩ±¥
+//	memcpy(wordsNumTmp, wordsNum, wordsSize * sizeof(int));		//memcpy Êã∑Ë¥ù
 //	for (int j = 0; j < wordsSize && i < strlength;) {
 //		if (wordsNumTmp[j] == 1) {
-//			if (!strncmp(s + i, words[j], strlen(words[j]))) {	//strncmp ±»Ωœ£¨œ‡µ»Œ™ 0
+//			if (!strncmp(s + i, words[j], strlen(words[j]))) {	//strncmp ÊØîËæÉÔºåÁõ∏Á≠â‰∏∫ 0
 //				wordsNumTmp[j] = 0;
 //				cnt++;
 //				i += strlen(words[j]);
 //				j = 0;
-//				if (cnt == wordsSize) {							//»´≤øœ‡µ»
+//				if (cnt == wordsSize) {							//ÂÖ®ÈÉ®Áõ∏Á≠â
 //					return 1;
 //				}
 //				continue;
@@ -33,82 +33,82 @@
 //	int wordslen = 0;
 //	int indexnum = 0;
 //	int* wordsNum = (int*)malloc(wordsSize * sizeof(int));
-//	memset(indexs, 0, 10000 * sizeof(int));		//indexs »´≤ø÷√ 0
+//	memset(indexs, 0, 10000 * sizeof(int));		//indexs ÂÖ®ÈÉ®ÁΩÆ 0
 //
 //	for (i = 0; i < wordsSize; i++) {
-//		wordsNum[i] = 1;						//≥ı ºªØ wordsNum »´Œ™ 1
-//		wordslen += strlen(words[i]);			//À˘”–µ•¥ ◊‹≥§∂»
+//		wordsNum[i] = 1;						//ÂàùÂßãÂåñ wordsNum ÂÖ®‰∏∫ 1
+//		wordslen += strlen(words[i]);			//ÊâÄÊúâÂçïËØçÊÄªÈïøÂ∫¶
 //	}
 //
-//	for (i = 0; i + wordslen <= slen; i++) {	//±©¡¶±È¿˙
+//	for (i = 0; i + wordslen <= slen; i++) {	//Êö¥ÂäõÈÅçÂéÜ
 //		if (matchSubstr(s + i, words, wordsNum, wordsSize) == 1) {
-//			indexs[indexnum++] = i;				//º«¬ºœ¬±Í
+//			indexs[indexnum++] = i;				//ËÆ∞ÂΩï‰∏ãÊ†á
 //		}
 //	}
 //
-//	*returnSize = indexnum;						//÷∏’Îº«¬º∏ˆ ˝
-//	return indexs;								//∑µªÿœ¬±Í◊÷∑˚¥Æ
+//	*returnSize = indexnum;						//ÊåáÈíàËÆ∞ÂΩï‰∏™Êï∞
+//	return indexs;								//ËøîÂõû‰∏ãÊ†áÂ≠óÁ¨¶‰∏≤
 //}
 
 int* findSubstring(char* s, char** words, int wordsSize, int* returnSize) {
-	static int out[1000];
-	int cnt = 0;
-	if (s == NULL || wordsSize == NULL || wordsSize <= 0) {
-		*returnSize = cnt;						//Œ™ø’£¨∑µªÿ0
-		return out;
-	}
-	int slen = strlen(s);						//«Û◊÷∑˚¥Æ s µƒ≥§∂»
-	int wlen = strlen(words[0]);				//«Û“ª∏ˆµ•¥ µƒµƒ≥§∂»£®“ÚŒ™≥§∂»œ‡Õ¨£©
-	int sum = 0;								
-	for (int i = 0; i < wordsSize; i++) {
-		sum += words[i][0];						//√ø∏ˆµ•¥  ◊◊÷ƒ∏ ASCII ¬Î∫Õ
-	}
-	for (int i = 0; i < wlen; i++) {
-		int times = (slen - i) / wlen - wordsSize + 1;		//ø…“‘“∆∂Øµƒ¥Œ ˝
-		int tmp = 0;										
-		for (int j = 0; j < (wordsSize - 1); j++) {
-			tmp += s[i + j * wlen];							//s ◊÷∑˚¥Æ“‘ wlen º‰∏Ùµƒ◊÷ƒ∏ ASCII ¬Î∫Õ£¨wordsSize - 1 ∏ˆ
-		}
-		for (int j = 0; j < times; j++) {
-			tmp += s[i + (j + wordsSize - 1) * wlen];		//º”…œ◊Ó∫Û“ª∏ˆ◊÷ƒ∏ ASCII ¬Î
-			if (tmp == sum) {								//œ‡µ»Àµ√˜ø…ƒ‹∆•≈‰
-				char flags[wordsSize];
-				memset(flags, 0, wordsSize);				//memset Ω´ flags µƒƒ⁄»›»´≤ø…Ë÷√ 0
-				for (int m = 0; m < wordsSize; m++) {		//s ◊÷∑˚¥Æº‰∏Ù
-					for (int n = 0; n < wordsSize; n++) {	//µ⁄ n ∏ˆµ•¥  
-						if ((flags[n] == 0) && (strncmp(&s[i + (j + m) * wlen], words[n], wlen) == 0)) {	//strncmp ◊÷∑˚¥Æ±»Ωœ∫Ø ˝£¨œ‡µ»∑µªÿ 0
-							flags[n] = 1;
-							break;
-						}
-					}
-				}
-				int ccc = 0;								//º«¬º∆•≈‰∏ˆ ˝
-				for (int m = 0; m < wordsSize; m++) {
-					if (flags[m] == 1) {
-						ccc++;
-					}
-				}
-				if (ccc == wordsSize) {						//»Áπ˚∆•≈‰∏ˆ ˝µ»”⁄µ•¥  ˝£¨Àµ√˜»´≤ø∆•≈‰
-					out[cnt++] = i + j * wlen;				//º«¬ºœ¬±Í
-				}
-			}
-			tmp -= s[i + j * wlen];							//ºı»•µ⁄“ª∏ˆ◊÷ƒ∏ ASCII ¬Î
-		}
-	}
-	*returnSize = cnt;										//÷∏’Îº«¬º∏ˆ ˝
-	return out;												//∑µªÿœ¬±Í ˝◊È
+    static int out[1000];
+    int        cnt = 0;
+    if (s == NULL || wordsSize == NULL || wordsSize <= 0) {
+        *returnSize = cnt; //‰∏∫Á©∫ÔºåËøîÂõû0
+        return out;
+    }
+    int slen = strlen(s);        //Ê±ÇÂ≠óÁ¨¶‰∏≤ s ÁöÑÈïøÂ∫¶
+    int wlen = strlen(words[0]); //Ê±Ç‰∏Ä‰∏™ÂçïËØçÁöÑÁöÑÈïøÂ∫¶ÔºàÂõ†‰∏∫ÈïøÂ∫¶Áõ∏ÂêåÔºâ
+    int sum  = 0;
+    for (int i = 0; i < wordsSize; i++) {
+        sum += words[i][0]; //ÊØè‰∏™ÂçïËØçÈ¶ñÂ≠óÊØç ASCII Á†ÅÂíå
+    }
+    for (int i = 0; i < wlen; i++) {
+        int times = (slen - i) / wlen - wordsSize + 1; //ÂèØ‰ª•ÁßªÂä®ÁöÑÊ¨°Êï∞
+        int tmp   = 0;
+        for (int j = 0; j < (wordsSize - 1); j++) {
+            tmp += s[i + j * wlen]; //s Â≠óÁ¨¶‰∏≤‰ª• wlen Èó¥ÈöîÁöÑÂ≠óÊØç ASCII Á†ÅÂíåÔºåwordsSize - 1 ‰∏™
+        }
+        for (int j = 0; j < times; j++) {
+            tmp += s[i + (j + wordsSize - 1) * wlen]; //Âä†‰∏äÊúÄÂêé‰∏Ä‰∏™Â≠óÊØç ASCII Á†Å
+            if (tmp == sum) {                         //Áõ∏Á≠âËØ¥ÊòéÂèØËÉΩÂåπÈÖç
+                char flags[wordsSize];
+                memset(flags, 0, wordsSize);                                                             //memset Â∞Ü flags ÁöÑÂÜÖÂÆπÂÖ®ÈÉ®ËÆæÁΩÆ 0
+                for (int m = 0; m < wordsSize; m++) {                                                    //s Â≠óÁ¨¶‰∏≤Èó¥Èöî
+                    for (int n = 0; n < wordsSize; n++) {                                                //Á¨¨ n ‰∏™ÂçïËØç
+                        if ((flags[n] == 0) && (strncmp(&s[i + (j + m) * wlen], words[n], wlen) == 0)) { //strncmp Â≠óÁ¨¶‰∏≤ÊØîËæÉÂáΩÊï∞ÔºåÁõ∏Á≠âËøîÂõû 0
+                            flags[n] = 1;
+                            break;
+                        }
+                    }
+                }
+                int ccc = 0; //ËÆ∞ÂΩïÂåπÈÖç‰∏™Êï∞
+                for (int m = 0; m < wordsSize; m++) {
+                    if (flags[m] == 1) {
+                        ccc++;
+                    }
+                }
+                if (ccc == wordsSize) {        //Â¶ÇÊûúÂåπÈÖç‰∏™Êï∞Á≠â‰∫éÂçïËØçÊï∞ÔºåËØ¥ÊòéÂÖ®ÈÉ®ÂåπÈÖç
+                    out[cnt++] = i + j * wlen; //ËÆ∞ÂΩï‰∏ãÊ†á
+                }
+            }
+            tmp -= s[i + j * wlen]; //ÂáèÂéªÁ¨¨‰∏Ä‰∏™Â≠óÊØç ASCII Á†Å
+        }
+    }
+    *returnSize = cnt; //ÊåáÈíàËÆ∞ÂΩï‰∏™Êï∞
+    return out;        //ËøîÂõû‰∏ãÊ†áÊï∞ÁªÑ
 }
 
 int main() {
-	char* s = (char*)"barfoothefoobarman";
-	char* words[2] = { "foo","bar" };
-	int wordsSize = 2;
-	int* returnSize = (int*)malloc(sizeof(int));
+    char* s          = (char*)"barfoothefoobarman";
+    char* words[2]   = {"foo", "bar"};
+    int   wordsSize  = 2;
+    int*  returnSize = (int*)malloc(sizeof(int));
 
-	int* res = findSubstring(s, words, wordsSize, returnSize);
-	for (int i = 0; i < *returnSize; i++) {
-		printf("%d", res[i]);
-	}
+    int* res = findSubstring(s, words, wordsSize, returnSize);
+    for (int i = 0; i < *returnSize; i++) {
+        printf("%d", res[i]);
+    }
 
-	return 0;
+    return 0;
 }

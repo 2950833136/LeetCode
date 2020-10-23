@@ -1,82 +1,82 @@
-#include<stdio.h>
-#include<malloc.h>
+#include <malloc.h>
+#include <stdio.h>
 
 struct ListNode {
-	int val;
-	struct ListNode* next;
+    int              val;
+    struct ListNode* next;
 };
 
-//Î²²å·¨
+//å°¾æ’æ³•
 void CreateListR(struct ListNode*& L, int array[], int n) {
-	struct ListNode* s, * r;
-	L = (struct ListNode*)malloc(sizeof(struct ListNode));	//´´½¨Í·½áµã
-	r = L;										//r Ê¼ÖÕÖ¸ÏòÎ²½áµã£¬³õÊ¼Ê±Ö¸ÏòÍ·½áµã £¨Í·½áµãĞòºÅÎª 0£© 
-	for (int i = 0; i < n; i++) {				//Ñ­»·½¨Á¢Êı¾İ½Úµã s
-		s = (struct ListNode*)malloc(sizeof(struct ListNode));
-		s->val = array[i];						//¸³Öµ 
-		r->next = s;							//½«½áµã s ²åÈëµ½½áµã r Ö®ºó 
-		r = s;
-	}
-	r->next = NULL;								//Î²½áµãÆä next ÓòÖÃÎª NULL 
+    struct ListNode *s, *r;
+    L = (struct ListNode*)malloc(sizeof(struct ListNode)); //åˆ›å»ºå¤´ç»“ç‚¹
+    r = L;                                                 //r å§‹ç»ˆæŒ‡å‘å°¾ç»“ç‚¹ï¼Œåˆå§‹æ—¶æŒ‡å‘å¤´ç»“ç‚¹ ï¼ˆå¤´ç»“ç‚¹åºå·ä¸º 0ï¼‰
+    for (int i = 0; i < n; i++) {                          //å¾ªç¯å»ºç«‹æ•°æ®èŠ‚ç‚¹ s
+        s       = (struct ListNode*)malloc(sizeof(struct ListNode));
+        s->val  = array[i]; //èµ‹å€¼
+        r->next = s;        //å°†ç»“ç‚¹ s æ’å…¥åˆ°ç»“ç‚¹ r ä¹‹å
+        r       = s;
+    }
+    r->next = NULL; //å°¾ç»“ç‚¹å…¶ next åŸŸç½®ä¸º NULL
 }
 
-//Êä³öÏßĞÔ±í
+//è¾“å‡ºçº¿æ€§è¡¨
 void Display(ListNode* L) {
-	ListNode* p = L;							//p Ö¸ÏòÊ×½áµã £¨Ê×½áµãĞòºÅÎª 1£© 
-	while (p != NULL) {							//²»Îª¿Õ£¬ÒÀ´Î±éÀú 
-		printf("%d ", p->val);
-		p = p->next;							//p ÒÆÏòÏÂÒ»¸ö½Úµã 
-	}
-	printf("\n");
+    ListNode* p = L;    //p æŒ‡å‘é¦–ç»“ç‚¹ ï¼ˆé¦–ç»“ç‚¹åºå·ä¸º 1ï¼‰
+    while (p != NULL) { //ä¸ä¸ºç©ºï¼Œä¾æ¬¡éå†
+        printf("%d ", p->val);
+        p = p->next; //p ç§»å‘ä¸‹ä¸€ä¸ªèŠ‚ç‚¹
+    }
+    printf("\n");
 }
 
 struct ListNode* reverse(struct ListNode* head) {
-	struct ListNode* pre = NULL;				//¶¨ÒåÒ»¸ö½Úµã 
-	struct ListNode* curr = head;				//curr ±íÊ¾Á´±í 
-	while (curr != NULL) {
-		struct ListNode* next = curr->next;		//¼ÇÂ¼Ï´Ò»¸ö½Úµã
+    struct ListNode* pre  = NULL; //å®šä¹‰ä¸€ä¸ªèŠ‚ç‚¹
+    struct ListNode* curr = head; //curr è¡¨ç¤ºé“¾è¡¨
+    while (curr != NULL) {
+        struct ListNode* next = curr->next; //è®°å½•æ´—ä¸€ä¸ªèŠ‚ç‚¹
 
-		curr->next = pre;						//µ±Ç°½ÚµãÁ¬½Óµ½ pre Ç°Ãæ
-		pre = curr;								//pre ÏòÇ°ÒÆ¶¯
-		
-		curr = next;							//curr Ö¸ÏòÏÂÒ»¸ö½Úµã
-	}
-	return pre;	
+        curr->next = pre;  //å½“å‰èŠ‚ç‚¹è¿æ¥åˆ° pre å‰é¢
+        pre        = curr; //pre å‘å‰ç§»åŠ¨
+
+        curr = next; //curr æŒ‡å‘ä¸‹ä¸€ä¸ªèŠ‚ç‚¹
+    }
+    return pre;
 }
 
 struct ListNode* reverseKGroup(struct ListNode* head, int k) {
-	struct ListNode* dummy = (struct ListNode*)malloc(sizeof(struct ListNode));
-	dummy->next = head;
-	struct ListNode* pre = dummy;				//¼ÇÂ¼Ç°Çı½Úµã 
-	struct ListNode* post = dummy;				//¼ÇÂ¼ºó¼Ì½Úµã 
+    struct ListNode* dummy = (struct ListNode*)malloc(sizeof(struct ListNode));
+    dummy->next            = head;
+    struct ListNode* pre   = dummy; //è®°å½•å‰é©±èŠ‚ç‚¹
+    struct ListNode* post  = dummy; //è®°å½•åç»§èŠ‚ç‚¹
 
-	while (post->next != NULL) {
-		for (int i = 0; i < k && post != NULL; i++) {
-			post = post->next;					//ºó¼Ì½ÚµãÏòºóÒÆ¶¯ k Î» 
-		}
-		if (post == NULL) {						//Ìø³öÑ­»·£¬×îºóÊ£ÓàµÄ½Úµã±£³ÖÔ­ÓĞË³Ğò 
-			break;
-		}
-		struct ListNode* start = pre->next;		//¿ªÊ¼½ÚµãÊÇÇ°Çı½Úµã 
-		struct ListNode* next = post->next;		//¼ÇÂ¼ÏÂÒ»¸ö¿ªÊ¼½Úµã 
-		post->next = NULL;						//°Ñ k ¸ö½Úµã·â×°³ÉÒ»¸öÁ´±í 
-		pre->next = reverse(start);				//·´×ªÕâ k ¸ö½ÚµãµÄÁ´±í£¬²¢Á¬µ½ pre ºóÃæ
-		
-		start->next = next;						//ÏÂÒ»´Î¿ªÊ¼½Úµã
-		pre = start;							//ÏÂÒ»´ÎÇ°Çı½Úµã 
-		post = start;							//ÏÂÒ»´Îºó¼Ì½Úµã 
-	}
-	return dummy->next;
+    while (post->next != NULL) {
+        for (int i = 0; i < k && post != NULL; i++) {
+            post = post->next; //åç»§èŠ‚ç‚¹å‘åç§»åŠ¨ k ä½
+        }
+        if (post == NULL) { //è·³å‡ºå¾ªç¯ï¼Œæœ€åå‰©ä½™çš„èŠ‚ç‚¹ä¿æŒåŸæœ‰é¡ºåº
+            break;
+        }
+        struct ListNode* start = pre->next;      //å¼€å§‹èŠ‚ç‚¹æ˜¯å‰é©±èŠ‚ç‚¹
+        struct ListNode* next  = post->next;     //è®°å½•ä¸‹ä¸€ä¸ªå¼€å§‹èŠ‚ç‚¹
+        post->next             = NULL;           //æŠŠ k ä¸ªèŠ‚ç‚¹å°è£…æˆä¸€ä¸ªé“¾è¡¨
+        pre->next              = reverse(start); //åè½¬è¿™ k ä¸ªèŠ‚ç‚¹çš„é“¾è¡¨ï¼Œå¹¶è¿åˆ° pre åé¢
+
+        start->next = next;  //ä¸‹ä¸€æ¬¡å¼€å§‹èŠ‚ç‚¹
+        pre         = start; //ä¸‹ä¸€æ¬¡å‰é©±èŠ‚ç‚¹
+        post        = start; //ä¸‹ä¸€æ¬¡åç»§èŠ‚ç‚¹
+    }
+    return dummy->next;
 }
 
 int main() {
-	struct ListNode* L = (struct ListNode*)malloc(sizeof(struct ListNode));
-	int array[] = { 1,2,3,4,5 };
-	int n = sizeof(array) / sizeof(array[0]);
-	int k = 3;
-	CreateListR(L, array, n);
-	Display(L->next);
-	struct ListNode* reverseK = reverseKGroup(L->next, k);
-	Display(reverseK);
-	return 0;
+    struct ListNode* L       = (struct ListNode*)malloc(sizeof(struct ListNode));
+    int              array[] = {1, 2, 3, 4, 5};
+    int              n       = sizeof(array) / sizeof(array[0]);
+    int              k       = 3;
+    CreateListR(L, array, n);
+    Display(L->next);
+    struct ListNode* reverseK = reverseKGroup(L->next, k);
+    Display(reverseK);
+    return 0;
 }

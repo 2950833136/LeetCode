@@ -1,26 +1,26 @@
-#include <stdio.h> 
 #include <malloc.h>
+#include <stdio.h>
 
-int removeDuplicates(int* nums, int numsSize) {		//Ë«Ö¸ÕëÇó½â 
-	if (numsSize == 0) {
-		return 0;
-	}
-	int n = 0;										//n ¼ÇÂ¼ÖØĞÂ×éºÏÊı×éÏÂ±ê 
-	for (int i = 1; i < numsSize; i++) {			//i ¼ÇÂ¼Ô­Ê¼Êı×éÏÂ±ê 
-		if (nums[i] != nums[i - 1]) {				//Èç¹û²»µÈÓÚ¾Í°ÑÔ­Ê¼Êı×éµ±Ç°Öµ¸³¸øÖØĞÂ×éºÏÊı×é 
-			n++;
-			nums[n] = nums[i];
-		}
-	}
-	return n + 1;
+int removeDuplicates(int* nums, int numsSize) { //åŒæŒ‡é’ˆæ±‚è§£
+    if (numsSize == 0) {
+        return 0;
+    }
+    int n = 0;                           //n è®°å½•é‡æ–°ç»„åˆæ•°ç»„ä¸‹æ ‡
+    for (int i = 1; i < numsSize; i++) { //i è®°å½•åŸå§‹æ•°ç»„ä¸‹æ ‡
+        if (nums[i] != nums[i - 1]) {    //å¦‚æœä¸ç­‰äºå°±æŠŠåŸå§‹æ•°ç»„å½“å‰å€¼èµ‹ç»™é‡æ–°ç»„åˆæ•°ç»„
+            n++;
+            nums[n] = nums[i];
+        }
+    }
+    return n + 1;
 }
 
 int main() {
-	int nums[] = { 0,0,1,1,1,2,2,3,3,4 };
-	int numsSize = sizeof(nums) / sizeof(int);
-	int n = removeDuplicates(nums, numsSize);
-	for (int i = 0; i < n; i++) {
-		printf("%d ", nums[i]);
-	}
-	return 0;
+    int nums[]   = {0, 0, 1, 1, 1, 2, 2, 3, 3, 4};
+    int numsSize = sizeof(nums) / sizeof(int);
+    int n        = removeDuplicates(nums, numsSize);
+    for (int i = 0; i < n; i++) {
+        printf("%d ", nums[i]);
+    }
+    return 0;
 }

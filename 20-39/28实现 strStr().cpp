@@ -1,45 +1,45 @@
-#include <stdio.h> 
 #include <malloc.h>
-#include <string.h> 
+#include <stdio.h>
+#include <string.h>
 
 int strStr(char* haystack, char* needle) {
-	if (needle[0] == '\0') {		//needle Œ™ø’∑µªÿ 0 
-		return 0;
-	}
+    if (needle[0] == '\0') { //needle ‰∏∫Á©∫ËøîÂõû 0
+        return 0;
+    }
 
-	int len1 = strlen(haystack);	//ªÒ»°◊÷∑˚¥Æ≥§∂» 
-	int len2 = strlen(needle);
+    int len1 = strlen(haystack); //Ëé∑ÂèñÂ≠óÁ¨¶‰∏≤ÈïøÂ∫¶
+    int len2 = strlen(needle);
 
-	if (len2 > len1) {				 
-		return -1;
-	}
+    if (len2 > len1) {
+        return -1;
+    }
 
-	int i;							//∂®“Â≥§∂»≤Ó£¨needle◊Ó∂‡“∆º∏¥Œ 
-	int j;							//±»Ωœ «∑Òœ‡µ» 
-	for (i = 0; i <= (len1 - len2); i++) {
-		for (j = 0; j < len2; j++) {
-			if (haystack[i + j] != needle[j]) {
-				break;				//“ª∏ˆ≤ªœ‡µ»æÕÕÀ≥ˆ 
-			}
-		}
-		if (j == len2) {			//ÕÍ»´∞¸¿®£¨∑µªÿœ‡µ»ø™ ºµƒœ¬±Í 
-			return i;
-		}
-	}
+    int i; //ÂÆö‰πâÈïøÂ∫¶Â∑ÆÔºåneedleÊúÄÂ§öÁßªÂá†Ê¨°
+    int j; //ÊØîËæÉÊòØÂê¶Áõ∏Á≠â
+    for (i = 0; i <= (len1 - len2); i++) {
+        for (j = 0; j < len2; j++) {
+            if (haystack[i + j] != needle[j]) {
+                break; //‰∏Ä‰∏™‰∏çÁõ∏Á≠âÂ∞±ÈÄÄÂá∫
+            }
+        }
+        if (j == len2) { //ÂÆåÂÖ®ÂåÖÊã¨ÔºåËøîÂõûÁõ∏Á≠âÂºÄÂßãÁöÑ‰∏ãÊ†á
+            return i;
+        }
+    }
 
-	return -1;
+    return -1;
 }
 
 int main() {
-	char* haystack = (char*)malloc(sizeof(char) * 100);
-	char* needle = (char*)malloc(sizeof(char) * 100);
-	printf("«Î ‰»Î haystack: ");
-	scanf("%s", haystack);
-	printf("«Î ‰»Î needle  : ");
-	scanf("%s", needle);
+    char* haystack = (char*)malloc(sizeof(char) * 100);
+    char* needle   = (char*)malloc(sizeof(char) * 100);
+    printf("ËØ∑ËæìÂÖ• haystack: ");
+    scanf("%s", haystack);
+    printf("ËØ∑ËæìÂÖ• needle  : ");
+    scanf("%s", needle);
 
-	int n = strStr(haystack, needle);
-	printf("%d", n);
+    int n = strStr(haystack, needle);
+    printf("%d", n);
 
-	return 0;
+    return 0;
 }

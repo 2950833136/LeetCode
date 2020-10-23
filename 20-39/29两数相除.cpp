@@ -4,45 +4,44 @@
 #define INT_MIN -2147483648
 
 int divide(int dividend, int divisor) {
-	int res = 0;
-	bool flag = (dividend ^ divisor) < 0;			//ÅÐ¶Ï·ûºÅÊÇ·ñÏàÍ¬£¬ÏàÍ¬Îª0£¬²»Í¬Îª1£¨¶þ½øÖÆÒì»ò£©
-	if (divisor == 1) {								//³ýÊýÎª 1£¬²»±ä
-		return dividend;
-	}
-	if (divisor == INT_MIN) {					
-		return dividend == INT_MIN ? 1 : 0;			//³ýÊýÌØÊâÖµ
-	}
+    int  res  = 0;
+    bool flag = (dividend ^ divisor) < 0; //åˆ¤æ–­ç¬¦å·æ˜¯å¦ç›¸åŒï¼Œç›¸åŒä¸º0ï¼Œä¸åŒä¸º1ï¼ˆäºŒè¿›åˆ¶å¼‚æˆ–ï¼‰
+    if (divisor == 1) {                   //é™¤æ•°ä¸º 1ï¼Œä¸å˜
+        return dividend;
+    }
+    if (divisor == INT_MIN) {
+        return dividend == INT_MIN ? 1 : 0; //é™¤æ•°ç‰¹æ®Šå€¼
+    }
 
-	if (dividend == INT_MIN) {						//±»³ýÊýÌØÊâÖµ
-		if (divisor == -1) {						//Òç³ö
-			return INT_MAX;
-		}
-		else {										//ÎªºóÃæÈ¡ÕýÊý£¬¼ÆËãdividend
-			dividend = divisor < 0 ? dividend - divisor : INT_MAX - divisor + 1;
-			res = 1;
-		}
-	}
-	dividend = dividend < 0 ? -dividend : dividend;	//È¡ÕýÊý
-	divisor = divisor < 0 ? -divisor : divisor;
-	for (int i = 31; i >= 0; i--) {					//ÀàËÆÌ°ÐÄËã·¨£¬ÒÆÎ»Çó½â
-		if (dividend >> i >= divisor) {
-			res += 1 << i;
-			dividend -= divisor << i;
-		}
-	}
-	return flag ? -res : res;						//1Îª¸º£¬0ÎªÕý
+    if (dividend == INT_MIN) { //è¢«é™¤æ•°ç‰¹æ®Šå€¼
+        if (divisor == -1) {   //æº¢å‡º
+            return INT_MAX;
+        } else { //ä¸ºåŽé¢å–æ­£æ•°ï¼Œè®¡ç®—dividend
+            dividend = divisor < 0 ? dividend - divisor : INT_MAX - divisor + 1;
+            res      = 1;
+        }
+    }
+    dividend = dividend < 0 ? -dividend : dividend; //å–æ­£æ•°
+    divisor  = divisor < 0 ? -divisor : divisor;
+    for (int i = 31; i >= 0; i--) { //ç±»ä¼¼è´ªå¿ƒç®—æ³•ï¼Œç§»ä½æ±‚è§£
+        if (dividend >> i >= divisor) {
+            res += 1 << i;
+            dividend -= divisor << i;
+        }
+    }
+    return flag ? -res : res; //1ä¸ºè´Ÿï¼Œ0ä¸ºæ­£
 }
 
 int main() {
-	int dividend;
-	int divisor;
-	printf("ÇëÊäÈë dividend: ");
-	scanf("%d", &dividend);
-	printf("ÇëÊäÈë divisor : ");
-	scanf("%d", &divisor);
+    int dividend;
+    int divisor;
+    printf("è¯·è¾“å…¥ dividend: ");
+    scanf("%d", &dividend);
+    printf("è¯·è¾“å…¥ divisor : ");
+    scanf("%d", &divisor);
 
-	int res = divide(dividend, divisor);
-	printf("%d", res);
+    int res = divide(dividend, divisor);
+    printf("%d", res);
 
-	return 0;
+    return 0;
 }

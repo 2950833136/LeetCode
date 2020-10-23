@@ -1,52 +1,52 @@
 #define _CRT_SECURE_NO_WARNINGS
 
-#include<stdio.h>
-#include<malloc.h>
-#include<string.h>
+#include <malloc.h>
+#include <stdio.h>
+#include <string.h>
 
 void dfs(char** result, char* str, int left, int right, int n, int* returnSize) {
-	if ((left + right) == 2 * n) {							//½áÊø£¬×îÖÕ½á¹û 
-		result[*returnSize] = (char*)malloc(sizeof(char*) * (2 * n + 1));
-		memcpy(result[*returnSize], str, 2 * n);			//¿½±´ºÏÀíµÄ str µ½ result 
-		result[*returnSize][2 * n] = '\0';					//½ØÖÁ·û 
-		*returnSize = *returnSize + 1;						//Ã¿Íê³ÉÒ»¸ö£¬¼ÆÊı¼Ó 1 
-		return;
-	}
-	if (left < n) {											//ÒªÊÇÀ¨ºÅºÏÀí£¬ÓÅÏÈ¿¼ÂÇ×óÀ¨ºÅ£¨×óÀ¨ºÅÊı >= ÓÒÀ¨ºÅÊı£© 
-		strcat(str, "(");									//×·¼Ó¿½±´ 
-		dfs(result, str, left + 1, right, n, returnSize);	//µİ¹é 
-		str[left + right] = '\0';
-	}
-	if (left > right) {										//Í¬Àí 
-		strcat(str, ")");
-		dfs(result, str, left, right + 1, n, returnSize);
-		str[left + right] = '\0';
-	}
+    if ((left + right) == 2 * n) { //ç»“æŸï¼Œæœ€ç»ˆç»“æœ
+        result[*returnSize] = (char*)malloc(sizeof(char*) * (2 * n + 1));
+        memcpy(result[*returnSize], str, 2 * n);      //æ‹·è´åˆç†çš„ str åˆ° result
+        result[*returnSize][2 * n] = '\0';            //æˆªè‡³ç¬¦
+        *returnSize                = *returnSize + 1; //æ¯å®Œæˆä¸€ä¸ªï¼Œè®¡æ•°åŠ  1
+        return;
+    }
+    if (left < n) {                                       //è¦æ˜¯æ‹¬å·åˆç†ï¼Œä¼˜å…ˆè€ƒè™‘å·¦æ‹¬å·ï¼ˆå·¦æ‹¬å·æ•° >= å³æ‹¬å·æ•°ï¼‰
+        strcat(str, "(");                                 //è¿½åŠ æ‹·è´
+        dfs(result, str, left + 1, right, n, returnSize); //é€’å½’
+        str[left + right] = '\0';
+    }
+    if (left > right) { //åŒç†
+        strcat(str, ")");
+        dfs(result, str, left, right + 1, n, returnSize);
+        str[left + right] = '\0';
+    }
 }
 
 char** generateParenthesis(int n, int* returnSize) {
-	char** result = (char**)malloc(sizeof(char*) * 1500);		// ·ÖÅä¿Õ¼ä 
-	char* outStr = (char*)malloc(sizeof(char) * (n * 2 + 1));	//£¨2n+1£© ¶à¸ö½ØÖÁ·û 
-	*outStr = 0;												//¸³³õÖµ 
-	*returnSize = 0;
-	
-	dfs(result, outStr, 0, 0, n, returnSize);					//Éî¶ÈÓÅÏÈ±éÀú 
+    char** result = (char**)malloc(sizeof(char*) * 1500);      // åˆ†é…ç©ºé—´
+    char*  outStr = (char*)malloc(sizeof(char) * (n * 2 + 1)); //ï¼ˆ2n+1ï¼‰ å¤šä¸ªæˆªè‡³ç¬¦
+    *outStr       = 0;                                         //èµ‹åˆå€¼
+    *returnSize   = 0;
 
-	return result;
+    dfs(result, outStr, 0, 0, n, returnSize); //æ·±åº¦ä¼˜å…ˆéå†
+
+    return result;
 }
 
 int main() {
-	int n = 0;
-	int* returnSize = (int*)malloc(sizeof(int) * 1);
-	printf("ÇëÊäÈëÀ¨ºÅ¶ÔÊı\n");
-	scanf("%d", &n);
+    int  n          = 0;
+    int* returnSize = (int*)malloc(sizeof(int) * 1);
+    printf("è¯·è¾“å…¥æ‹¬å·å¯¹æ•°\n");
+    scanf("%d", &n);
 
-	char** ans = generateParenthesis(n, returnSize);
-	for (int i = 0; i < *returnSize; i++) {
-		for (int j = 0; j < 2 * n + 1; j++) {
-			printf("%c", ans[i][j]);
-		}
-		printf("\n");
-	}
-	return 0;
+    char** ans = generateParenthesis(n, returnSize);
+    for (int i = 0; i < *returnSize; i++) {
+        for (int j = 0; j < 2 * n + 1; j++) {
+            printf("%c", ans[i][j]);
+        }
+        printf("\n");
+    }
+    return 0;
 }
