@@ -1,6 +1,6 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<limits.h>
+#include <limits.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 //bool isPalindrome(int x){
 //    if (x < 0) {
@@ -21,34 +21,33 @@
 //    return rev == old;
 //}
 
-bool isPalindrome(int x){
-	// ÌØÊâÇé¿ö£º
-    // ÈçÉÏËùÊö£¬µ± x < 0 Ê±£¬x ²»ÊÇ»ØÎÄÊı¡£
-    // Í¬ÑùµØ£¬Èç¹ûÊı×ÖµÄ×îºóÒ»Î»ÊÇ 0£¬ÎªÁËÊ¹¸ÃÊı×ÖÎª»ØÎÄ£¬
-    // ÔòÆäµÚÒ»Î»Êı×ÖÒ²Ó¦¸ÃÊÇ 0
-    // Ö»ÓĞ 0 Âú×ãÕâÒ»ÊôĞÔ
-	if(x < 0 || (x % 10 == 0 && x != 0)) {
+bool isPalindrome(int x) {
+    // ç‰¹æ®Šæƒ…å†µï¼š
+    // å¦‚ä¸Šæ‰€è¿°ï¼Œå½“ x < 0 æ—¶ï¼Œx ä¸æ˜¯å›æ–‡æ•°ã€‚
+    // åŒæ ·åœ°ï¼Œå¦‚æœæ•°å­—çš„æœ€åä¸€ä½æ˜¯ 0ï¼Œä¸ºäº†ä½¿è¯¥æ•°å­—ä¸ºå›æ–‡ï¼Œ
+    // åˆ™å…¶ç¬¬ä¸€ä½æ•°å­—ä¹Ÿåº”è¯¥æ˜¯ 0
+    // åªæœ‰ 0 æ»¡è¶³è¿™ä¸€å±æ€§
+    if (x < 0 || (x % 10 == 0 && x != 0)) {
         return false;
     }
 
     int revertedNumber = 0;
-    while(x > revertedNumber) {
+    while (x > revertedNumber) {
         revertedNumber = revertedNumber * 10 + x % 10;
         x /= 10;
     }
-    // µ±Êı×Ö³¤¶ÈÎªÆæÊıÊ±£¬ÎÒÃÇ¿ÉÒÔÍ¨¹ı revertedNumber/10 È¥³ı´¦ÓÚÖĞÎ»µÄÊı×Ö¡£
-    // ÀıÈç£¬µ±ÊäÈëÎª 12321 Ê±£¬ÔÚ while Ñ­»·µÄÄ©Î²ÎÒÃÇ¿ÉÒÔµÃµ½ x = 12£¬revertedNumber = 123£¬
-    // ÓÉÓÚ´¦ÓÚÖĞÎ»µÄÊı×Ö²»Ó°Ïì»ØÎÄ£¨Ëü×ÜÊÇÓë×Ô¼ºÏàµÈ£©£¬ËùÒÔÎÒÃÇ¿ÉÒÔ¼òµ¥µØ½«ÆäÈ¥³ı¡£
-    return x == revertedNumber || x == revertedNumber/10;
+    // å½“æ•°å­—é•¿åº¦ä¸ºå¥‡æ•°æ—¶ï¼Œæˆ‘ä»¬å¯ä»¥é€šè¿‡ revertedNumber/10 å»é™¤å¤„äºä¸­ä½çš„æ•°å­—ã€‚
+    // ä¾‹å¦‚ï¼Œå½“è¾“å…¥ä¸º 12321 æ—¶ï¼Œåœ¨ while å¾ªç¯çš„æœ«å°¾æˆ‘ä»¬å¯ä»¥å¾—åˆ° x = 12ï¼ŒrevertedNumber = 123ï¼Œ
+    // ç”±äºå¤„äºä¸­ä½çš„æ•°å­—ä¸å½±å“å›æ–‡ï¼ˆå®ƒæ€»æ˜¯ä¸è‡ªå·±ç›¸ç­‰ï¼‰ï¼Œæ‰€ä»¥æˆ‘ä»¬å¯ä»¥ç®€å•åœ°å°†å…¶å»é™¤ã€‚
+    return x == revertedNumber || x == revertedNumber / 10;
 }
 
-int main(){
-	int num=12321;
-	if(isPalindrome(num)==true){
-		printf("true");
-	}
-	else{
-		printf("false");
-	}
-	return 0;
-} 
+int main() {
+    int num = 12321;
+    if (isPalindrome(num) == true) {
+        printf("true");
+    } else {
+        printf("false");
+    }
+    return 0;
+}

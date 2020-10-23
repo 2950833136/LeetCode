@@ -1,8 +1,8 @@
-#include<stdio.h>
-#include<string.h>
-#include<malloc.h>
+#include <malloc.h>
+#include <stdio.h>
+#include <string.h>
 
-//µÚÒ»ÖÖ½â·¨ £¨È«²¿±éÀú£© 
+//ç¬¬ä¸€ç§è§£æ³• ï¼ˆå…¨éƒ¨éå†ï¼‰
 //int min(int x,int y){
 //	return x<y?x:y;
 //}
@@ -22,30 +22,29 @@
 //	return res;
 //}
 
-//µÚ¶şÖÖ½â·¨ £¨Ë«Ö¸ÕëÇó½â£© 
-int maxArea(int* height, int heightSize){
-	int left = 0;
-	int right = heightSize-1;
-	int Area=0,maxArea=0;
-	while(left<right){
-	    if(height[left] > height[right]){
-	        Area = (right-left)*height[right];
-	        right--;
-	    }
-	    else{
-	        Area = (right-left)*height[left];
-	        left++;
-	    }
-	    maxArea=Area>maxArea?Area:maxArea;
-	}
-	return maxArea;
+//ç¬¬äºŒç§è§£æ³• ï¼ˆåŒæŒ‡é’ˆæ±‚è§£ï¼‰
+int maxArea(int* height, int heightSize) {
+    int left  = 0;
+    int right = heightSize - 1;
+    int Area = 0, maxArea = 0;
+    while (left < right) {
+        if (height[left] > height[right]) {
+            Area = (right - left) * height[right];
+            right--;
+        } else {
+            Area = (right - left) * height[left];
+            left++;
+        }
+        maxArea = Area > maxArea ? Area : maxArea;
+    }
+    return maxArea;
 }
 
-int main(){
-	int height[]={1,8,6,2,5,4,8,3,7};
-	int *heights=(int*)height;
-	int heightSize=sizeof(height)/sizeof(int);
-	int max=maxArea(heights,heightSize);
-	printf("%d\n",max);
-	return 0;
-} 
+int main() {
+    int  height[]   = {1, 8, 6, 2, 5, 4, 8, 3, 7};
+    int* heights    = (int*)height;
+    int  heightSize = sizeof(height) / sizeof(int);
+    int  max        = maxArea(heights, heightSize);
+    printf("%d\n", max);
+    return 0;
+}

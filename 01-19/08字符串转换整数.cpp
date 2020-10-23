@@ -1,42 +1,49 @@
-#include<stdio.h>
-#include<string.h>
-#include<limits.h>
+#include <limits.h>
+#include <stdio.h>
+#include <string.h>
 
-int myAtoi(char *str) {
-	int key = 0;					//¼ÇÂ¼×Ö·û´®ÏÂ±ê
-	int N = strlen(str);			//¼ÇÂ¼×Ö·û´®³¤¶È
-	int sign = 1;					//¼ÇÂ¼·ûºÅ
-	int ret = 0;					//¼ÇÂ¼½á¹û
-	// 1¡¢Ìø¹ı×Ö·û´®Ç°ÃæµÄ¿Õ¸ñ
-	while (key < N && str[key] == ' ') key++;
+int myAtoi(char* str) {
+    int key  = 0;           //è®°å½•å­—ç¬¦ä¸²ä¸‹æ ‡
+    int N    = strlen(str); //è®°å½•å­—ç¬¦ä¸²é•¿åº¦
+    int sign = 1;           //è®°å½•ç¬¦å·
+    int ret  = 0;           //è®°å½•ç»“æœ
+    // 1ã€è·³è¿‡å­—ç¬¦ä¸²å‰é¢çš„ç©ºæ ¼
+    while (key < N && str[key] == ' ')
+        key++;
 
-	// 2.1¡¢²»´æÔÚ·Ç¿Õ¸ñ×Ö·ûc
-	if (key == N) return 0;
-	// 2.2¡¢cÎª'-'
-	else if (str[key] == '-') sign = -1;
-	// 2.2¡¢cÎª'+'
-	else if (str[key] == '+') sign = 1;
-	// 2.4¡¢cÎªÊı×Ö
-	else if ('0' <= str[key] && str[key] <= '9') ret = str[key] - '0';
-	// 2.5¡¢ÆäËüÇé¿ö
-	else 
-		return 0;
+    // 2.1ã€ä¸å­˜åœ¨éç©ºæ ¼å­—ç¬¦c
+    if (key == N)
+        return 0;
+    // 2.2ã€cä¸º'-'
+    else if (str[key] == '-')
+        sign = -1;
+    // 2.2ã€cä¸º'+'
+    else if (str[key] == '+')
+        sign = 1;
+    // 2.4ã€cä¸ºæ•°å­—
+    else if ('0' <= str[key] && str[key] <= '9')
+        ret = str[key] - '0';
+    // 2.5ã€å…¶å®ƒæƒ…å†µ
+    else
+        return 0;
 
-	// 3¡¢¼ÌĞø´¦ÀícºóÃæµÄÊı×Ö×Ö·û
-	while (key++ < N && '0' <= str[key] && str[key] <= '9') {
-		int t = (str[key] - '0') * sign;
-		// Èç¹û½á¹û´óÓÚINT_MAX£¬·µ»ØINT_MAX
-		if (ret > INT_MAX / 10 || ret == INT_MAX / 10 && t > 7) return INT_MAX;
-		// Èç¹û½á¹ûĞ¡ÓÚINT_MIN£¬·µ»ØINT_MIN
-		if (ret < INT_MIN / 10 || ret == INT_MIN / 10 && t < -8) return INT_MIN;
-		ret = ret * 10 + t;
-	}
-	return ret;
+    // 3ã€ç»§ç»­å¤„ç†cåé¢çš„æ•°å­—å­—ç¬¦
+    while (key++ < N && '0' <= str[key] && str[key] <= '9') {
+        int t = (str[key] - '0') * sign;
+        // å¦‚æœç»“æœå¤§äºINT_MAXï¼Œè¿”å›INT_MAX
+        if (ret > INT_MAX / 10 || ret == INT_MAX / 10 && t > 7)
+            return INT_MAX;
+        // å¦‚æœç»“æœå°äºINT_MINï¼Œè¿”å›INT_MIN
+        if (ret < INT_MIN / 10 || ret == INT_MIN / 10 && t < -8)
+            return INT_MIN;
+        ret = ret * 10 + t;
+    }
+    return ret;
 }
 
-int main(){
-	char *str =(char*) "4193 with words";
-	int x = myAtoi(str);
-	printf("%d", x);
-	return 0;
+int main() {
+    char* str = (char*)"4193 with words";
+    int   x   = myAtoi(str);
+    printf("%d", x);
+    return 0;
 }

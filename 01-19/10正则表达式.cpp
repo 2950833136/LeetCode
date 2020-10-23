@@ -1,6 +1,6 @@
-#include<stdio.h>
-#include<string.h>
-#include<malloc.h> 
+#include <malloc.h>
+#include <stdio.h>
+#include <string.h>
 
 //bool dp(int i,int j,char *s,char *p){
 //	bool ans;
@@ -11,7 +11,7 @@
 //		bool first_match = (i < strlen(s) && (p[j] == s[i] || p[j] == '.'));
 //	    if (j + 1 < strlen(p) && p[j+1] == '*'){
 //	        ans = (dp(i, j+2, s, p) || first_match && dp(i+1, j, s, p));
-//	    } 
+//	    }
 //		else {
 //	        ans = first_match && dp(i+1, j+1, s, p);
 //	    }
@@ -19,63 +19,61 @@
 //	return ans;
 //}
 
-bool isMatch(char * s, char * p){
-	int row = strlen(s);	//ÐÐ 
-	int col = strlen(p);	//ÁÐ 
-	int i, j, ret;
-	//·ÖÅä¿Õ¼ä£¬È«²¿³õÊ¼»¯Îª 0 
-	int **dp = (int**)malloc(sizeof(int*)*(row+1));
-	for(i = 0; i < row+1; i++) {
-	      dp[i] = (int*)malloc(sizeof(int)*(col+1));
-		  memset(dp[i], 0, col+1);
-	}
-	//ÆðÊ¼³õÊ¼»¯Îª 1
-	dp[0][0] = 1;
-	//ÒòÎª '*' Æ¥ÅäÁã¸ö»ò¶à¸öÇ°ÃæµÄÄÇÒ»¸öÔªËØ£¬ËùÒÔÈç¹û s Ã»ÓÐ£¬µ« p Îª 'p*' £¬¾Í»¹ÊÇÎªÕæ 
-	for(j = 1; j < col+1; j++) {
-      	if(p[j-1] == '*' && dp[0][j-2] == 1){
-      		dp[0][j] = 1;
-		}
+bool isMatch(char* s, char* p) {
+    int row = strlen(s); //è¡Œ
+    int col = strlen(p); //åˆ—
+    int i, j, ret;
+    //åˆ†é…ç©ºé—´ï¼Œå…¨éƒ¨åˆå§‹åŒ–ä¸º 0
+    int** dp = (int**)malloc(sizeof(int*) * (row + 1));
+    for (i = 0; i < row + 1; i++) {
+        dp[i] = (int*)malloc(sizeof(int) * (col + 1));
+        memset(dp[i], 0, col + 1);
     }
-	//Ñ­»·Æ¥Åä 
-	for(i = 1; i < row+1; i++) {
-		for(j = 1; j < col+1; j++) {
-			// '.' Æ¥ÅäÈÎÒâµ¥¸ö×Ö·û
-			if(p[j-1] == '.' && dp[i-1][j-1] == 1) {
-			    dp[i][j] = 1;
-			} 
-			// '*' Æ¥ÅäÁã¸ö»ò¶à¸öÇ°ÃæµÄÄÇÒ»¸öÔªËØ
-			else if(p[j-1] == '*') {
-			    if(dp[i][j-2] == 1 || dp[i][j-1] == 1 || (dp[i-1][j] == 1 && (s[i-1] == p[j-2] || p[j-2] == '.'))){
-			    	dp[i][j] = 1;
-				}
-			}
-			// ×Ö·ûÒ»Ñù 
-			else {
-			    if(dp[i-1][j-1] == 1 && s[i-1] == p[j-1]){
-			    	dp[i][j] = 1;
-				}
-			}
-	  	}
-	}
-	ret = dp[row][col];
-	//ÊÍ·ÅÄÚ´æ 
-	for(i = 0; i <= row; i++)
-	      free(dp[i]);
-	free(dp);
-	
-	return ret == 1;
+    //èµ·å§‹åˆå§‹åŒ–ä¸º 1
+    dp[0][0] = 1;
+    //å› ä¸º '*' åŒ¹é…é›¶ä¸ªæˆ–å¤šä¸ªå‰é¢çš„é‚£ä¸€ä¸ªå…ƒç´ ï¼Œæ‰€ä»¥å¦‚æžœ s æ²¡æœ‰ï¼Œä½† p ä¸º 'p*' ï¼Œå°±è¿˜æ˜¯ä¸ºçœŸ
+    for (j = 1; j < col + 1; j++) {
+        if (p[j - 1] == '*' && dp[0][j - 2] == 1) {
+            dp[0][j] = 1;
+        }
+    }
+    //å¾ªçŽ¯åŒ¹é…
+    for (i = 1; i < row + 1; i++) {
+        for (j = 1; j < col + 1; j++) {
+            // '.' åŒ¹é…ä»»æ„å•ä¸ªå­—ç¬¦
+            if (p[j - 1] == '.' && dp[i - 1][j - 1] == 1) {
+                dp[i][j] = 1;
+            }
+            // '*' åŒ¹é…é›¶ä¸ªæˆ–å¤šä¸ªå‰é¢çš„é‚£ä¸€ä¸ªå…ƒç´ 
+            else if (p[j - 1] == '*') {
+                if (dp[i][j - 2] == 1 || dp[i][j - 1] == 1 || (dp[i - 1][j] == 1 && (s[i - 1] == p[j - 2] || p[j - 2] == '.'))) {
+                    dp[i][j] = 1;
+                }
+            }
+            // å­—ç¬¦ä¸€æ ·
+            else {
+                if (dp[i - 1][j - 1] == 1 && s[i - 1] == p[j - 1]) {
+                    dp[i][j] = 1;
+                }
+            }
+        }
+    }
+    ret = dp[row][col];
+    //é‡Šæ”¾å†…å­˜
+    for (i = 0; i <= row; i++)
+        free(dp[i]);
+    free(dp);
+
+    return ret == 1;
 }
 
-int main(){
-	char *s = (char *)"aab";
-	char *p = (char *)"c*a*b";
-	if(isMatch(s, p)==true){
-		printf("true");
-	}
-	else{
-		printf("false");
-	}
-	return 0;
+int main() {
+    char* s = (char*)"aab";
+    char* p = (char*)"c*a*b";
+    if (isMatch(s, p) == true) {
+        printf("true");
+    } else {
+        printf("false");
+    }
+    return 0;
 }
-

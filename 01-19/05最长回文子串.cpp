@@ -1,51 +1,51 @@
-#include<stdio.h>
-#include<string.h>
-#include<malloc.h>
+#include <malloc.h>
+#include <stdio.h>
+#include <string.h>
 
-int max(int x,int y){
-	return x>y?x:y;
+int max(int x, int y) {
+    return x > y ? x : y;
 }
 
-int centerExpand(char* s,int left,int right,int len){
-	while(left>=0 && right<len && s[left]==s[right]){
-        left--;									//ÅĞ¶ÏÊÇ·ñÏàµÈ£¬ÏàµÈ¾ÍÏòÁ½±ß¼ÌĞøÀ©Õ¹ 
+int centerExpand(char* s, int left, int right, int len) {
+    while (left >= 0 && right < len && s[left] == s[right]) {
+        left--; //åˆ¤æ–­æ˜¯å¦ç›¸ç­‰ï¼Œç›¸ç­‰å°±å‘ä¸¤è¾¹ç»§ç»­æ‰©å±•
         right++;
     }
-    return right-left-1;
-}
- 
-char* longestPalindrome(char* s){
-	int L=0;									//¼ÇÂ¼»ØÎÄ×Ó´®×î´ó³¤¶È 
-	int start=0;								//¼ÇÂ¼»ØÎÄ×Ó´®¿ªÊ¼Î»ÖÃ 
-	int end=0;									//¼ÇÂ¼»ØÎÄ×Ó´®½ØÖÁÎ»ÖÃ 
-	int len=strlen(s);
-	if(len==0||len==1)							//Ò»¸öÒ»ÏÂÖ±½Ó·µ»Ø 
-        return s;
-	for(int i=0;i<len;i++){
-		int l1=centerExpand(s,i,i,len);			//ÒÔ i ÎªÖĞĞÄµÄÀ©Õ¹ 
-		int l2=centerExpand(s,i,i+1,len);		//ÒÔ i ºÍ i+1 ÎªÖĞĞÄµÄÀ©Õ¹ 
-		L=max(max(l1,l2),L);					//È¡×î´ó³¤¶ÈÎª×î´ó»ØÎÄ×Ó´® 
-		
-		if(L>end-start+1){
-			start=i-(L-1)/2;					//ĞŞ¸Ä¿ªÊ¼Î»ÖÃ 
-			end=i+L/2;							//ĞŞ¸Ä½ØÖÁÎ»ÖÃ 
-		}
-	}
-	
-	char* p=(char*)malloc(sizeof(char)*(L+1));	//·ÖÅä¿Õ¼ä£¨³¤¶È¼ÓÒ»¸ö½ØÖÁ·û£© 
-	strncpy(p,s+start,L);						//¸´ÖÆ£¨´Ó s+start µ½ºóÃæµÄ L ³¤¶ÈµÄ×Ö·û£© 
-	p[L] = '\0';								//½ØÖÁ·û 
-	return p;
+    return right - left - 1;
 }
 
-int main(){
-	char* s=(char*)"cbbd";
-	char* p=longestPalindrome(s);
-	
-	while(*p!='\0'){
-		printf("%c",*p);
-		p++;
-	}
-	
-	return 0;
-} 
+char* longestPalindrome(char* s) {
+    int L     = 0; //è®°å½•å›æ–‡å­ä¸²æœ€å¤§é•¿åº¦
+    int start = 0; //è®°å½•å›æ–‡å­ä¸²å¼€å§‹ä½ç½®
+    int end   = 0; //è®°å½•å›æ–‡å­ä¸²æˆªè‡³ä½ç½®
+    int len   = strlen(s);
+    if (len == 0 || len == 1) //ä¸€ä¸ªä¸€ä¸‹ç›´æ¥è¿”å›
+        return s;
+    for (int i = 0; i < len; i++) {
+        int l1 = centerExpand(s, i, i, len);     //ä»¥ i ä¸ºä¸­å¿ƒçš„æ‰©å±•
+        int l2 = centerExpand(s, i, i + 1, len); //ä»¥ i å’Œ i+1 ä¸ºä¸­å¿ƒçš„æ‰©å±•
+        L      = max(max(l1, l2), L);            //å–æœ€å¤§é•¿åº¦ä¸ºæœ€å¤§å›æ–‡å­ä¸²
+
+        if (L > end - start + 1) {
+            start = i - (L - 1) / 2; //ä¿®æ”¹å¼€å§‹ä½ç½®
+            end   = i + L / 2;       //ä¿®æ”¹æˆªè‡³ä½ç½®
+        }
+    }
+
+    char* p = (char*)malloc(sizeof(char) * (L + 1)); //åˆ†é…ç©ºé—´ï¼ˆé•¿åº¦åŠ ä¸€ä¸ªæˆªè‡³ç¬¦ï¼‰
+    strncpy(p, s + start, L);                        //å¤åˆ¶ï¼ˆä» s+start åˆ°åé¢çš„ L é•¿åº¦çš„å­—ç¬¦ï¼‰
+    p[L] = '\0';                                     //æˆªè‡³ç¬¦
+    return p;
+}
+
+int main() {
+    char* s = (char*)"cbbd";
+    char* p = longestPalindrome(s);
+
+    while (*p != '\0') {
+        printf("%c", *p);
+        p++;
+    }
+
+    return 0;
+}

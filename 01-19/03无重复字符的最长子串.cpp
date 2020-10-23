@@ -1,41 +1,30 @@
-#include<stdio.h>
+#include <stdio.h>
 
-int lengthOfLongestSubstring(char * s){
-	int i = 0;								//ÓÃÓÚ±éÀú×Ö·û´®£¬¼ÇÂ¼×Ö·û´®¸Ã±éÀúµ½ÄÄÀï 
-	int j = 0;								//ÓÃÓÚ±éÀú×Ó´®
-	int n = 0;								//ÓÃÓÚ±£´æ×î´ó³¤¶È
-	int index = 0;							//ÓÃÓÚÖ¸Ïò×Ó´®µÄµÚÒ»¸öÔªËØ
-	while(s[i]!='\0'){						
-		for (j = index; j < i; j++){		//ÉÏ¸ö×Ó´®¿ªÊ¼µã£¬ÖÁ±éÀúµã 
-			if (s[j] == s[i]){
-				break;
-			}
-		}
-		if (j != i){						//´ú±íÓöµ½ÁËÖØ¸´ÔªËØ
-			n = (i-index) > n?(i-index):n;
-			index = j+1;					//ÏÂÒ»¸ö²»º¬ÖØ¸´µÄ×Ó´®µÄ¿ªÊ¼µã 
-		}
-		i++;
-	}
-	n = (i-index) > n?(i-index):n;			//µ±×Ö·û´®Ã»ÓĞÖØ¸´µÄ»ò×îºóÒ»´ÎÃ»ÓĞÖØ¸´£¬µÃµ½×Ó´®±È½Ï 
-	return n;
-} 
+int lengthOfLongestSubstring(char* s) {
+    int i     = 0; //ç”¨äºéå†å­—ç¬¦ä¸²ï¼Œè®°å½•å­—ç¬¦ä¸²è¯¥éå†åˆ°å“ªé‡Œ
+    int j     = 0; //ç”¨äºéå†å­ä¸²
+    int n     = 0; //ç”¨äºä¿å­˜æœ€å¤§é•¿åº¦
+    int index = 0; //ç”¨äºæŒ‡å‘å­ä¸²çš„ç¬¬ä¸€ä¸ªå…ƒç´ 
+    while (s[i] != '\0') {
+        for (j = index; j < i; j++) { //ä¸Šä¸ªå­ä¸²å¼€å§‹ç‚¹ï¼Œè‡³éå†ç‚¹
+            if (s[j] == s[i]) {
+                break;
+            }
+        }
+        if (j != i) { //ä»£è¡¨é‡åˆ°äº†é‡å¤å…ƒç´ 
+            n     = (i - index) > n ? (i - index) : n;
+            index = j + 1; //ä¸‹ä¸€ä¸ªä¸å«é‡å¤çš„å­ä¸²çš„å¼€å§‹ç‚¹
+        }
+        i++;
+    }
+    n = (i - index) > n ? (i - index) : n; //å½“å­—ç¬¦ä¸²æ²¡æœ‰é‡å¤çš„æˆ–æœ€åä¸€æ¬¡æ²¡æœ‰é‡å¤ï¼Œå¾—åˆ°å­ä¸²æ¯”è¾ƒ
+    return n;
+}
 
-int main(){
-	char *s=(char *)"abcabcbb";
-	int n=lengthOfLongestSubstring(s);
-	printf("%d",n);
-	
-	return 0; 
-} 
+int main() {
+    char* s = (char*)"abcabcbb";
+    int   n = lengthOfLongestSubstring(s);
+    printf("%d", n);
 
-/*
-
-¸ø¶¨Ò»¸ö×Ö·û´®£¬ÇëÄãÕÒ³öÆäÖĞ²»º¬ÓĞÖØ¸´×Ö·ûµÄ ×î³¤×Ó´® µÄ³¤¶È¡£
-
-Ê¾Àı 1:
-ÊäÈë: "abcabcbb"
-Êä³ö: 3 
-½âÊÍ: ÒòÎªÎŞÖØ¸´×Ö·ûµÄ×î³¤×Ó´®ÊÇ "abc"£¬ËùÒÔÆä³¤¶ÈÎª 3¡£
-
-*/
+    return 0;
+}

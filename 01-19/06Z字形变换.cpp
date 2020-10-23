@@ -1,43 +1,43 @@
-#include<stdio.h>
-#include<string.h>
-#include<malloc.h>
+#include <malloc.h>
+#include <stdio.h>
+#include <string.h>
 
-char* convert(char* s, int numRows){
-	if (numRows == 1){												// 1¾Í²»ÓÃ±ä»» 
-		return s;	
-	}
-	
-	int key=0;														// ¸Ä±äÖ¸Õë 
-	int step = numRows * 2 - 2; 									// ¼ä¾à
-	int index = 0;													// ¼ÇÂ¼sµÄÏÂ±ê
-	int add = 0; 													// ÕæÊµµÄ¼ä¾à
-	int len=strlen(s);												// ×Ö·û´®³¤¶È 
-	char* z=(char*)malloc(sizeof(char)*(len+1));					// ·ÖÅä¿Õ¼ä£¬ÖÁÉÙ len+1,²»È»»á³öÏÖÔ½½ç´íÎó 
-	for(int i=0;i<numRows;i++){
-		index = i;													// Ã¿ĞĞ¿ªÊ¼³õÊ¼ÏÂ±ê 
-		add = i*2;
-		while (index < len){										// ³¬³ö×Ö·û´®³¤¶È¼ÆËãÏÂÒ»²ã
-			*(z+key)= s[index]; 									// µ±Ç°ĞĞµÄµÚÒ»¸ö×ÖÄ¸ 
-			key++;
-			add = step - add;										// µÚÒ»´Î¼ä¾àÊÇ step-2*i£¬µÚ¶ş´ÎÊÇ 2*i
-			index += (i == 0 || i == numRows-1) ? step : add; 		// 0ĞĞºÍ×îºóÒ»ĞĞÊ¹ÓÃstep¼ä¾à£¬ÆäÓàÊ¹ÓÃadd¼ä¾à
-		}
-	}
-	z[len] = '\0';													// ½ØÖ¹·û£¬²»È»»á³öÏÖÔ½½ç´íÎó  
-	return z;
+char* convert(char* s, int numRows) {
+    if (numRows == 1) { // 1å°±ä¸ç”¨å˜æ¢
+        return s;
+    }
+
+    int   key   = 0;                                       // æ”¹å˜æŒ‡é’ˆ
+    int   step  = numRows * 2 - 2;                         // é—´è·
+    int   index = 0;                                       // è®°å½•sçš„ä¸‹æ ‡
+    int   add   = 0;                                       // çœŸå®çš„é—´è·
+    int   len   = strlen(s);                               // å­—ç¬¦ä¸²é•¿åº¦
+    char* z     = (char*)malloc(sizeof(char) * (len + 1)); // åˆ†é…ç©ºé—´ï¼Œè‡³å°‘ len+1,ä¸ç„¶ä¼šå‡ºç°è¶Šç•Œé”™è¯¯
+    for (int i = 0; i < numRows; i++) {
+        index = i; // æ¯è¡Œå¼€å§‹åˆå§‹ä¸‹æ ‡
+        add   = i * 2;
+        while (index < len) {      // è¶…å‡ºå­—ç¬¦ä¸²é•¿åº¦è®¡ç®—ä¸‹ä¸€å±‚
+            *(z + key) = s[index]; // å½“å‰è¡Œçš„ç¬¬ä¸€ä¸ªå­—æ¯
+            key++;
+            add = step - add;                                   // ç¬¬ä¸€æ¬¡é—´è·æ˜¯ step-2*iï¼Œç¬¬äºŒæ¬¡æ˜¯ 2*i
+            index += (i == 0 || i == numRows - 1) ? step : add; // 0è¡Œå’Œæœ€åä¸€è¡Œä½¿ç”¨stepé—´è·ï¼Œå…¶ä½™ä½¿ç”¨addé—´è·
+        }
+    }
+    z[len] = '\0'; // æˆªæ­¢ç¬¦ï¼Œä¸ç„¶ä¼šå‡ºç°è¶Šç•Œé”™è¯¯
+    return z;
 }
 
-int main(){
-	char* s=(char*)"LEETCODEISHIRING";
-	
-	char* z1=convert(s,3);
-	printf("numRows=%d  ",3);
-	printf("%s",z1);
-	printf("\n");
-	
-	char* z2=convert(s,4);
-	printf("numRows=%d  ",4);
-	printf("%s",z2);
-	
-	return 0;
-} 
+int main() {
+    char* s = (char*)"LEETCODEISHIRING";
+
+    char* z1 = convert(s, 3);
+    printf("numRows=%d  ", 3);
+    printf("%s", z1);
+    printf("\n");
+
+    char* z2 = convert(s, 4);
+    printf("numRows=%d  ", 4);
+    printf("%s", z2);
+
+    return 0;
+}

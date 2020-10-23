@@ -1,69 +1,65 @@
-#include<stdio.h> 
-#include<limits.h>
+#include <limits.h>
+#include <stdio.h>
 
-int max(int x,int y){			//Êä³ö´óµÄÖµ 
-	return x>y?x:y;
+int max(int x, int y) {
+    return x > y ? x : y;
 }
 
-int min(int x,int y){			//Êä³öĞ¡µÄÖµ 
-	return x<y?x:y;
+int min(int x, int y) {
+    return x < y ? x : y;
 }
 
-double findMedianSortedArrays(int* nums1, int nums1Size, int* nums2, int nums2Size){
-	//±£Ö¤Êı×é1Ò»¶¨×î¶Ì
-	if (nums1Size > nums2Size){
-		return findMedianSortedArrays(nums2,nums2Size,nums1,nums1Size);
-	}
-	
-	//ai_LMax ÎªÊı×é¸îºóµÄ×óÔªËØ×î´óÖµ¡£ai_RMin ÎªÊı×é¸îºóµÄÓÒÔªËØ×îĞ¡Öµ¡£ 
-	int a1_LMax, a1_RMin, a2_LMax, a2_RMin;
-	//ci ÎªµÚi¸öÊı×éµÄÇĞ¸îµã¡£ 
-	int c1, c2;
-	//ÎÒÃÇÄ¿Ç°ÊÇĞéÄâ¼ÓÁË'#'ËùÒÔÊı×é1ÊÇ2*n³¤¶È
-	int low = 0, high = 2*nums1Size;
-	//·ÖÖÎ¡ª¡ªÁ½¸öÊı×éÍ¬Ê±·Ö¸î 
-	while(low<=high){
-		c1=(low+high)/2;										//Êı×é1 µÄÇĞ¸îµã 
-		c2=nums1Size+nums2Size-c1;								//Êı×é2 µÄÇĞ¸îµã
-		
-		//ÅĞ¶ÏÌõ¼ş a1_LMax<=a2_RMin£¬a2_LMax<=a1_RMin¡£ 
-		//µ«ÊÇÒªÊÇÊı×é1¶¼Ğ¡ÓÚÊı×é2£¬»ò¶¼´óÓÚÊı×é2£¬¾ÍÒªÒıÈë INT_MIN¡¢INT_MAX£¬Ìæ´úÊı×éµÄ×î´óÖµºÍ×îĞ¡Öµ 
-		//¾Í°Ñ×î´óÖµ£¨×îĞ¡Öµ£©¸³¸ø RMin£¨LMax£©£¬·ÀÖ¹¼ÌĞøÅĞ¶Ï£¬µ¼ÖÂÊı×éÏÂ±êÔ½½ç¡£ 
-		a1_LMax= (c1==0) ? INT_MIN:nums1[(c1-1)/2];				//ÇĞ¸îµã×ó±ßµÄÖµ£¨ÓĞĞò£¬ËùÒÔÊÇ×ó±ßµÄ×î´óÖµ£© 
-		a1_RMin= (c1==2*nums1Size) ? INT_MAX:nums1[c1/2];		//ÇĞ¸îµãÓÒ±ßµÄÖµ 
-		a2_LMax= (c2==0) ? INT_MIN:nums2[(c2-1)/2];
-		a2_RMin= (c2==2*nums2Size) ? INT_MAX:nums2[c2/2];
-		
-		if (a1_LMax > a2_RMin){									 
-			high=c1-1;
-		}
-		else if (a2_LMax > a1_RMin){
-			low=c1+1;
-		}
-		else{
-			break;
-		}
-	}
-	//´òÓ¡½á¹û¿´¿´ 
-	printf("a1_LMax= %d\n",a1_LMax);											
-	printf("a1_RMin= %d\n",a1_RMin);
-	printf("a2_LMax= %d\n",a2_LMax);
-	printf("a2_RMin= %d\n",a2_RMin);
-	
-	//Êı×é×ó±ß×î´óµÄºÍÓÒ±ß×îĞ¡µÄµÃµ½µÄ¾ÍÊÇÖĞÎ»Êı 
-	return (max(a1_LMax, a2_LMax) + min(a1_RMin, a2_RMin)) / 2.0;
+double findMedianSortedArrays(int* nums1, int nums1Size, int* nums2, int nums2Size) {
+    //ä¿è¯æ•°ç»„1ä¸€å®šæœ€çŸ­
+    if (nums1Size > nums2Size) {
+        return findMedianSortedArrays(nums2, nums2Size, nums1, nums1Size);
+    }
+
+    //ai_LMax ä¸ºæ•°ç»„å‰²åçš„å·¦å…ƒç´ æœ€å¤§å€¼ã€‚ai_RMin ä¸ºæ•°ç»„å‰²åçš„å³å…ƒç´ æœ€å°å€¼ã€‚
+    int a1_LMax, a1_RMin, a2_LMax, a2_RMin;
+    //ci ä¸ºç¬¬iä¸ªæ•°ç»„çš„åˆ‡å‰²ç‚¹ã€‚
+    int c1, c2;
+    //æˆ‘ä»¬ç›®å‰æ˜¯è™šæ‹ŸåŠ äº†'#'æ‰€ä»¥æ•°ç»„1æ˜¯2*né•¿åº¦
+    int low = 0, high = 2 * nums1Size;
+    //åˆ†æ²»â€”â€”ä¸¤ä¸ªæ•°ç»„åŒæ—¶åˆ†å‰²
+    while (low <= high) {
+        c1 = (low + high) / 2;           //æ•°ç»„1 çš„åˆ‡å‰²ç‚¹
+        c2 = nums1Size + nums2Size - c1; //æ•°ç»„2 çš„åˆ‡å‰²ç‚¹
+
+        //åˆ¤æ–­æ¡ä»¶ a1_LMax<=a2_RMinï¼Œa2_LMax<=a1_RMinã€‚
+        //ä½†æ˜¯è¦æ˜¯æ•°ç»„1éƒ½å°äºæ•°ç»„2ï¼Œæˆ–éƒ½å¤§äºæ•°ç»„2ï¼Œå°±è¦å¼•å…¥ INT_MINã€INT_MAXï¼Œæ›¿ä»£æ•°ç»„çš„æœ€å¤§å€¼å’Œæœ€å°å€¼
+        //å°±æŠŠæœ€å¤§å€¼ï¼ˆæœ€å°å€¼ï¼‰èµ‹ç»™ RMinï¼ˆLMaxï¼‰ï¼Œé˜²æ­¢ç»§ç»­åˆ¤æ–­ï¼Œå¯¼è‡´æ•°ç»„ä¸‹æ ‡è¶Šç•Œã€‚
+        a1_LMax = (c1 == 0) ? INT_MIN : nums1[(c1 - 1) / 2];       //åˆ‡å‰²ç‚¹å·¦è¾¹çš„å€¼ï¼ˆæœ‰åºï¼Œæ‰€ä»¥æ˜¯å·¦è¾¹çš„æœ€å¤§å€¼ï¼‰
+        a1_RMin = (c1 == 2 * nums1Size) ? INT_MAX : nums1[c1 / 2]; //åˆ‡å‰²ç‚¹å³è¾¹çš„å€¼
+        a2_LMax = (c2 == 0) ? INT_MIN : nums2[(c2 - 1) / 2];
+        a2_RMin = (c2 == 2 * nums2Size) ? INT_MAX : nums2[c2 / 2];
+
+        if (a1_LMax > a2_RMin) {
+            high = c1 - 1;
+        } else if (a2_LMax > a1_RMin) {
+            low = c1 + 1;
+        } else {
+            break;
+        }
+    }
+    //æ‰“å°ç»“æœçœ‹çœ‹
+    printf("a1_LMax= %d\n", a1_LMax);
+    printf("a1_RMin= %d\n", a1_RMin);
+    printf("a2_LMax= %d\n", a2_LMax);
+    printf("a2_RMin= %d\n", a2_RMin);
+
+    //æ•°ç»„å·¦è¾¹æœ€å¤§çš„å’Œå³è¾¹æœ€å°çš„å¾—åˆ°çš„å°±æ˜¯ä¸­ä½æ•°
+    return (max(a1_LMax, a2_LMax) + min(a1_RMin, a2_RMin)) / 2.0;
 }
 
-int main(){
-//	int array1[]={2,3,5};
-//	int array2[]={1,4,7,9};
-	int array1[]={1,2,3,4};
-	int array2[]={6,7,8,9,11};
-	int size1=sizeof(array1)/sizeof(int);
-	int size2=sizeof(array2)/sizeof(int);
-	
-	double result=findMedianSortedArrays(array1,size1,array2,size2);
-	printf("%lf",result);
-	
-	return 0;
+int main() {
+    int array1[] = {1, 2, 3, 4};
+    int array2[] = {6, 7, 8, 9, 11};
+    int size1    = sizeof(array1) / sizeof(int);
+    int size2    = sizeof(array2) / sizeof(int);
+
+    double result = findMedianSortedArrays(array1, size1, array2, size2);
+    printf("%lf", result);
+
+    return 0;
 }
