@@ -14,9 +14,9 @@ void displayStr(char** pointer, int pointerSize) {
 }
 
 // 遍历输出，数组确定长度
-void displayChar(char** pointer, int pointerSize, int pointerColSize) {
+void displayChar(char** pointer, int pointerSize, int* pointerColSize) {
     for (int i = 0; i < pointerSize; i++) {
-        for (int j = 0; j < pointerColSize; j++) {
+        for (int j = 0; j < *pointerColSize; j++) {
             printf("%c ", *(*(pointer + i) + j));
         }
         printf("\n");
@@ -25,9 +25,9 @@ void displayChar(char** pointer, int pointerSize, int pointerColSize) {
 }
 
 // 遍历输出，数组确定长度
-void displayNum(int** pointer, int pointerSize, int pointerColSize) {
+void displayNum(int** pointer, int pointerSize, int* pointerColSize) {
     for (int i = 0; i < pointerSize; i++) {
-        for (int j = 0; j < pointerColSize; j++) {
+        for (int j = 0; j < *pointerColSize; j++) {
             printf("%d ", *(*(pointer + i) + j));
         }
         printf("\n");
@@ -57,11 +57,14 @@ int main() {
         {'.', '.', '.', '4', '1', '9', '.', '.', '5'},
         {'.', '.', '.', '.', '8', '.', '.', '7', '9'},
     };
-    char** board = (char**)malloc(sizeof(char*) * 9);
-    for (int i = 0; i < 9; i++) {
+    int    boardColSize = 9;
+    int    boardSize    = sizeof(arr2) / sizeof(arr2[0]);
+    char** board        = (char**)malloc(sizeof(char*) * boardSize);
+    for (int i = 0; i < boardSize; i++) {
+        *(board + i) = (char*)malloc(sizeof(char) * boardColSize);
         *(board + i) = arr2[i];
     }
-    displayChar(board, 9, 9);
+    displayChar(board, boardSize, &boardColSize);
 
     // 二维数字数组
     int arr3[][2] = {
@@ -72,14 +75,14 @@ int main() {
         {1, 5},
         {5, 9},
     };
-    int** clips        = (int**)malloc(sizeof(int*) * 2);
+    int   clipsColSize = 2;
     int   clipsSize    = sizeof(arr3) / sizeof(arr3[0]);
-    int*  clipsColSize = (int*)malloc(sizeof(int));
-    *clipsColSize       = 2;
+    int** clips        = (int**)malloc(sizeof(int*) * clipsSize);
     for (int i = 0; i < clipsSize; i++) {
+        *(clips + i) = (int*)malloc(sizeof(int) * clipsColSize);
         *(clips + i) = arr3[i];
     }
-    displayNum(clips, clipsSize, *clipsColSize);
+    displayNum(clips, clipsSize, &clipsColSize);
 
     return 0;
 }

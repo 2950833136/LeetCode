@@ -16,11 +16,21 @@
             "options": {
                 "cwd": "E:\\cygwin64\\bin"
             },
-            "problemMatcher": ["$gcc"],
+            "problemMatcher": [
+                "$gcc"
+            ],
             "group": {
                 "kind": "build",
                 "isDefault": true
             }
         }
-    ]
+    ],
+    "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared", // 这里 shared 表示共享，改成 new 之后每个进程创建新的端口
+        "showReuseMessage": true,
+        "clear": false
+    }
 }
