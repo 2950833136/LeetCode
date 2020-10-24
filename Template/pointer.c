@@ -24,6 +24,17 @@ void displayChar(char** pointer, int pointerSize, int pointerColSize) {
     printf("\n");
 }
 
+// 遍历输出，数组确定长度
+void displayNum(int** pointer, int pointerSize, int pointerColSize) {
+    for (int i = 0; i < pointerSize; i++) {
+        for (int j = 0; j < pointerColSize; j++) {
+            printf("%d ", *(*(pointer + i) + j));
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+
 int main() {
     // 字符串
     char   arr[][16] = {"bella", "label", "roller"};
@@ -34,7 +45,7 @@ int main() {
     }
     displayStr(A, ASize);
 
-    // 二维数组
+    // 二维字符数组
     char arr2[][9] = {
         {'5', '3', '.', '.', '7', '.', '.', '.', '.'},
         {'6', '.', '.', '1', '9', '5', '.', '.', '.'},
@@ -51,6 +62,24 @@ int main() {
         *(board + i) = arr2[i];
     }
     displayChar(board, 9, 9);
+
+    // 二维数字数组
+    int arr3[][2] = {
+        {0, 2},
+        {4, 6},
+        {8, 10},
+        {1, 9},
+        {1, 5},
+        {5, 9},
+    };
+    int** clips        = (int**)malloc(sizeof(int*) * 2);
+    int   clipsSize    = sizeof(arr3) / sizeof(arr3[0]);
+    int*  clipsColSize = (int*)malloc(sizeof(int));
+    *clipsColSize       = 2;
+    for (int i = 0; i < clipsSize; i++) {
+        *(clips + i) = arr3[i];
+    }
+    displayNum(clips, clipsSize, *clipsColSize);
 
     return 0;
 }
