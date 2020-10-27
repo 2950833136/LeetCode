@@ -43,13 +43,14 @@ void inOrder(struct Node* node) {
 int main() {
     /**
      * 请输入字符串（先序遍历创建）
-     * 例如: 1#32###
-     * 中序遍历: 123
+     * 例如: 1#23###
      */
-    struct Node** root = (struct Node**)malloc(sizeof(struct Node*));
-    char*         str  = (char*)"1#32###";
-    int           n    = 0;
-    createTree(root, str, &n);
+    struct Node** root       = (struct Node**)malloc(sizeof(struct Node*));
+    int*          returnSize = (int*)malloc(sizeof(int));
+    char*         str        = (char*)"1#23###";
+
+    *returnSize = 0;
+    createTree(root, str, returnSize);
     printf("先序遍历结果: ");
     preOrder(*root);
     printf("\n中序遍历结果: ");
