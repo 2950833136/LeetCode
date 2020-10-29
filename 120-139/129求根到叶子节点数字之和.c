@@ -29,30 +29,6 @@ void createTree(struct Node** node, char* str, int* n) {
     }
 }
 
-// 先序遍历
-void preOrder(struct Node* node) {
-    if (node != NULL) {           //判断不为空
-        printf("%d ", node->val); //访问根节点
-        preOrder(node->left);     //递归，遍历左子树
-        preOrder(node->right);    //递归，遍历右子树
-    }
-}
-// 中序遍历
-void inOrder(struct Node* node) {
-    if (node != NULL) {
-        inOrder(node->left);
-        printf("%d ", node->val);
-        inOrder(node->right);
-    }
-}
-//后序遍历
-void postOrder(struct Node* node) {
-    if (node != NULL) {
-        postOrder(node->left);
-        postOrder(node->right);
-        printf("%d ", node->val);
-    }
-}
 // 画树
 void draw_level(struct Node* root, bool left, char* str) {
     if (root->right) {
@@ -78,6 +54,13 @@ void draw(struct Node* root) {
     if (root->left) {
         draw_level(root->left, true, str);
     }
+}
+
+/**
+ * 
+ * 
+ */
+int sumNumbers(struct TreeNode* root) {
 }
 
 int main() {
