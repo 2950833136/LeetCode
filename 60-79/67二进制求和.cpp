@@ -48,8 +48,8 @@ public:
 };
 
 int main() {
-    string a = "11";
-    string b = "1";
+    string a = "1010";
+    string b = "1011";
 
     Solution s;
     string   ret = s.addBinary(a, b);
