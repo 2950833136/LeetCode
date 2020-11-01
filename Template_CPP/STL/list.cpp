@@ -1,0 +1,96 @@
+#include <iostream>
+#include <list>
+#include <vector>
+using namespace std;
+
+//从前向后显示list队列的全部元素
+void put_list(list<int> List, char* name) {
+    list<int>::iterator plist;
+
+    cout << "The contents of " << name << " : ";
+    for (plist = List.begin(); plist != List.end(); plist++) {
+        cout << *plist << " ";
+    }
+    cout << endl;
+}
+
+//测试list容器的功能
+int main() {
+    //list1对象初始为空
+    list<int> list1;
+    char*     list1_name = (char*)"list1";
+    //list2对象最初有10个值为6的元素
+    list<int> list2(10, 6);
+    char*     list2_name = (char*)"list2";
+    //list3对象最初有3个元素
+    vector<int> nums = {1, 2, 3, 4, 5, 6};
+    list<int>   list3(nums.begin(), nums.begin() + 3);
+    char*       list3_name = (char*)"list3";
+
+    //声明一个名为i的双向迭代器
+    list<int>::iterator i;
+
+    //从前向后显示各list对象的元素
+    put_list(list1, list1_name);
+    put_list(list2, list2_name);
+    put_list(list3, list3_name);
+
+    //从list1序列后面添加两个元素
+    list1.push_back(2);
+    list1.push_back(4);
+    cout << "list1.push_back(2) and list1.push_back(4):" << endl;
+    put_list(list1, list1_name);
+
+    //从list1序列前面添加两个元素
+    list1.push_front(5);
+    list1.push_front(7);
+    cout << "list1.push_front(5) and list1.push_front(7):" << endl;
+    put_list(list1, list1_name);
+
+    //在list1序列中间插入数据
+    list1.insert(++list1.begin(), 3, 9);
+    cout << "list1.insert(list1.begin()+1,3,9):" << endl;
+    put_list(list1, list1_name);
+
+    //测试引用类函数
+    cout << "list1.front()=" << list1.front() << endl;
+    cout << "list1.back()=" << list1.back() << endl;
+
+    //从list1序列的前后各移去一个元素
+    list1.pop_front();
+    list1.pop_back();
+    cout << "list1.pop_front() and list1.pop_back():" << endl;
+    put_list(list1, list1_name);
+
+    //清除list1中的第2个元素
+    list1.erase(++list1.begin());
+    cout << "list1.erase(++list1.begin()):" << endl;
+    put_list(list1, list1_name);
+
+    //对list2赋值并显示
+    list2.assign(8, 1);
+    cout << "list2.assign(8,1):" << endl;
+    put_list(list2, list2_name);
+
+    //显示序列的状态信息
+    cout << "list1.max_size(): " << list1.max_size() << endl;
+    cout << "list1.size(): " << list1.size() << endl;
+    cout << "list1.empty(): " << list1.empty() << endl;
+
+    //list序列容器的运算
+    put_list(list1, list1_name);
+    put_list(list3, list3_name);
+    cout << "list1>list3: " << (list1 > list3) << endl;
+    cout << "list1<list3: " << (list1 < list3) << endl;
+
+    //对list1容器排序
+    list1.sort();
+    put_list(list1, list1_name);
+
+    //结合处理
+    list1.splice(++list1.begin(), list3);
+    put_list(list1, list1_name);
+    put_list(list3, list3_name);
+
+    return 0;
+}
