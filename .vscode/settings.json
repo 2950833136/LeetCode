@@ -13,7 +13,8 @@
         "vector": "cpp",
         "unordered_map": "cpp",
         "new": "cpp",
-        "unordered_set": "cpp"
+        "unordered_set": "cpp",
+        "map": "cpp"
     },
     // Visual Studio  LLVM  Google  Chromium  Mozilla  WebKit
     // "C_Cpp.clang_format_style": "{BasedOnStyle: LLVM}"

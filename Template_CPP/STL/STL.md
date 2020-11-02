@@ -1,10 +1,175 @@
-# STL
+# STL 容器
 
 &emsp;C++库以提供“模板”为主。所谓模板，是指不必预先制定类型的函数或类。我们可以借助STL（标准模板库 Standard Template Library,  STL）提供的高效算法来管理数据。为应对多种需求，STL为用户提供了多种名为容器（Container）的类，用于管理数据集合。在创建动态数组、表、栈、队列等数据结构时，我们只需要定义对应的容器，然后调用相应成员函数或算法即可。
 
 &emsp;在C++标准中，STL被组织为下面的13个头文件：\<algorithm>、\<deque>、\<functional>、\<iterator>、\<vector>、\<list>、\<map>、\<memory.h>、\<numeric>、\<queue>、\<set>、\<stack>、\<utility>。
 
 &emsp;STL可分为容器(containers)、迭代器(iterators)、空间配置器(allocator)、配接器(adapters)、算法(algorithms)、仿函数(functors)六个部分。
+
+![STL容器](../../Picture/STL容器.png)
+
+
+## 0. 基础
+
+### 0.1 String 类
+
+#### （1）简介
+
+&emsp;要使用 string 类，必须包含头文件 <string>。string 库提供了许多其他功能，如删除字符串的部分或全部，用一个字符的部分或全部替换另一个字符串的部分或全部，插入、删除字符串中数据，比较、提取、复制、交换等。
+
+#### （2） 函数
+
+| 函数成员                        | 函数功能                     |
+| ------------------------------- | ---------------------------- |
+| 构造函数                        | 产生或复制字符串             |
+| 析构函数                        | 销毁字符串                   |
+| =，assign                       | 赋以新值                     |
+| Swap                            | 交换两个字符串的内容         |
+| +=，append( )，push_back()      | 添加字符                     |
+| insert ()                       | 插入字符                     |
+| erase()                         | 删除字符                     |
+| clear ()                        | 移除全部字符                 |
+| resize ()                       | 改变字符数量                 |
+| replace()                       | 替换字符                     |
+| +                               | 串联字符串                   |
+| ==，!=，<，<=，>，>=，compare() | 比较字符串内容               |
+| size()，length()                | 返回字符数量                 |
+| max_size ()                     | 返回字符的最大可能个数       |
+| empty ()                        | 判断字符串是否为空           |
+| capacity ()                     | 返回重新分配之前的字符容量   |
+| reserve()                       | 保留内存以存储一定数量的字符 |
+| [], at()                        | 存取单一字符                 |
+| >>，getline()                   | 从 stream 中读取某值         |
+| <<                              | 将值写入 stream              |
+| copy()                          | 将内容复制为一个 C - string  |
+| c_str()                         | 将内容以 C - string 形式返回 |
+| data()                          | 将内容以字符数组形式返回     |
+| substr()                        | 返回子字符串                 |
+| find()                          | 搜寻某子字符串或字符         |
+| begin( )，end()                 | 提供正向迭代器支持           |
+| rbegin()，rend()                | 提供逆向迭代器支持           |
+| get_allocator()                 | 返回配置器                   |
+
+> 构造函数
+
+```cpp
+string strs;                     //生成空字符串
+string s(str);                   //生成字符串str的复制品
+string s(str, stridx);           //将字符串str中始于stridx的部分作为构造函数的初值
+string s(str, strbegin, strlen); //将字符串str中始于strbegin、长度为strlen的部分作为字符串初值
+string s(cstr);                  //以C_string类型cstr作为字符串s的初值
+string s(cstr, char_len);        //以C_string类型cstr的前char_len个字符串作为字符串s的初值
+string s(num, c);                //生成一个字符串，包含num个c字符
+string s(strs, beg, end);        //以区间[beg, end]内的字符作为字符串s的初值
+```
+
+> compare()函数
+
+```cpp
+int compare (const basic_string& s) const;
+int compare (const Ch* p) const;
+int compare (size_type pos, size_type n, const basic_string& s) const;
+int compare (size_type pos, size_type n, const basic_string& s,size_type pos2, size_type n2) const;
+int compare (size_type pos, size_type n, const Ch* p, size_type = npos) const;
+```
+
+> find()函数
+
+```cpp
+//find()函数的第1个参数是被搜索的字符、第2个参数是在源串中开始搜索的下标位置
+size_type find (value_type _Chr, size_type _Off = 0) const;
+//find()函数的第1个参数是被搜索的字符串，第2个参数是在源串中开始搜索的下标位置
+size_type find (const value_type* _Ptr , size_type _Off = 0) const;
+//第1个参数是被搜索的字符串，第2个参数是源串中开始搜索的下标，第3个参数是关于第1个参数的字符个数，可能是 _Ptr 的所有字符数，也可能是 _Ptr 的子串宇符个数
+size_type find (const value_type* _Ptr, size_type _Off = 0, size_type _Count) const;
+//第1个参数是被搜索的字符串，第2参数是在源串中开始搜索的下标位置
+size_type find (const basic_string& _Str, size_type _Off = 0) const;
+```
+
+
+
+#### （3） 示例
+
+```cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string str  = "1234567";
+    char   ch[] = "abcdefg";
+
+    // 构造字符串
+    string str0("ABCDEFG");              // 定义一个字符串
+    string str1(str);                    // 构造函数，全部复制
+    string str2(str, 2, 5);              // 构造函数，从字符串str的第2个元素开始，复制5个元素，赋值给str_2
+    string str3(ch, 5);                  // 将字符串ch的前5个元素赋值给str_3
+    string str4(5, 'X');                 // 将 5 个 'X' 组成的字符串 "XXXXX" 赋值给 str_4
+    string str5(str.begin(), str.end()); // 复制字符串 str 的所有元素，并赋值给 str_5
+    cout << str << endl;
+    cout << str0 << endl;
+    cout << str1 << endl;
+    cout << str2 << endl;
+    cout << str3 << endl;
+    cout << str4 << endl;
+    cout << str5 << endl;
+
+    // 获取长度
+    int    size       = 0;
+    int    length     = 0;
+    long   maxsize    = 0;
+    int    capacity   = 0;
+    string str_custom = str;
+    str_custom.resize(5);
+    size     = str_custom.size();
+    length   = str_custom.length();
+    maxsize  = str_custom.max_size();
+    capacity = str_custom.capacity();
+    cout << "size = " << size << endl;
+    cout << "length = " << length << endl;
+    cout << "maxsize = " << maxsize << endl;
+    cout << "capacity = " << capacity << endl;
+
+    // 获取字符
+    char temp;
+    char temp_1;
+    temp   = str[2];    //"获取字符 'c'
+    temp_1 = str.at(2); //获取字符 'c'
+    cout << temp << " " << temp_1 << endl;
+
+    // 查找
+    string x("Hi, Peter, I'm sick. Please bought some drugs for me.");
+
+    int p  = x.find('P');
+    int rp = x.rfind('P');
+    cout << "find() 查找的P在第 " << p << " 位" << endl;
+    cout << "rfind()查找的P在第 " << rp << " 位" << endl;
+
+    int q  = x.find("some", 0);
+    int rq = x.rfind("some", 0);
+    cout << "find() 查找的some在第 " << q << " 位" << endl;
+    cout << "rfind()查找的some在第 " << rq << " 位" << endl;
+
+    int l  = x.find(" drugs", 0, 5);
+    int rl = x.rfind(" drugs", 0, 5);
+    cout << "find() 查找的' drugs'在第 " << l << " 位" << endl;
+    cout << "rfind()查找的' drugs'在第 " << rl << " 位" << endl;
+
+    string y("sick");
+    int    m  = x.find(y, 0);
+    int    rm = x.rfind(y, 0);
+    cout << "find() 查找的y字符串在第 " << m << " 位" << endl;
+    cout << "rfind()查找的y字符串在第 " << rm << " 位" << endl;
+
+    return 0;
+}
+```
+
+
+
+### 参考资料零
+
+(1) [C++ STL介绍——String类](https://www.cnblogs.com/lanxiang/p/11252404.html)
 
 
 
@@ -74,6 +239,7 @@ vector<int> a(b,b+7）;
 ```
 
 #### （4）函数（举例说明）
+
 
 ```cpp
 #include<vector>
@@ -172,7 +338,7 @@ Lists将元素按顺序储存在链表中与向量(vectors)相比, 它允许快�
 | swap()          | 交换两个list                   |
 | unique()        | 删除list中重复的元素           |
 
-#### （2）实例
+#### （2）示例
 
 ```cpp
 #include <iostream>
@@ -326,7 +492,7 @@ deque 容器和 vecotr 容器不同处：
 
 
 
-#### （3）实例
+#### （3）示例
 
 ```cpp
 #include <deque>
@@ -377,11 +543,11 @@ int main() {
 
 ### 参考资料一
 
-(1) [C++_vector操作](https://blog.csdn.net/weixin_41743247/article/details/90635931): https://blog.csdn.net/weixin_41743247/article/details/90635931
+(1) [C++_vector操作](https://blog.csdn.net/weixin_41743247/article/details/90635931)
 
-(2) [C++中list用法详解](https://blog.csdn.net/yas12345678/article/details/52601578/): https://blog.csdn.net/yas12345678/article/details/52601578/
+(2) [C++中list用法详解](https://blog.csdn.net/yas12345678/article/details/52601578/)
 
-(3) [C++ STL deque容器（详解版）](http://c.biancheng.net/view/6860.html): http://c.biancheng.net/view/6860.html
+(3) [C++ STL deque容器（详解版）](http://c.biancheng.net/view/6860.html)
 
 
 
@@ -403,7 +569,7 @@ C++ Stack（堆栈） 是一个容器类的改编，实现了一个先进后出�
 | emplace() | 在栈顶增加一个元素 |
 | swap ()   | 交换两个栈中的内容 |
 
-#### （2）实例
+#### （2）示例
 
 ```cpp
 #include <iostream>
@@ -457,7 +623,7 @@ queue翻译为队列，在STL中主要则是实现了一个先进先出的容器
 | emplace() | 用传给 emplace() 的参数调用 T 的构造函数，在 queue 的尾部生成对象                                                          |
 | swap()    | 将当前 queue 中的元素和参数 queue 中的元素交换。它们需要包含相同类型的元素。也可以调用全局函数模板 swap() 来完成同样的操作 |
 
-#### （2）实例
+#### （2）示例
 
 ```cpp
 #include <iostream>
@@ -529,7 +695,7 @@ int main() {
 | empty()  | 检测队列是否为空，返回 true 则为空，返回 false 则非空 |
 | size()   | 返回队列中元素的个数                                  |
 
-#### （2）实例
+#### （2）示例
 
 > 1) 基本使用
 
@@ -604,15 +770,314 @@ int main() {
 
 ### 参考资料二
 
-(1) [C++ Stack（栈）](https://www.nhooo.com/cpp/cpp-stack.html): https://www.nhooo.com/cpp/cpp-stack.html
+(1) [C++ Stack（栈）](https://www.nhooo.com/cpp/cpp-stack.html)
 
-(2) [STL之queue介绍](https://blog.csdn.net/liitdar/article/details/82529350): https://blog.csdn.net/liitdar/article/details/82529350
+(2) [STL之queue介绍](https://blog.csdn.net/liitdar/article/details/82529350)
 
-(3) [极简教程：STL priority_queue](https://zhuanlan.zhihu.com/p/111734399): https://zhuanlan.zhihu.com/p/111734399
+(3) [极简教程：STL priority_queue](https://zhuanlan.zhihu.com/p/111734399)
 
 
 
 ## 3. 关联式容器
 
-### 3.1 set（集合）
+### 3.1 set/multiset（集合）
 
+set 可实现 **自动递增排序** 并 **去除重复元素** 的功能。
+
+#### （1）介绍
+
+1. set是STL中一个很有用的容器，用来存储同一种数据类型的数据结构（可以称之为K的模型），基本功能与数组相似。 
+2. set与数组不同的是，在set中每个元素的值都是唯一的。 
+3. 而且set插入数据时，能够根据元素的值自动进行排序。 
+4. set中数元素的值并不能直接被改变。
+
+#### （2）set 底层
+
+1. set的底层是红黑树，是红黑树里面K的模型；
+
+> K模型：表示只能存放同一种数据类型 
+> KV模型：表示能存放两种数据类型
+
+2. map的底层也是红黑树，而它是KV模型。 
+3. set不允许插入重复数据，而multiset允许插入相同的数据。
+
+> 补充：multiset：multiset功能与set类似，接口也基本一样，最主要的区别是：set不允许数据冗余，而multiset允许数据冗余
+
+#### （3）函数
+
+| 函数成员         | 函数功能                                                                                                                                                                                                                                                                       |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| begin()          | 返回指向容器中第一个（注意，是已排好序的第一个）元素的双向迭代器。如果 set 容器用 const 限定，则该方法返回的是 const 类型的双向迭代器。                                                                                                                                        |
+| end()            | 返回指向容器最后一个元素（注意，是已排好序的最后一个）所在位置后一个位置的双向迭代器，通常和 begin() 结合使用。如果 set 容器用 const 限定，则该方法返回的是 const 类型的双向迭代器。                                                                                           |
+| rbegin()         | 返回指向最后一个（注意，是已排好序的最后一个）元素的反向双向迭代器。如果 set 容器用 const 限定，则该方法返回的是 const 类型的反向双向迭代器。                                                                                                                                  |
+| rend()           | 返回指向第一个（注意，是已排好序的第一个）元素所在位置前一个位置的反向双向迭代器。如果 set 容器用 const 限定，则该方法返回的是 const 类型的反向双向迭代器。                                                                                                                    |
+| cbegin()         | 和 begin() 功能相同，只不过在其基础上，增加了 const 属性，不能用于修改容器内存储的元素值。                                                                                                                                                                                     |
+| cend()           | 和 end() 功能相同，只不过在其基础上，增加了 const 属性，不能用于修改容器内存储的元素值。                                                                                                                                                                                       |
+| crbegin()        | 和 rbegin() 功能相同，只不过在其基础上，增加了 const 属性，不能用于修改容器内存储的元素值。                                                                                                                                                                                    |
+| crend()          | 和 rend() 功能相同，只不过在其基础上，增加了 const 属性，不能用于修改容器内存储的元素值。                                                                                                                                                                                      |
+| find(val)        | 在 set 容器中查找值为 val 的元素，如果成功找到，则返回指向该元素的双向迭代器；反之，则返回和 size() 方法一样的迭代器。另外，如果 set 容器用 const 限定，则该方法返回的是 const 类型的双向迭代器。                                                                              |
+| lower_bound(val) | 返回一个指向当前 set 容器中第一个大于或等于 val 的元素的双向迭代器。如果 set 容器用 const 限定，则该方法返回的是 const 类型的双向迭代器。                                                                                                                                      |
+| upper_bound(val) | 返回一个指向当前 set 容器中第一个大于 val 的元素的迭代器。如果 set 容器用 const 限定，则该方法返回的是 const 类型的双向迭代器。                                                                                                                                                |
+| equal_range(val) | 该方法返回一个 pair 对象（包含 2 个双向迭代器），其中 pair.first 和 lower_bound()  方法的返回值等价，pair.second 和 upper_bound() 方法的返回值等价。也就是说，该方法将返回一个范围，该范围中包含的值为  val 的元素（set 容器中各个元素是唯一的，因此该范围最多包含一个元素）。 |
+| empty()          | 若容器为空，则返回 true；否则 false。                                                                                                                                                                                                                                          |
+| size()           | 返回当前 set 容器中存有元素的个数。                                                                                                                                                                                                                                            |
+| max_size()       | 返回 set 容器所能容纳元素的最大个数，不同的操作系统，其返回值亦不相同。                                                                                                                                                                                                        |
+| insert()         | 向 set 容器中插入元素。                                                                                                                                                                                                                                                        |
+| erase()          | 删除 set 容器中存储的元素。                                                                                                                                                                                                                                                    |
+| swap()           | 交换 2 个 set 容器中存储的所有元素。这意味着，操作的 2 个 set 容器的类型必须相同。                                                                                                                                                                                             |
+| clear()          | 清空 set 容器中所有的元素，即令 set 容器的 size() 为 0。                                                                                                                                                                                                                       |
+| emplace()        | 在当前 set 容器中的指定位置直接构造新元素。其效果和 insert() 一样，但效率更高。                                                                                                                                                                                                |
+| emplace_hint()   | 在本质上和 emplace() 在 set 容器中构造新元素的方式是一样的，不同之处在于，使用者必须为该方法提供一个指示新元素生成位置的迭代器，并作为该方法的第一个参数。                                                                                                                     |
+| count(val)       | 在当前 set 容器中，查找值为 val 的元素的个数，并返回。注意，由于 set 容器中各元素的值是唯一的，因此该函数的返回值最大为 1。                                                                                                                                                    |
+
+#### （4）示例
+
+```cpp
+#include <iostream>
+#include <set>
+using namespace std;
+
+void display(set<int> st) {
+    if (st.empty()) {
+        cout << "set is empty" << endl;
+        return;
+    }
+
+    for (auto i : st) {
+        cout << i << " ";
+    }
+    cout << endl;
+}
+
+int main() {
+    set<int> st;
+
+    // 添加
+    st.insert(1);
+    st.insert(3);
+    st.insert(4);
+    st.insert(5);
+    cout << "初始集合为：";
+    display(st);
+
+    // 查找，查找不到返回 集合大小
+    set<int>::iterator it = st.find(2); // 在set中查找2,返回其迭代器
+    cout << *it << endl;
+
+    // 删除一个元素
+    st.erase(4);
+    cout << "删除元素集合为：";
+    display(st);
+
+    // 求集合大小
+    cout << st.size() << endl;
+
+    // 清空集合
+    st.clear();
+    cout << "清空集合为：";
+    display(st);
+
+    return 0;
+}
+```
+
+
+
+### 3.2 map/multimap（映射）
+
+#### （1）介绍
+
+&emsp;Map是STL的一个关联容器，它提供一对一（其中第一个可以称为关键字，每个关键字只能在map中出现一次，第二个可能称为该关键字的值）的数据处理能力，由于这个特性，它完成有可能在我们处理一对一数据的时候，在编程上提供快速通道。
+
+&emsp;map内部自建一颗红黑树(一 种非严格意义上的平衡二叉树)，这颗树具有对数据自动排序的功能，所以在map内部所有的数据都是有序的。
+
+#### （2）函数
+
+| 函数成员         | 函数功能                                                                                                                                                                                                                                                                   |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| begin()          | 返回指向容器中第一个（注意，是已排好序的第一个）键值对的双向迭代器。如果 map 容器用 const 限定，则该方法返回的是 const 类型的双向迭代器。                                                                                                                                  |
+| end()            | 返回指向容器最后一个元素（注意，是已排好序的最后一个）所在位置后一个位置的双向迭代器，通常和 begin() 结合使用。如果 map 容器用 const 限定，则该方法返回的是 const 类型的双向迭代器。                                                                                       |
+| rbegin()         | 返回指向最后一个（注意，是已排好序的最后一个）元素的反向双向迭代器。如果 map 容器用 const 限定，则该方法返回的是 const 类型的反向双向迭代器。                                                                                                                              |
+| rend()           | 返回指向第一个（注意，是已排好序的第一个）元素所在位置前一个位置的反向双向迭代器。如果 map 容器用 const 限定，则该方法返回的是 const 类型的反向双向迭代器。                                                                                                                |
+| cbegin()         | 和 begin() 功能相同，只不过在其基础上，增加了 const 属性，不能用于修改容器内存储的键值对。                                                                                                                                                                                 |
+| cend()           | 和 end() 功能相同，只不过在其基础上，增加了 const 属性，不能用于修改容器内存储的键值对。                                                                                                                                                                                   |
+| crbegin()        | 和 rbegin() 功能相同，只不过在其基础上，增加了 const 属性，不能用于修改容器内存储的键值对。                                                                                                                                                                                |
+| crend()          | 和 rend() 功能相同，只不过在其基础上，增加了 const 属性，不能用于修改容器内存储的键值对。                                                                                                                                                                                  |
+| find(key)        | 在 map 容器中查找键为 key 的键值对，如果成功找到，则返回指向该键值对的双向迭代器；反之，则返回和 end() 方法一样的迭代器。另外，如果 map 容器用 const 限定，则该方法返回的是 const 类型的双向迭代器。                                                                       |
+| lower_bound(key) | 返回一个指向当前 map 容器中第一个大于或等于 key 的键值对的双向迭代器。如果 map 容器用 const 限定，则该方法返回的是 const 类型的双向迭代器。                                                                                                                                |
+| upper_bound(key) | 返回一个指向当前 map 容器中第一个大于 key 的键值对的迭代器。如果 map 容器用 const 限定，则该方法返回的是 const 类型的双向迭代器。                                                                                                                                          |
+| equal_range(key) | 该方法返回一个 pair 对象（包含 2 个双向迭代器），其中 pair.first 和 lower_bound()  方法的返回值等价，pair.second 和 upper_bound() 方法的返回值等价。也就是说，该方法将返回一个范围，该范围中包含的键为  key 的键值对（map 容器键值对唯一，因此该范围最多包含一个键值对）。 |
+| empty()          | 若容器为空，则返回 true；否则 false。                                                                                                                                                                                                                                      |
+| size()           | 返回当前 map 容器中存有键值对的个数。                                                                                                                                                                                                                                      |
+| max_size()       | 返回 map 容器所能容纳键值对的最大个数，不同的操作系统，其返回值亦不相同。                                                                                                                                                                                                  |
+| operator[]       | map容器重载了 [] 运算符，只要知道 map 容器中某个键值对的键的值，就可以向获取数组中元素那样，通过键直接获取对应的值。                                                                                                                                                       |
+| at(key)          | 找到 map 容器中 key 键对应的值，如果找不到，该函数会引发 out_of_range 异常。                                                                                                                                                                                               |
+| insert()         | 向 map 容器中插入键值对。                                                                                                                                                                                                                                                  |
+| erase()          | 删除 map 容器指定位置、指定键（key）值或者指定区域内的键值对。后续章节还会对该方法做重点讲解。                                                                                                                                                                             |
+| swap()           | 交换 2 个 map 容器中存储的键值对，这意味着，操作的 2 个键值对的类型必须相同。                                                                                                                                                                                              |
+| clear()          | 清空 map 容器中所有的键值对，即使 map 容器的 size() 为 0。                                                                                                                                                                                                                 |
+| emplace()        | 在当前 map 容器中的指定位置处构造新键值对。其效果和插入键值对一样，但效率更高。                                                                                                                                                                                            |
+| emplace_hint()   | 在本质上和 emplace() 在 map 容器中构造新键值对的方式是一样的，不同之处在于，使用者必须为该方法提供一个指示键值对生成位置的迭代器，并作为该方法的第一个参数。                                                                                                               |
+| count(key)       | 在当前 map 容器中，查找键为 key 的键值对的个数并返回。注意，由于 map 容器中各键值对的键的值是唯一的，因此该函数的返回值最大为 1。                                                                                                                                          |
+
+#### （3）示例
+
+```cpp
+#include <iostream>
+#include <map>
+#include <string.h>
+using namespace std;
+
+void display(map<int, string> Map) {
+    if (Map.empty()) {
+        cout << "map is empty" << endl;
+        return;
+    }
+
+    for (auto i : Map) {
+        cout << i.first << ": " << i.second << endl;
+    }
+    cout << endl;
+}
+
+int main() {
+    map<int, string> Employees;
+    // 使用数组索引符号进行赋值
+    Employees[101] = "Nikita";
+    Employees[105] = "John";
+    Employees[103] = "Dolly";
+    Employees[102] = "Aman";
+    Employees[104] = "Deep";
+    // 插入
+    Employees.insert(make_pair(99, "Marry"));
+
+    // begin 遍历
+    cout << "自然顺序:" << endl;
+    for (map<int, string>::iterator ii = Employees.begin(); ii != Employees.end(); ++ii) {
+        cout << (*ii).first << ": " << (*ii).second << endl;
+    }
+    cout << endl;
+
+    // rbegin 遍历
+    cout << "相反顺序:" << endl;
+    for (map<int, string>::reverse_iterator ii = Employees.rbegin(); ii != Employees.rend(); ++ii) {
+        cout << (*ii).first << ": " << (*ii).second << endl;
+    }
+    cout << endl;
+
+    // 查找
+    cout << Employees.count(99) << endl;
+    cout << Employees.at(99) << endl;
+
+    // 删除
+    cout << Employees.erase(99) << endl;
+    display(Employees);
+
+    // 清空
+    Employees.clear();
+    display(Employees);
+
+    return 0;
+}
+```
+
+
+
+### 3.3 pair（键值对）
+
+当想要将两个元素绑在一起作为一个合成元素、又不想定义结构体时，可以用 pair 作为结构体的替代品，可以节省编码时间。
+
+#### （1）说明
+
+pair 类模板定义在`<utility> 或者 <map>` 头文件中，所以在使用该类模板之前，需引入此头文件。另外值得一提的是，在 C++ 11 标准之前，pair 类模板中提供了以下 3 种构造函数：
+
+```cpp
+#1) 默认构造函数，即创建空的 pair 对象
+pair();
+#2) 直接使用 2 个元素初始化成 pair 对象
+pair (const first_type& a, const second_type& b);
+#3) 拷贝（复制）构造函数，即借助另一个 pair 对象，创建新的 pair 对象
+template<class U, class V> pair (const pair<U,V>& pr);
+```
+
+在 C++ 11 标准中，在引入[右值引用](http://c.biancheng.net/view/439.html)的基础上，pair 类模板中又增添了如下 2 个构造函数：
+
+```cpp
+#4) 移动构造函数
+template<class U, class V> pair (pair<U,V>&& pr);
+#5) 使用右值引用参数，创建 pair 对象
+template<class U, class V> pair (U&& a, V&& b);
+```
+
+#### （2）比较操作 
+
+两个 pair 类型数据可以直接使用比较运算符进行比较。比较规则是**先以 first 的大小作为标准，first 相等时才判别 second 的大小。**
+
+> ==，！=，<，<，<=，>，>=
+
+#### （3）示例
+
+```cpp
+#include <iostream>
+#include <map>
+using namespace std;
+
+int main() {
+    pair<string, int> p1;
+    pair<string, int> p2;
+    pair<string, int> p3;
+
+    // 创建方式第一种
+    p1.first  = "young";
+    p1.second = 3;
+    // 第二种
+    p2 = make_pair("simple", 0);
+    // 第三种
+    p3 = pair<string, int>("naive", 1);
+
+    cout << p1.first << " " << p1.second << endl;
+    cout << p2.first << " " << p2.second << endl;
+    cout << p3.first << " " << p3.second << endl;
+
+    // 比较
+    pair<int, int> p11(5, 10);
+    pair<int, int> p22(5, 15);
+    pair<int, int> p33(10, 5);
+
+    if (p11 < p22) {
+        cout << "p11 < p22" << endl;
+    }
+    if (p11 < p33) {
+        cout << "p11 < p33" << endl;
+    }
+
+    return 0;
+}
+```
+
+
+### 参考资料三
+
+(1) [STL中的set使用方法详细](https://blog.csdn.net/changjiale110/article/details/79108447)
+
+(2) [C++ map 使用方法及示例](https://www.nhooo.com/cpp/cpp-map.html)
+
+(3) [极简教程：STL pair](https://zhuanlan.zhihu.com/p/112211280)
+
+
+
+## 4. 无序关联式容器
+
+这类容器对存储数据不会进行排序。
+
+### 4.1 unordered_set
+
+总的来说，unordered_set 容器具有以下几个特性：
+
+1. 不再以键值对的形式存储数据，而是直接存储数据的值；
+2. 容器内部存储的各个元素的值都互不相等，且不能被修改。
+3. 不会对内部存储的数据进行排序
+
+### 4.2 unordered_map
+
+&emsp;unordered_map 容器和 map 容器一样，以键值对（pair类型）的形式存储数据，存储的各个键值对的键互不相同且不允许被修改。但由于 unordered_map 容器底层采用的是哈希表存储结构，该结构本身不具有对数据的排序功能，所以此容器内部不会自行对存储的键值对进行排序。
