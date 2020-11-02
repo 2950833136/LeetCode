@@ -1,5 +1,7 @@
 # STL
 
+&emsp;C++库以提供“模板”为主。所谓模板，是指不必预先制定类型的函数或类。我们可以借助STL（标准模板库 Standard Template Library,  STL）提供的高效算法来管理数据。为应对多种需求，STL为用户提供了多种名为容器（Container）的类，用于管理数据集合。在创建动态数组、表、栈、队列等数据结构时，我们只需要定义对应的容器，然后调用相应成员函数或算法即可。
+
 &emsp;在C++标准中，STL被组织为下面的13个头文件：\<algorithm>、\<deque>、\<functional>、\<iterator>、\<vector>、\<list>、\<map>、\<memory.h>、\<numeric>、\<queue>、\<set>、\<stack>、\<utility>。
 
 &emsp;STL可分为容器(containers)、迭代器(iterators)、空间配置器(allocator)、配接器(adapters)、算法(algorithms)、仿函数(functors)六个部分。
@@ -33,7 +35,7 @@ std::vector<int> vInts;
 using namespace std;
 ```
 
-#### （3）vector初始化
+#### （3）vector 初始化
 
 **方式1**
 
@@ -71,7 +73,7 @@ int b[7]={1,2,3,4,5,6,7};
 vector<int> a(b,b+7）;
 ```
 
-#### （4）vector对象的常用内置函数使用（举例说明）
+#### （4）函数（举例说明）
 
 ```cpp
 #include<vector>
@@ -118,7 +120,7 @@ a.swap(b);
 a==b;
 ```
 
-#### （5）几个常用的算法
+#### （5）常用的算法
 
 ```cpp
 #include<algorithm>
@@ -140,35 +142,35 @@ Lists将元素按顺序储存在链表中与向量(vectors)相比, 它允许快�
 
 #### （1）函数
 
-```cpp
-assign() 	给list赋值 
-back() 		返回最后一个元素 
-begin() 	返回指向第一个元素的迭代器 
-clear() 	删除所有元素 
-empty() 	如果list是空的则返回true 
-end() 		返回末尾的迭代器 
-erase() 	删除一个元素 
-front() 	返回第一个元素 
-get_allocator() 返回list的配置器 
-insert() 	插入一个元素到list中 
-max_size() 	返回list能容纳的最大元素数量 
-merge() 	合并两个list 
-pop_back() 	删除最后一个元素 
-pop_front() 删除第一个元素 
-push_back() 在list的末尾添加一个元素 
-push_front() 在list的头部添加一个元素 
-rbegin() 	返回指向第一个元素的逆向迭代器 
-remove() 	从list删除元素 
-remove_if() 按指定条件删除元素 
-rend() 		指向list末尾的逆向迭代器 
-resize() 	改变list的大小 
-reverse() 	把list的元素倒转 
-size() 		返回list中的元素个数 
-sort() 		给list排序 
-splice() 	合并两个list 
-swap() 		交换两个list 
-unique() 	删除list中重复的元素
-```
+| 函数成员        | 函数功能                       |
+| --------------- | ------------------------------ |
+| assign()        | 给list赋值                     |
+| back()          | 返回最后一个元素               |
+| begin()         | 返回指向第一个元素的迭代器     |
+| clear()         | 删除所有元素                   |
+| empty()         | 如果list是空的则返回true       |
+| end()           | 返回末尾的迭代器               |
+| erase()         | 删除一个元素                   |
+| front()         | 返回第一个元素                 |
+| get_allocator() | 返回list的配置器               |
+| insert()        | 插入一个元素到list中           |
+| max_size()      | 返回list能容纳的最大元素数量   |
+| merge()         | 合并两个list                   |
+| pop_back()      | 删除最后一个元素               |
+| pop_front()     | 删除第一个元素                 |
+| push_back()     | 在list的末尾添加一个元素       |
+| push_front()    | 在list的头部添加一个元素       |
+| rbegin()        | 返回指向第一个元素的逆向迭代器 |
+| remove()        | 从list删除元素                 |
+| remove_if()     | 按指定条件删除元素             |
+| rend()          | 指向list末尾的逆向迭代器       |
+| resize()        | 改变list的大小                 |
+| reverse()       | 把list的元素倒转               |
+| size()          | 返回list中的元素个数           |
+| sort()          | 给list排序                     |
+| splice()        | 合并两个list                   |
+| swap()          | 交换两个list                   |
+| unique()        | 删除list中重复的元素           |
 
 #### （2）实例
 
@@ -291,36 +293,36 @@ deque 容器和 vecotr 容器不同处：
 
 #### （2）函数
 
-| 函数成员         | 函数功能                                                     |
-| ---------------- | ------------------------------------------------------------ |
-| begin()          | 返回指向容器中第一个元素的迭代器。                           |
-| end()            | 返回指向容器最后一个元素所在位置后一个位置的迭代器，通常和 begin() 结合使用。 |
-| rbegin()         | 返回指向最后一个元素的迭代器。                               |
-| rend()           | 返回指向第一个元素所在位置前一个位置的迭代器。               |
-| cbegin()         | 和 begin() 功能相同，只不过在其基础上，增加了 const 属性，不能用于修改元素。 |
-| cend()           | 和 end() 功能相同，只不过在其基础上，增加了 const 属性，不能用于修改元素。 |
-| crbegin()        | 和 rbegin() 功能相同，只不过在其基础上，增加了 const 属性，不能用于修改元素。 |
-| crend()          | 和 rend() 功能相同，只不过在其基础上，增加了 const 属性，不能用于修改元素。 |
-| size()           | 返回实际元素个数。                                           |
-| max_size()       | 返回容器所能容纳元素个数的最大值。这通常是一个很大的值，一般是 232-1，我们很少会用到这个函数。 |
-| resize()         | 改变实际元素的个数。                                         |
-| empty()          | 判断容器中是否有元素，若无元素，则返回 true；反之，返回 false。 |
-| shrink _to_fit() | 将内存减少到等于当前元素实际所使用的大小。                   |
-| at()             | 使用经过边界检查的索引访问元素。                             |
-| front()          | 返回第一个元素的引用。                                       |
-| back()           | 返回最后一个元素的引用。                                     |
-| assign()         | 用新元素替换原有内容。                                       |
-| push_back()      | 在序列的尾部添加一个元素。                                   |
-| push_front()     | 在序列的头部添加一个元素。                                   |
-| pop_back()       | 移除容器尾部的元素。                                         |
-| pop_front()      | 移除容器头部的元素。                                         |
-| insert()         | 在指定的位置插入一个或多个元素。                             |
-| erase()          | 移除一个元素或一段元素。                                     |
-| clear()          | 移出所有的元素，容器大小变为 0。                             |
-| swap()           | 交换两个容器的所有元素。                                     |
-| emplace()        | 在指定的位置直接生成一个元素。                               |
+| 函数成员         | 函数功能                                                                                                   |
+| ---------------- | ---------------------------------------------------------------------------------------------------------- |
+| begin()          | 返回指向容器中第一个元素的迭代器。                                                                         |
+| end()            | 返回指向容器最后一个元素所在位置后一个位置的迭代器，通常和 begin() 结合使用。                              |
+| rbegin()         | 返回指向最后一个元素的迭代器。                                                                             |
+| rend()           | 返回指向第一个元素所在位置前一个位置的迭代器。                                                             |
+| cbegin()         | 和 begin() 功能相同，只不过在其基础上，增加了 const 属性，不能用于修改元素。                               |
+| cend()           | 和 end() 功能相同，只不过在其基础上，增加了 const 属性，不能用于修改元素。                                 |
+| crbegin()        | 和 rbegin() 功能相同，只不过在其基础上，增加了 const 属性，不能用于修改元素。                              |
+| crend()          | 和 rend() 功能相同，只不过在其基础上，增加了 const 属性，不能用于修改元素。                                |
+| size()           | 返回实际元素个数。                                                                                         |
+| max_size()       | 返回容器所能容纳元素个数的最大值。这通常是一个很大的值，一般是 232-1，我们很少会用到这个函数。             |
+| resize()         | 改变实际元素的个数。                                                                                       |
+| empty()          | 判断容器中是否有元素，若无元素，则返回 true；反之，返回 false。                                            |
+| shrink _to_fit() | 将内存减少到等于当前元素实际所使用的大小。                                                                 |
+| at()             | 使用经过边界检查的索引访问元素。                                                                           |
+| front()          | 返回第一个元素的引用。                                                                                     |
+| back()           | 返回最后一个元素的引用。                                                                                   |
+| assign()         | 用新元素替换原有内容。                                                                                     |
+| push_back()      | 在序列的尾部添加一个元素。                                                                                 |
+| push_front()     | 在序列的头部添加一个元素。                                                                                 |
+| pop_back()       | 移除容器尾部的元素。                                                                                       |
+| pop_front()      | 移除容器头部的元素。                                                                                       |
+| insert()         | 在指定的位置插入一个或多个元素。                                                                           |
+| erase()          | 移除一个元素或一段元素。                                                                                   |
+| clear()          | 移出所有的元素，容器大小变为 0。                                                                           |
+| swap()           | 交换两个容器的所有元素。                                                                                   |
+| emplace()        | 在指定的位置直接生成一个元素。                                                                             |
 | emplace_front()  | 在容器头部生成一个元素。和 push_front() 的区别是，该函数直接在容器头部构造元素，省去了复制移动元素的过程。 |
-| emplace_back()   | 在容器尾部生成一个元素。和 push_back() 的区别是，该函数直接在容器尾部构造元素，省去了复制移动元素的过程。 |
+| emplace_back()   | 在容器尾部生成一个元素。和 push_back() 的区别是，该函数直接在容器尾部构造元素，省去了复制移动元素的过程。  |
 
 
 
@@ -373,10 +375,244 @@ int main() {
 
 
 
-## 参考资料
+### 参考资料一
 
 (1) [C++_vector操作](https://blog.csdn.net/weixin_41743247/article/details/90635931): https://blog.csdn.net/weixin_41743247/article/details/90635931
 
 (2) [C++中list用法详解](https://blog.csdn.net/yas12345678/article/details/52601578/): https://blog.csdn.net/yas12345678/article/details/52601578/
 
 (3) [C++ STL deque容器（详解版）](http://c.biancheng.net/view/6860.html): http://c.biancheng.net/view/6860.html
+
+
+
+## 2. 适配器容器
+
+### 2.1 stack（堆栈）
+
+C++ Stack（堆栈） 是一个容器类的改编，实现了一个先进后出（FILO），也称作后进先出（LIFO）的数据结构。
+
+#### （1）函数
+
+| 函数成员  | 函数功能           |
+| --------- | ------------------ |
+| empty()   | 堆栈为空则返回真   |
+| pop()     | 移除栈顶元素       |
+| push()    | 在栈顶增加元素     |
+| size()    | 返回栈中元素数目   |
+| top()     | 返回栈顶元素       |
+| emplace() | 在栈顶增加一个元素 |
+| swap ()   | 交换两个栈中的内容 |
+
+#### （2）实例
+
+```cpp
+#include <iostream>
+#include <stack>
+using namespace std;
+
+void newstack(stack<int> ss) {
+    stack<int> sg = ss;
+    while (!sg.empty()) {
+        cout << sg.top() << " ";
+        sg.pop();
+    }
+    cout << endl;
+}
+
+int main() {
+    stack<int> newst;
+    newst.push(55);
+    newst.push(44);
+    newst.push(33);
+    newst.push(22);
+    newst.push(11);
+
+    cout << "最新的堆栈是 : ";
+    newstack(newst);
+    cout << "\nnewst.size() : " << newst.size();
+    cout << "\nnewst.top()  : " << newst.top();
+    cout << "\nnewst.pop()  : ";
+    newst.pop();
+    newstack(newst);
+    return 0;
+}
+```
+
+
+
+### 2.2 queue（队列）
+
+queue翻译为队列，在STL中主要则是实现了一个先进先出的容器。
+
+#### （1）函数
+
+| 函数成员  | 函数功能                                                                                                                   |
+| --------- | -------------------------------------------------------------------------------------------------------------------------- |
+| front()   | 返回 queue 中第一个元素的引用。如果 queue 是常量，就返回一个常引用；如果 queue 为空，返回值是未定义的                      |
+| back()    | 返回 queue 中最后一个元素的引用。如果 queue 是常量，就返回一个常引用；如果 queue 为空，返回值是未定义的                    |
+| push()    | 在 queue 的尾部添加一个元素的副本。这是通过调用底层容器的成员函数 push_back() 来完成的                                     |
+| pop()     | 删除 queue 中的第一个元素                                                                                                  |
+| size()    | 返回 queue 中元素的个数                                                                                                    |
+| empty()   | 如果 queue 中没有元素的话，返回 true                                                                                       |
+| emplace() | 用传给 emplace() 的参数调用 T 的构造函数，在 queue 的尾部生成对象                                                          |
+| swap()    | 将当前 queue 中的元素和参数 queue 中的元素交换。它们需要包含相同类型的元素。也可以调用全局函数模板 swap() 来完成同样的操作 |
+
+#### （2）实例
+
+```cpp
+#include <iostream>
+#include <queue>
+
+using namespace std;
+
+int main() {
+    queue<int> que_int;
+
+    // 在队列末尾依次插入11，12，13
+    que_int.push(11);
+    que_int.push(12);
+    que_int.push(13);
+
+    // 获取队列中的最后一个元素
+    int nValue1 = que_int.back();
+    cout << "The last value of queue is: " << nValue1 << endl;
+
+    // 获取队列中的第一个元素
+    int nValue2 = que_int.front();
+    cout << "The first value of queue is: " << nValue2 << endl;
+
+    // 弹出队列中的第一个元素，之后再获取队列中的第一个元素
+    que_int.pop();
+    nValue2 = que_int.front();
+    cout << "After pop, the first value of queue is: " << nValue2 << endl;
+
+    // 返回队列中的元素个数
+    int nSize = que_int.size();
+    cout << "The size of queue is: " << nSize << endl;
+
+    // 判断队列是否为空
+    bool bFlag = que_int.empty();
+    if (bFlag) {
+        cout << "queue is empty." << endl;
+    } else {
+        cout << "queue is not empty." << endl;
+    }
+
+    // 清空队列
+    que_int = queue<int>();
+
+    // 判断队列是否为空
+    bFlag = que_int.empty();
+    if (bFlag) {
+        cout << "After clear, queue is empty." << endl;
+    } else {
+        cout << "After clear, queue is not empty." << endl;
+    }
+
+    return 0;
+}
+```
+
+### 2.3 priority_queue（优先队列）
+
+保证每次的队首元素都是优先级最大的。可以用来解决一些贪心问题，也可以对 Dijkstra 算法进行优化（优先队列的本质是堆）。
+
+#### （1）函数
+
+与队列不同，优先队列只能通过 `top()` 函数来访问队首元素。
+
+| 函数成员 | 函数功能                                              |
+| -------- | ----------------------------------------------------- |
+| push()   | 将 x 入队                                             |
+| pop()    | 将队首元素出队                                        |
+| top()    | 获得队首元素                                          |
+| empty()  | 检测队列是否为空，返回 true 则为空，返回 false 则非空 |
+| size()   | 返回队列中元素的个数                                  |
+
+#### （2）实例
+
+> 1) 基本使用
+
+```cpp
+#include <iostream>
+#include <queue>
+using namespace std;
+
+int main() {
+    priority_queue<int> q;
+    //入队四个元素：3，4，1，5。默认情况下数字越大，优先级越大
+    q.push(5);
+    q.push(4);
+    q.push(1);
+    q.push(3);
+
+    //出队队首元素：5
+    q.pop();
+
+    //访问队首元素
+    printf("%d\n", q.top());
+
+    //判断队列是否为空
+    if (q.empty()) {
+        printf("Empty\n");
+    } else {
+        printf("Not Empty\n");
+    }
+
+    //获取队列中剩余元素的个数
+    printf("%d", q.size());
+}
+```
+
+> 2) 优先级使用
+
+若想实现价格低的水果优先级高，只需将 `return f1.price < f2.price;` 改为 `return f1.price > f2.price;` 即可。
+
+```cpp
+#include <iostream>
+#include <queue>
+using namespace std;
+
+struct fruit {
+    string name;
+    int    price;
+} f1, f2, f3;
+
+struct cmp {
+    bool operator()(fruit f1, fruit f2) {
+        return f1.price < f2.price;
+    }
+};
+
+int main() {
+    priority_queue<fruit, vector<fruit>, cmp> q;
+    f1.name  = "桃子";
+    f1.price = 3;
+    f2.name  = "梨子";
+    f2.price = 4;
+    f3.name  = "苹果";
+    f3.price = 1;
+    q.push(f1);
+    q.push(f2);
+    q.push(f3);
+    cout << q.top().name << " " << q.top().price << endl;
+    return 0;
+}
+```
+
+
+
+### 参考资料二
+
+(1) [C++ Stack（栈）](https://www.nhooo.com/cpp/cpp-stack.html): https://www.nhooo.com/cpp/cpp-stack.html
+
+(2) [STL之queue介绍](https://blog.csdn.net/liitdar/article/details/82529350): https://blog.csdn.net/liitdar/article/details/82529350
+
+(3) [极简教程：STL priority_queue](https://zhuanlan.zhihu.com/p/111734399): https://zhuanlan.zhihu.com/p/111734399
+
+
+
+## 3. 关联式容器
+
+### 3.1 set（集合）
+
