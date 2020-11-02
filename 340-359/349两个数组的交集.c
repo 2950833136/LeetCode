@@ -11,36 +11,55 @@ void display(int* nums, int numsSize) {
 
 /**
  * 方法一：排序 
- * 
  */
-int max(int a, int b) {
-    return a > b ? a : b;
-}
-int cmp(const void* a, const void* b) {
-    return *(int*)a - *(int*)b;
-}
-int* intersection(int* nums1, int nums1Size, int* nums2, int nums2Size, int* returnSize) {
-    int* ret    = (int*)malloc(sizeof(int) * max(nums1Size, nums2Size));
-    *returnSize = 0;
+// int max(int a, int b) {
+//     return a > b ? a : b;
+// }
+// int cmp(const void* a, const void* b) {
+//     return *(int*)a - *(int*)b;
+// }
+// int* intersection(int* nums1, int nums1Size, int* nums2, int nums2Size, int* returnSize) {
+//     int* ret    = (int*)malloc(sizeof(int) * max(nums1Size, nums2Size));
+//     *returnSize = 0;
 
-    qsort(nums1, nums1Size, sizeof(int), cmp);
-    qsort(nums2, nums2Size, sizeof(int), cmp);
-    int index1 = 0;
-    int index2 = 0;
-    while (index1 < nums1Size && index2 < nums2Size) {
-        int num1 = nums1[index1];
-        int num2 = nums2[index2];
-        if (num1 == num2) {
-            // 保证加入元素的唯一性
-            if (!(*returnSize) || num1 != ret[(*returnSize) - 1]) {
-                ret[(*returnSize)++] = num1;
-            }
-            index1++;
-            index2++;
-        } else if (num1 < num2) {
-            index1++;
-        } else {
-            index2++;
+//     qsort(nums1, nums1Size, sizeof(int), cmp);
+//     qsort(nums2, nums2Size, sizeof(int), cmp);
+//     int index1 = 0;
+//     int index2 = 0;
+//     while (index1 < nums1Size && index2 < nums2Size) {
+//         int num1 = nums1[index1];
+//         int num2 = nums2[index2];
+//         if (num1 == num2) {
+//             // 保证加入元素的唯一性
+//             if (!(*returnSize) || num1 != ret[(*returnSize) - 1]) {
+//                 ret[(*returnSize)++] = num1;
+//             }
+//             index1++;
+//             index2++;
+//         } else if (num1 < num2) {
+//             index1++;
+//         } else {
+//             index2++;
+//         }
+//     }
+//     return ret;
+// }
+
+/**
+ * 方法二：简易 hash，适用数值较小
+ */
+int* intersection(int* nums1, int nums1Size, int* nums2, int nums2Size, int* returnSize) {
+    int* ret        = (int*)malloc(1024 * sizeof(int));
+    *returnSize     = 0;
+    int* hash[1024] = {0};
+
+    for (int i = 0; i < nums1Size; i++) {
+        hash[nums1[i]]++;
+    }
+    for (int i = 0; i < nums2Size; i++) {
+        if (hash[nums2[i]] > 0) {
+            hash[nums2[i]]       = 0;
+            ret[(*returnSize)++] = nums2[i];
         }
     }
     return ret;
