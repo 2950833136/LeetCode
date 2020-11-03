@@ -11,7 +11,7 @@ typedef enum {
  *  - 是否能找到山脚
  */
 bool validMountainArray(int* A, int ASize) {
-    if (ASize <= 0) {
+    if (ASize < 3) {
         return false;
     }
     int i = 0;
