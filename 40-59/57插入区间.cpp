@@ -2,6 +2,18 @@
 #include <vector>
 using namespace std;
 
+void display(vector<vector<int>> nums) {
+    cout << "[";
+    for (auto row : nums) {
+        cout << "[";
+        for (auto col : row) {
+            cout << col << ",";
+        }
+        cout << "],";
+    }
+    cout << "]";
+}
+
 class Solution {
 public:
     vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
@@ -39,6 +51,7 @@ int main() {
 
     Solution            s;
     vector<vector<int>> ret = s.insert(intervals, newInterval);
+    display(ret);
 
     return 0;
 }
