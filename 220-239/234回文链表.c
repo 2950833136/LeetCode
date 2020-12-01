@@ -1,10 +1,6 @@
 #include <malloc.h>
+#include <stdbool.h>
 #include <stdio.h>
-
-typedef enum {
-    false = 0,
-    true  = 1
-} bool;
 
 struct ListNode {
     int              val;
