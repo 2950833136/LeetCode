@@ -6,12 +6,12 @@
 
 int* twoSum(int* nums, int numsSize, int target, int* returnSize) {
     int* res = (int*)malloc(sizeof(int) * 2);
-    int hash[MAX_SIZE];
+    int  hash[MAX_SIZE];
     memset(hash, -1, sizeof(hash));
     for (int i = 0; i < numsSize; i++) {
         if (hash[(target - nums[i] + MAX_SIZE) % MAX_SIZE] != -1) {
-            res[0] = hash[(target - nums[i] + MAX_SIZE) % MAX_SIZE];
-            res[1] = i;
+            res[0]      = hash[(target - nums[i] + MAX_SIZE) % MAX_SIZE];
+            res[1]      = i;
             *returnSize = 2;
             return res;
         }
@@ -36,11 +36,11 @@ int* twoSum(int* nums, int numsSize, int target, int* returnSize) {
 // }
 
 int main() {
-    int nums[] = {2, 2, 3, 15};
-    int numsSize = sizeof(nums) / sizeof(int);
-    int target = 5;
+    int  nums[]     = {2, 2, 3, 15};
+    int  numsSize   = sizeof(nums) / sizeof(int);
+    int  target     = 5;
     int* returnSize = (int*)malloc(sizeof(int));
-    int* array = twoSum(nums, numsSize, target, returnSize);
+    int* array      = twoSum(nums, numsSize, target, returnSize);
 
     printf("%d ", array[0]);
     printf("%d ", array[1]);
