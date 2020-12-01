@@ -18,17 +18,17 @@ void displayList(struct ListNode* head) {
  * 创建单向链表
  * 存储的第一个值在 head->next 中
  */
-void createList(int arr[], int n, struct ListNode* head) {
+void createList(int* arr, int n, struct ListNode* head) {
     struct ListNode* temp = (struct ListNode*)malloc(sizeof(struct ListNode*));
 
     temp = head;
     for (int i = 0; i < n; i++) {
         struct ListNode* node = (struct ListNode*)malloc(sizeof(struct ListNode*));
         node->val             = arr[i];
-        node->next            = NULL;
         temp->next            = node;
         temp                  = node;
     }
+    temp->next = NULL;
 }
 
 int main() {
