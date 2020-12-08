@@ -15,7 +15,14 @@
         "new": "cpp",
         "unordered_set": "cpp",
         "map": "cpp",
-        "numeric": "cpp"
+        "numeric": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "iomanip": "cpp",
+        "istream": "cpp",
+        "sstream": "cpp",
+        "stdexcept": "cpp",
+        "system_error": "cpp"
     },
     "editor.formatOnSave": true,
     // Visual Studio  LLVM  Google  Chromium  Mozilla  WebKit
