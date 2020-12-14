@@ -1,15 +1,9 @@
 {
     "files.associations": {
-        "*.html": "html",
-        "*.vue": "html",
         "ostream": "cpp",
         "cmath": "cpp",
         "array": "cpp",
         "iostream": "cpp",
-        "cstdlib": "cpp",
-        "*.tcc": "c",
-        "type_traits": "c",
-        "typeinfo": "c",
         "vector": "cpp",
         "unordered_map": "cpp",
         "new": "cpp",
@@ -22,7 +16,8 @@
         "istream": "cpp",
         "sstream": "cpp",
         "stdexcept": "cpp",
-        "system_error": "cpp"
+        "system_error": "cpp",
+        "list": "cpp"
     },
     "editor.formatOnSave": true,
     // Visual Studio  LLVM  Google  Chromium  Mozilla  WebKit
