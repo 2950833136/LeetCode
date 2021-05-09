@@ -14,7 +14,10 @@
         "new": "c",
         "streambuf": "c",
         "cstring": "cpp",
-        "ios": "cpp"
+        "ios": "cpp",
+        "fstream": "cpp",
+        "istream": "cpp",
+        "limits": "cpp"
     },
     // Visual Studio  LLVM  Google  Chromium  Mozilla  WebKit
     // "C_Cpp.clang_format_style": "{BasedOnStyle: LLVM}"
