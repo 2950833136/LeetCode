@@ -1,4 +1,5 @@
 #include <malloc.h>
+#include <stdbool.h>
 #include <stdio.h>
 
 /**
@@ -83,8 +84,8 @@ bool isValidSudoku(char** board, int boardSize, int* boardColSize) {
 // }
 
 int main() {
-    char** board = (char**)malloc(sizeof(char*) * 9);
-    char arr[][9] = {
+    char** board    = (char**)malloc(sizeof(char*) * 9);
+    char   arr[][9] = {
         {'.', '.', '4', '.', '.', '.', '6', '3', '.'},
         {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
         {'5', '.', '.', '.', '.', '.', '.', '9', '.'},
@@ -107,9 +108,9 @@ int main() {
     //     printf("\n");
     // }
 
-    int boardSize = 9;
+    int  boardSize    = 9;
     int* boardColSize = (int*)malloc(sizeof(int));
-    *boardColSize = 9;
+    *boardColSize     = 9;
 
     if (isValidSudoku(board, boardSize, boardColSize)) {
         printf("true");

@@ -74,9 +74,39 @@ string boolToString(bool input) {
     return input ? "True" : "False";
 }
 
+/**
+ * 深度优先遍历
+ */
+class Solution {
+public:
+    vector<int> DFS(TreeNode *root, int target, TreeNode *parent, int depth) {
+        if (root == nullptr) {
+            return vector<int>{-1, -1};
+        }
+        if (root->val == target) {
+            return vector<int>{parent != nullptr ? parent->val : -1, depth};
+        }
+        vector<int> left = DFS(root->left, target, root, depth + 1);
+        if (left[0] != -1) {
+            return left;
+        }
+        return DFS(root->right, target, root, depth + 1);
+    }
+    bool isCousins(TreeNode *root, int x, int y) {
+        vector<int> vx = DFS(root, x, nullptr, 0);
+        vector<int> vy = DFS(root, y, nullptr, 0);
+        return (vx[1] == vy[1]) && (vx[0] != vy[0]);
+    }
+};
+
 int main() {
-    string    line = "[1]";
+    string    line = "[1,2,3,null,4,null,5]";
     TreeNode *root = stringToTreeNode(line);
+
+    Solution s;
+    int      x = 5;
+    int      y = 4;
+    cout << boolToString(s.isCousins(root, x, y)) << endl;
 
     return 0;
 }
