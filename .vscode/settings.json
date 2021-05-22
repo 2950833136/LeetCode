@@ -1,24 +1,4 @@
 {
-    "files.associations": {
-        "*.html": "html",
-        "*.vue": "html",
-        "ostream": "cpp",
-        "cmath": "cpp",
-        "array": "cpp",
-        "iostream": "cpp",
-        "cstdlib": "cpp",
-        "*.tcc": "c",
-        "exception": "c",
-        "memory_resource": "c",
-        "iosfwd": "c",
-        "new": "c",
-        "streambuf": "c",
-        "cstring": "cpp",
-        "ios": "cpp",
-        "fstream": "cpp",
-        "istream": "cpp",
-        "limits": "cpp"
-    },
     // Visual Studio  LLVM  Google  Chromium  Mozilla  WebKit
     // "C_Cpp.clang_format_style": "{BasedOnStyle: LLVM}"
     "C_Cpp.clang_format_style": "file",
